@@ -129,7 +129,7 @@ public class Coordinates {
     }
     public void addVector(Vector vector) {
                    
-        if (isValidVector(vector)) throw new IllegalArgumentException("coordinates out of bound");
+        if (!isValidVector(vector)) throw new IllegalArgumentException("coordinates out of bound");
         this.y = this.y + vector.getY();
         this.x = this.x + vector.getX();
     }

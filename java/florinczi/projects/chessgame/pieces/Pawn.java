@@ -43,7 +43,8 @@ public class Pawn extends Piece{
             newLocation.addVector(probe);
             if (getActiveBoard().isSquareFree(newLocation)){
                 newLocation.addVector(probe); //checks first square
-                if (getActiveBoard().isSquareFree(newLocation)) possibleMoves.add(new Coordinates(newLocation)); //if the next one is free also, add to possible moves
+                if (getActiveBoard().isSquareFree(newLocation)) 
+                    possibleMoves.add(new Coordinates(newLocation)); //if the next one is free also, add to possible moves
             }
                        
         }
@@ -52,7 +53,8 @@ public class Pawn extends Piece{
         probe.set(-1, moveDirection); // first left side of the board
         if (newLocation.isValidVector(probe)){
             newLocation.addVector(probe);
-            if (!getActiveBoard().isSquareFree(newLocation)) possibleMoves.add(new Coordinates(newLocation, true));
+            if (!getActiveBoard().isSquareFree(newLocation))
+                 possibleMoves.add(new Coordinates(newLocation, true));
         }
 
         newLocation = getLocation(); // now right side

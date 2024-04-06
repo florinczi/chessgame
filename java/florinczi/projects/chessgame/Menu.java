@@ -4,10 +4,17 @@ import java.util.Scanner;
 
 public class Menu {
 
-    private static Scanner scanner = new Scanner(System.in);
-    private static boolean exit = false;
+    private Scanner scanner;
+    private boolean exit;
+    protected Engine engine;
     
-    public static void mainMenu(){
+    public Menu (){
+        scanner = new Scanner(System.in);
+        exit = false;
+        engine = new Engine();
+    }
+
+    public void mainMenu(){
         while(!exit){
          System.out.println("Let's play some chess!");
          System.out.println("1: New game");
@@ -19,7 +26,9 @@ public class Menu {
 
             switch (choice) {
                 case 1:
-                    newGame();
+                    engine.newGame();
+                    printBoard(engine.getMainBoard());
+                    getPlayerMove();
                     break;
                 case 2:
                     System.out.println("Not yet supported");
@@ -39,15 +48,7 @@ public class Menu {
 
     }
 
-    public static void newGame(){
-        Board mainBoard = new Board();
-        printBoard(mainBoard);
-
-
-
-
-    }
-
+    
     public static void printBoard (Board mainBoard) {
 
         System.out.flush();
@@ -66,9 +67,31 @@ public class Menu {
         System.out.println();
         System.out.println("      1 2 3 4 5 6 7 8 ");
         System.out.println();
-        System.out.printf("Now playing: %s. What is your move?%n", mainBoard.nowPlaying);
-        //String choice = scanner.nextLine();
+               
     }    
+
+    public void getPlayerMove (){
+
+        System.out.printf("Now playing: %s. What is your move?%n", engine.getMainBoard().nowPlaying);
+
+        System.out.println("From which square do you want to move?");
+        Coordinates from = Parser.convertToCoordinates(scanner.nextLine());
+        while (from == null){
+             System.out.println("Sorry, wrong coordinates, please try again");
+            from = Parser.convertToCoordinates(scanner.nextLine());
+        
+        }
+        System.out.println("To which square do you want to move?");
+        Coordinates to = Parser.convertToCoordinates(scanner.nextLine());
+        while (to == null){
+            System.out.println("Sorry, wrong coordinates, please try again");
+            to = Parser.convertToCoordinates(scanner.nextLine());
+            }
+
+        engine.movePiece(from, to);
+        printBoard(engine.getMainBoard());
+    }
+
 
 
 }

@@ -11,6 +11,7 @@ public class Board {
 
     
     private Map<Coordinates, Piece> boardmap;
+   
 
     public char printSquare(int x, int y) {
         Coordinates coord = new Coordinates(x, y);
@@ -59,12 +60,17 @@ public class Board {
 
     }
 
-    private void putPiece (Piece piece, Coordinates coord){ 
+    public void putPiece (Piece piece, Coordinates coord){ 
         /* This method creates a new piece on designated coordinates on the HashMap.
-         * Then it uses the same Coordinates object as the piece argument 
+         * Then it uses the same Coordinates object as the piece argument.
+         * This way when Coordinates is modified, both the Piece and the Board are aware of it.
          */
         boardmap.put(coord, piece);
         piece.setLocation(coord);   
+    }
+
+    public Piece getPiece(Coordinates coord){
+        return boardmap.get(coord);
     }
 
     
