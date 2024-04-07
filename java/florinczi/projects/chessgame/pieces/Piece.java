@@ -1,5 +1,7 @@
 package florinczi.projects.chessgame.pieces;
 
+import java.util.Set;
+
 import florinczi.projects.chessgame.Board;
 import florinczi.projects.chessgame.Coordinates;
 
@@ -44,11 +46,21 @@ public abstract class Piece implements PieceAction{
     }
 
     private Board activeBoard;
-
+    Set<Coordinates> possibleMoves;
     public Board getActiveBoard() {
         return activeBoard;
     }
 
-   
+    public Coordinates calculateVector(Coordinates destCoordinates){
+        int x;
+        int y;
+               
+        x = destCoordinates.getX() - getLocation().getX();
+        y = destCoordinates.getY() -getLocation().getY();
+        return new Coordinates(getLocation(), x, y);
+    }
 
+    public boolean isValidMove(Coordinates coordinates){
+        return possibleMoves.contains(coordinates);
+    }
 }

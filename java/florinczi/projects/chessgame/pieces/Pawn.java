@@ -24,12 +24,12 @@ public class Pawn extends Piece{
         super.setLocation(location);
         activeBoard.putPiece(this, location);
         newLocation = new Coordinates(location);
-        probe = newLocation.new Vector(0, 0);
+        probe = newLocation.new Vector(0, 0, false);
         possibleMoves = new HashSet<>();
         }
 
     boolean isFirstMove = true;
-    Set<Coordinates> possibleMoves;
+    
     int moveDirection; // which way is the pawn going?
     Coordinates newLocation;
     Vector probe;
@@ -54,10 +54,11 @@ public class Pawn extends Piece{
     }
 
     private void singleMove() {
-        probe.set(0, moveDirection); //setting up for moving by one square
+        newLocation = getLocation();
+        probe.set(0, moveDirection);
         newLocation.addVector(probe);
         if (getActiveBoard().isSquareFree(newLocation))
-            possibleMoves.add(new Coordinates(newLocation));
+            possibleMoves.add(new Coordinates(getLocation(), probe, false));
     }
 
     private void doubleMove() {
@@ -67,7 +68,7 @@ public class Pawn extends Piece{
             return;
         newLocation.addVector(probe);
         if (getActiveBoard().isSquareFree(newLocation)) 
-            possibleMoves.add(new Coordinates(newLocation)); 
+            possibleMoves.add(new Coordinates(getLocation(), 0, moveDirection * 2, false)); 
         
     }
 
@@ -78,7 +79,7 @@ public class Pawn extends Piece{
             return;
         newLocation.addVector(probe);
         if (!getActiveBoard().isSquareFree(newLocation))
-            possibleMoves.add(new Coordinates(newLocation, true));
+            possibleMoves.add(new Coordinates(getLocation(), probe, true));
         
     }
 
@@ -89,18 +90,16 @@ public class Pawn extends Piece{
             return;
         newLocation.addVector(probe);
         if (!getActiveBoard().isSquareFree(newLocation))
-            possibleMoves.add(new Coordinates(newLocation, true));
+            possibleMoves.add(new Coordinates(getLocation(), probe, true));
         
     }
 
-    @Override
-    public boolean isValidMove(Coordinates coordinates) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+    
+    
 
     @Override
     public void move() {
+
         // TODO Auto-generated method stub
         
     }
