@@ -45,18 +45,20 @@ public class Pawn extends Piece{
     public Set<Coordinates> checkPossibleMoves() {
         possibleMoves.clear();
         newLocation = getLocation();
-        probe.set(0, moveDirection); //setting up for moving by one square
-        newLocation.addVector(probe);
-        if (getActiveBoard().isSquareFree(newLocation)) possibleMoves.add(new Coordinates(newLocation));
-        if (newLocation.getY() == 7 || newLocation.getY() == 0) promote (this);
-
-
+        singleMove();        
         if (isFirstMove)
             doubleMove();
         leftSideCapture();
         rightSideCapture();
 
        return possibleMoves;
+    }
+
+    private void singleMove() {
+        probe.set(0, moveDirection); //setting up for moving by one square
+        newLocation.addVector(probe);
+        if (getActiveBoard().isSquareFree(newLocation))
+            possibleMoves.add(new Coordinates(newLocation));
     }
 
     private void doubleMove() {
