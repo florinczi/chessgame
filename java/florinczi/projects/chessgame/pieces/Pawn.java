@@ -26,8 +26,7 @@ public class Pawn extends Piece{
         newLocation = new Coordinates(location);
         probe = newLocation.new Vector(0, 0);
         possibleMoves = new HashSet<>();
-        activeBoard.putPiece(this, location);
-    }
+        }
 
     boolean isFirstMove = true;
     Set<Coordinates> possibleMoves;
