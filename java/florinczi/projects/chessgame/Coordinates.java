@@ -81,6 +81,7 @@ public class Coordinates {
         setX(x);
         setY(y);
     }
+   
 
     public Coordinates (Coordinates coordinates){
         setX(coordinates.getX());

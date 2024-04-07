@@ -11,14 +11,30 @@ public class Pawn extends Piece{
 
    
 
-    public Pawn(PlayerColor player, Board activeBoard) {
+    public Pawn(PlayerColor player, Coordinates location, Board activeBoard) {
         super(player, activeBoard);
-        if (player == PlayerColor.BLACK) super.setShortType('p');
-        else super.setShortType('P');
-        
+        if (player == PlayerColor.BLACK){
+            super.setShortType('p');
+            moveDirection = -1;
+        }
+        else{
+            super.setShortType('P');
+            moveDirection = 1;
+        } 
+        super.setLocation(location);
+        activeBoard.putPiece(this, location);
+        newLocation = new Coordinates(location);
+        probe = newLocation.new Vector(0, 0);
+        possibleMoves = new HashSet<>();
+        activeBoard.putPiece(this, location);
     }
 
     boolean isFirstMove = true;
+    Set<Coordinates> possibleMoves;
+    int moveDirection; // which way is the pawn going?
+    Coordinates newLocation;
+    Vector probe;
+
 
     void promote (Pawn pawn){
         //TODO important so the pawns don't fall off the board
@@ -27,44 +43,53 @@ public class Pawn extends Piece{
 
     @Override
     public Set<Coordinates> checkPossibleMoves() {
-        Set<Coordinates> possibleMoves = new HashSet<>();
-        int moveDirection = 1;
-        if (getPlayer() == PlayerColor.BLACK) moveDirection = -1; // which way is the pawn going?
-        Coordinates newLocation = new Coordinates(getLocation());
-        Vector probe = newLocation.new Vector(0, moveDirection); //setting up for moving by one square
-        
+        possibleMoves.clear();
+        newLocation = getLocation();
+        probe.set(0, moveDirection); //setting up for moving by one square
         newLocation.addVector(probe);
         if (getActiveBoard().isSquareFree(newLocation)) possibleMoves.add(new Coordinates(newLocation));
         if (newLocation.getY() == 7 || newLocation.getY() == 0) promote (this);
 
 
-        if (isFirstMove){ //double move
-            newLocation = getLocation();
-            newLocation.addVector(probe);
-            if (getActiveBoard().isSquareFree(newLocation)){
-                newLocation.addVector(probe); //checks first square
-                if (getActiveBoard().isSquareFree(newLocation)) 
-                    possibleMoves.add(new Coordinates(newLocation)); //if the next one is free also, add to possible moves
-            }
-                       
-        }
-        
-        newLocation = getLocation(); //now let's check captures
-        probe.set(-1, moveDirection); // first left side of the board
-        if (newLocation.isValidVector(probe)){
-            newLocation.addVector(probe);
-            if (!getActiveBoard().isSquareFree(newLocation))
-                 possibleMoves.add(new Coordinates(newLocation, true));
-        }
-
-        newLocation = getLocation(); // now right side
-        probe.set(1, moveDirection); 
-        if (newLocation.isValidVector(probe)){
-            newLocation.addVector(probe);
-            if (!getActiveBoard().isSquareFree(newLocation)) possibleMoves.add(new Coordinates(newLocation, true));
-        }
+        if (isFirstMove)
+            doubleMove();
+        leftSideCapture();
+        rightSideCapture();
 
        return possibleMoves;
+    }
+
+    private void doubleMove() {
+        newLocation = getLocation();
+        newLocation.addVector(probe);
+        if (!getActiveBoard().isSquareFree(newLocation))
+            return;
+        newLocation.addVector(probe);
+        if (getActiveBoard().isSquareFree(newLocation)) 
+            possibleMoves.add(new Coordinates(newLocation)); 
+        
+    }
+
+    private void leftSideCapture() {
+        newLocation = getLocation(); 
+        probe.set(-1, moveDirection); 
+        if (!newLocation.isValidVector(probe))
+            return;
+        newLocation.addVector(probe);
+        if (!getActiveBoard().isSquareFree(newLocation))
+            possibleMoves.add(new Coordinates(newLocation, true));
+        
+    }
+
+    private void rightSideCapture() {
+        newLocation = getLocation(); 
+        probe.set(1, moveDirection); 
+        if (!newLocation.isValidVector(probe))
+            return;
+        newLocation.addVector(probe);
+        if (!getActiveBoard().isSquareFree(newLocation))
+            possibleMoves.add(new Coordinates(newLocation, true));
+        
     }
 
     @Override

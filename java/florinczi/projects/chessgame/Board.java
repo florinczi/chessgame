@@ -34,8 +34,8 @@ public class Board {
         boardmap = new HashMap<>();
 
         for (int i = 0; i < 8; i++){
-            putPiece(new Pawn(BLACK, this), new Coordinates(6, i));
-            putPiece(new Pawn(WHITE, this), new Coordinates(1, i));
+            new Pawn(BLACK, new Coordinates(6, i), this);
+            new Pawn(WHITE, new Coordinates(1, i), this);
         }
         // Populate the board with other pieces
         // Black pieces
@@ -66,7 +66,7 @@ public class Board {
          * This way when Coordinates is modified, both the Piece and the Board are aware of it.
          */
         boardmap.put(coord, piece);
-        piece.setLocation(coord);   
+          
     }
 
     public Piece getPiece(Coordinates coord){
