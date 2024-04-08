@@ -15,7 +15,8 @@ public class Board {
 
     public char printSquare(int x, int y) {
         Coordinates coord = new Coordinates(x, y);
-        if (boardmap.get(coord) == null) return '.';
+        if (boardmap.get(coord) == null) 
+            return '.';
         return boardmap.get(coord).getShortType();
     }
 
@@ -33,30 +34,30 @@ public class Board {
 
         boardmap = new HashMap<>();
 
-        for (int i = 0; i < 8; i++){
-            new Pawn(BLACK, new Coordinates(6, i), this);
-            new Pawn(WHITE, new Coordinates(1, i), this);
+        for (int i = 1; i <= 8; i++){
+            new Pawn(BLACK, new Coordinates(i, 7), this);
+            new Pawn(WHITE, new Coordinates(i, 2), this);
         }
         // Populate the board with other pieces
         // Black pieces
-        putPiece(new Rook(BLACK, this), new Coordinates(7, 0));
-        putPiece(new Knight(BLACK, this), new Coordinates(7, 1));
-        putPiece(new Bishop(BLACK, this), new Coordinates(7, 2));
-        putPiece(new Queen(BLACK, this), new Coordinates(7, 3));
-        putPiece(new King(BLACK, this), new Coordinates(7, 4));
-        putPiece(new Bishop(BLACK, this), new Coordinates(7, 5));
-        putPiece(new Knight(BLACK, this), new Coordinates(7, 6));
-        putPiece(new Rook(BLACK, this), new Coordinates(7, 7));
+        putPiece(new Rook(BLACK, this), new Coordinates(1, 8));
+        putPiece(new Knight(BLACK, this), new Coordinates(2, 8));
+        putPiece(new Bishop(BLACK, this), new Coordinates(3, 8));
+        putPiece(new Queen(BLACK, this), new Coordinates(4, 8));
+        putPiece(new King(BLACK, this), new Coordinates(5, 8));
+        putPiece(new Bishop(BLACK, this), new Coordinates(6, 8));
+        putPiece(new Knight(BLACK, this), new Coordinates(7, 8));
+        putPiece(new Rook(BLACK, this), new Coordinates(8, 8));
 
         // White pieces
-        putPiece(new Rook(WHITE, this), new Coordinates(0, 0));
-        putPiece(new Knight(WHITE, this), new Coordinates(0, 1));
-        putPiece(new Bishop(WHITE, this), new Coordinates(0, 2));
-        putPiece(new Queen(WHITE, this), new Coordinates(0, 3));
-        putPiece(new King(WHITE, this), new Coordinates(0, 4));
-        putPiece(new Bishop(WHITE, this), new Coordinates(0, 5));
-        putPiece(new Knight(WHITE, this), new Coordinates(0, 6));
-        putPiece(new Rook(WHITE, this), new Coordinates(0, 7));
+        putPiece(new Rook(WHITE, this), new Coordinates(1, 1));
+        putPiece(new Knight(WHITE, this), new Coordinates(2, 1));
+        putPiece(new Bishop(WHITE, this), new Coordinates(3, 1));
+        putPiece(new Queen(WHITE, this), new Coordinates(4, 1));
+        putPiece(new King(WHITE, this), new Coordinates(5, 1));
+        putPiece(new Bishop(WHITE, this), new Coordinates(6, 1));
+        putPiece(new Knight(WHITE, this), new Coordinates(7, 1));
+        putPiece(new Rook(WHITE, this), new Coordinates(8, 1));
 
     }
 
@@ -70,11 +71,16 @@ public class Board {
     }
 
     public Piece getPiece(Coordinates coord){
+        
         return boardmap.get(coord);
     }
+    
+    public void movePiece(Coordinates coord){
+        int moveIndex;
+        Piece piece = getPiece(coord);
+        
 
-    
-    
+    }
     
 
 

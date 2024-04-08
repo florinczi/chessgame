@@ -32,15 +32,16 @@ public class Coordinates {
         } 
         else if (vector.getX() != other.vector.getX() || vector.getY() != other.vector.getY())
             return false;
+    
         return true;
        
     }
   
 
-    private static final int MIN_X = 0;
-    private static final int MAX_X = 7;
-    private static final int MIN_Y = 0;
-    private static final int MAX_Y = 7;
+    private static final int MIN_X = 1;
+    private static final int MAX_X = 8;
+    private static final int MIN_Y = 1;
+    private static final int MAX_Y = 8;
 
     private int x;
     private int y;

@@ -1,5 +1,6 @@
 package florinczi.projects.chessgame.pieces;
 
+import java.util.List;
 import java.util.Set;
 
 import florinczi.projects.chessgame.Board;
@@ -13,14 +14,10 @@ public class Queen extends Piece{
         else super.setShortType('Q');
     }
 
-    @Override
-    public boolean isValidMove(Coordinates coordinates) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isValidMove'");
-    }
+    
 
     @Override
-    public Set<Coordinates> checkPossibleMoves() {
+    public List<Coordinates> checkPossibleMoves() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'checkPossibleMoves'");
     }

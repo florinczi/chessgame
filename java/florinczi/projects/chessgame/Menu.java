@@ -52,20 +52,20 @@ public class Menu {
     public static void printBoard (Board mainBoard) {
 
         System.out.flush();
-        System.out.println("      1 2 3 4 5 6 7 8 ");
+        System.out.println("     A B C D E F G H ");
         System.out.println();
-        for (int x = 7; x >= 0; x--)
+        for (int y = 8; y >= 1; y--)
         {   
-            char[] letters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
-            System.out.printf(" %c    ", letters[x]);
-            for (int y = 0; y < 8; y++){
+            
+            System.out.printf(" %d   ", (y));
+            for (int x = 1; x <= 8; x++){
                 System.out.print(mainBoard.printSquare(x, y) + " ");
             }
-            System.out.printf("   %c", letters[x]);
+            System.out.printf("  %d", (y));
             System.out.print("\n");
         }
         System.out.println();
-        System.out.println("      1 2 3 4 5 6 7 8 ");
+        System.out.println("     A B C D E F G H ");
         System.out.println();
                
     }    
@@ -73,6 +73,7 @@ public class Menu {
     public void getPlayerMove (){
 
         System.out.printf("Now playing: %s. What is your move?%n", engine.getMainBoard().nowPlaying);
+        
 
         System.out.println("From which square do you want to move?");
         Coordinates from = Parser.convertToCoordinates(scanner.nextLine());

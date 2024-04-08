@@ -1,13 +1,14 @@
 package florinczi.projects.chessgame.pieces;
 
+import java.util.List;
 import java.util.Set;
 
 import florinczi.projects.chessgame.Coordinates;
 
 public interface PieceAction {
 
-    boolean isValidMove(Coordinates coordinates);
-    Set<Coordinates> checkPossibleMoves();
+    Coordinates isValidMove(Coordinates coordinates);
+    List<Coordinates> checkPossibleMoves();
     void move();
 
 }

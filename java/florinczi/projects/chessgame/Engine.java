@@ -19,11 +19,8 @@ public class Engine {
     }
 
     public void movePiece(Coordinates from, Coordinates to){
-        Piece toMove = mainBoard.getPiece(from);
-        if(toMove.checkPossibleMoves().contains(to)){
-            System.out.printf("Found the move and moving to ");
-            System.out.println(to);
-           toMove.setLocation(to);
-        }
+        Piece toMove = getMainBoard().getPiece(from);
+        int moveIndex;
+        
     }
 }

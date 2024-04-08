@@ -1,22 +1,17 @@
 package florinczi.projects.chessgame.pieces;
 
+import java.util.List;
 import java.util.Set;
 
 import florinczi.projects.chessgame.Board;
 import florinczi.projects.chessgame.Coordinates;
 
 public abstract class Piece implements PieceAction{
-
-   
-
-   
-
+  
     protected Piece (PlayerColor player, Board activeBoard){
         this.player = player;
         this.activeBoard = activeBoard;
     }
-
-
 
     private char shortType; // char representation of the piece on the board
   
@@ -46,7 +41,9 @@ public abstract class Piece implements PieceAction{
     }
 
     private Board activeBoard;
-    Set<Coordinates> possibleMoves;
+
+    List<Coordinates> possibleMoves;
+
     public Board getActiveBoard() {
         return activeBoard;
     }
@@ -60,7 +57,11 @@ public abstract class Piece implements PieceAction{
         return new Coordinates(getLocation(), x, y);
     }
 
-    public boolean isValidMove(Coordinates coordinates){
-        return possibleMoves.contains(coordinates);
+    public Coordinates isValidMove(Coordinates coordinates) {
+    int index = possibleMoves.indexOf(coordinates);
+    if (index == -1) {
+        return coordinates;
+    } 
+    return coordinates;
     }
 }

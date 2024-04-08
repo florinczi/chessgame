@@ -1,6 +1,8 @@
 package florinczi.projects.chessgame.pieces;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import florinczi.projects.chessgame.Board;
@@ -25,7 +27,7 @@ public class Pawn extends Piece{
         activeBoard.putPiece(this, location);
         newLocation = new Coordinates(location);
         probe = newLocation.new Vector(0, 0, false);
-        possibleMoves = new HashSet<>();
+        possibleMoves = new ArrayList<>(1);
         }
 
     boolean isFirstMove = true;
@@ -41,7 +43,7 @@ public class Pawn extends Piece{
     }
 
     @Override
-    public Set<Coordinates> checkPossibleMoves() {
+    public List<Coordinates> checkPossibleMoves() {
         possibleMoves.clear();
         newLocation = getLocation();
         singleMove();        

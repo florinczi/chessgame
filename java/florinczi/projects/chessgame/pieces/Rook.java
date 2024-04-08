@@ -1,5 +1,6 @@
 package florinczi.projects.chessgame.pieces;
 
+import java.util.List;
 import java.util.Set;
 
 import florinczi.projects.chessgame.Board;
@@ -14,16 +15,12 @@ public class Rook extends Piece{
     }
 
     @Override
-    public Set<Coordinates> checkPossibleMoves() {
+    public List<Coordinates> checkPossibleMoves() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    @Override
-    public boolean isValidMove(Coordinates coordinates) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+
 
     @Override
     public void move() {
