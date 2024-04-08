@@ -1,7 +1,5 @@
 package florinczi.projects.chessgame;
 
-import florinczi.projects.chessgame.pieces.Piece;
-
 public class Engine {
 
     private Board mainBoard;
@@ -10,17 +8,28 @@ public class Engine {
         mainBoard = new Board();
     }
 
+    public void setMainBoard(Board mainBoard) {
+        this.mainBoard = mainBoard;
+    }
+
     public Board getMainBoard() {
         return mainBoard;
     }
+
+    
 
     public void newGame(){
         mainBoard = new Board();
     }
 
-    public void movePiece(Coordinates from, Coordinates to){
-        Piece toMove = getMainBoard().getPiece(from);
-        int moveIndex;
+    public void movePiece(MoveCandidate moveCandidate){
+        Board testBoard = mainBoard.movePiece(moveCandidate);
+        if (testBoard == null){
+            System.out.println("Invalid move.");
+            return;
+        }
+        mainBoard = testBoard;
+        
         
     }
 }

@@ -5,6 +5,7 @@ import java.util.Set;
 
 import florinczi.projects.chessgame.Board;
 import florinczi.projects.chessgame.Coordinates;
+import florinczi.projects.chessgame.MoveCandidate;
 
 public class Rook extends Piece{
 
@@ -15,7 +16,7 @@ public class Rook extends Piece{
     }
 
     @Override
-    public List<Coordinates> checkPossibleMoves() {
+    public List<MoveCandidate> checkPossibleMoves() {
         // TODO Auto-generated method stub
         return null;
     }

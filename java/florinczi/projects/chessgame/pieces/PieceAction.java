@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.Set;
 
 import florinczi.projects.chessgame.Coordinates;
+import florinczi.projects.chessgame.MoveCandidate;
 
 public interface PieceAction {
 
-    Coordinates isValidMove(Coordinates coordinates);
-    List<Coordinates> checkPossibleMoves();
+    boolean isValidMove(MoveCandidate coordinates);
+    List<MoveCandidate> checkPossibleMoves();
     void move();
 
 }

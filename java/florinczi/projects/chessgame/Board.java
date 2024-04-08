@@ -2,7 +2,7 @@ package florinczi.projects.chessgame;
 
 import florinczi.projects.chessgame.pieces.*;
 import static florinczi.projects.chessgame.pieces.PlayerColor.*;
-
+import static florinczi.projects.chessgame.pieces.SpecialMoves.*;
 import java.util.HashMap;
 import java.util.Map;
 public class Board {
@@ -25,14 +25,42 @@ public class Board {
     }
     
 
-    boolean whiteCastled = false;
-    boolean blackCastled = false;
-    PlayerColor nowPlaying = WHITE;
+    private boolean whiteCastled;
+    private boolean blackCastled;
+    private PlayerColor nowPlaying;
 
+
+    public boolean isWhiteCastled() {
+        return whiteCastled;
+    }
+
+    public void setWhiteCastled(boolean whiteCastled) {
+        this.whiteCastled = whiteCastled;
+    }
+
+    public boolean isBlackCastled() {
+        return blackCastled;
+    }
+
+    public void setBlackCastled(boolean blackCastled) {
+        this.blackCastled = blackCastled;
+    }
+
+    public PlayerColor getNowPlaying() {
+        return nowPlaying;
+    }
+
+    public void setNowPlaying(PlayerColor nowPlaying) {
+        this.nowPlaying = nowPlaying;
+    }
 
     public Board() {   //(int iteration, int depth)
 
         boardmap = new HashMap<>();
+        whiteCastled = false;
+        blackCastled = false;
+        nowPlaying = WHITE;
+
 
         for (int i = 1; i <= 8; i++){
             new Pawn(BLACK, new Coordinates(i, 7), this);
@@ -60,26 +88,63 @@ public class Board {
         putPiece(new Rook(WHITE, this), new Coordinates(8, 1));
 
     }
+    
+
+    public Board (Board board)
+    {
+        this.boardmap = new HashMap<>(board.boardmap);
+        this.blackCastled = board.whiteCastled;
+        this.whiteCastled = board.whiteCastled;
+        this.nowPlaying = board.nowPlaying;
+    }
 
     public void putPiece (Piece piece, Coordinates coord){ 
-        /* This method creates a new piece on designated coordinates on the HashMap.
-         * Then it uses the same Coordinates object as the piece argument.
-         * This way when Coordinates is modified, both the Piece and the Board are aware of it.
-         */
-        boardmap.put(coord, piece);
+               boardmap.put(coord, piece);
           
     }
 
     public Piece getPiece(Coordinates coord){
-        
         return boardmap.get(coord);
     }
-    
-    public void movePiece(Coordinates coord){
-        int moveIndex;
-        Piece piece = getPiece(coord);
-        
 
+    public PlayerColor isKingInCheck(){
+        return null; //TODO
+    }
+    
+    public Board movePiece(MoveCandidate moveCandidate){
+        Coordinates coord = moveCandidate.getCoord();
+       
+        Piece piece = getPiece(moveCandidate.getCoord());
+        PieceAction pa = piece;
+        pa.checkPossibleMoves();
+        System.out.println(piece);
+        if (piece == null){
+            System.out.println("No piece on this coordinates");
+            return null;
+        }
+
+        if (!piece.isValidMove(moveCandidate))
+            return null;
+
+        Board testBoard = new Board(this);
+        
+        testBoard.boardmap.remove(moveCandidate.getCoord());
+        moveCandidate.addVector();
+        if (moveCandidate.getSpecialMove() == CAPTURE) {
+            testBoard.boardmap.replace(coord, piece);
+        }
+        else    
+            testBoard.boardmap.put(coord, piece); 
+        if (testBoard.isKingInCheck() != null){
+            //TODO check checks
+        }
+        piece.setLocation(coord);
+        if(testBoard.getNowPlaying() == WHITE){
+            testBoard.setNowPlaying(BLACK);
+        }
+        else
+            testBoard.setNowPlaying(WHITE);
+        return testBoard;
     }
     
 

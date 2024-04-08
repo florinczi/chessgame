@@ -72,10 +72,11 @@ public class Menu {
 
     public void getPlayerMove (){
 
-        System.out.printf("Now playing: %s. What is your move?%n", engine.getMainBoard().nowPlaying);
         
 
+        System.out.printf("Now playing: %s. What is your move?%n", engine.getMainBoard().getNowPlaying());
         System.out.println("From which square do you want to move?");
+
         Coordinates from = Parser.convertToCoordinates(scanner.nextLine());
         while (from == null){
              System.out.println("Sorry, wrong coordinates, please try again");
@@ -85,11 +86,12 @@ public class Menu {
         System.out.println("To which square do you want to move?");
         Coordinates to = Parser.convertToCoordinates(scanner.nextLine());
         while (to == null){
-            System.out.println("Sorry, wrong coordinates, please try again");
+            System.out.println("Wrong coordinates, please try again");
             to = Parser.convertToCoordinates(scanner.nextLine());
             }
-
-        engine.movePiece(from, to);
+        MoveCandidate moveCandidate = new MoveCandidate(from, to);
+        
+        engine.movePiece(moveCandidate);
         printBoard(engine.getMainBoard());
     }
 

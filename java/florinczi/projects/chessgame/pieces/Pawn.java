@@ -1,13 +1,12 @@
 package florinczi.projects.chessgame.pieces;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import florinczi.projects.chessgame.Board;
 import florinczi.projects.chessgame.Coordinates;
-import florinczi.projects.chessgame.Coordinates.Vector;
+import florinczi.projects.chessgame.MoveCandidate;
+import florinczi.projects.chessgame.Vector;
+import florinczi.projects.chessgame.pieces.SpecialMoves;
 
 public class Pawn extends Piece{
 
@@ -23,11 +22,11 @@ public class Pawn extends Piece{
             super.setShortType('P');
             moveDirection = 1;
         } 
-        super.setLocation(location);
+       super.setLocation(new Coordinates(location));
         activeBoard.putPiece(this, location);
         newLocation = new Coordinates(location);
-        probe = newLocation.new Vector(0, 0, false);
-        possibleMoves = new ArrayList<>(1);
+        probe = new Vector(0, 0);
+        possibleMoves = new ArrayList<MoveCandidate>(1);
         }
 
     boolean isFirstMove = true;
@@ -43,9 +42,8 @@ public class Pawn extends Piece{
     }
 
     @Override
-    public List<Coordinates> checkPossibleMoves() {
+    public List<MoveCandidate> checkPossibleMoves() {
         possibleMoves.clear();
-        newLocation = getLocation();
         singleMove();        
         if (isFirstMove)
             doubleMove();
@@ -56,43 +54,43 @@ public class Pawn extends Piece{
     }
 
     private void singleMove() {
-        newLocation = getLocation();
+        newLocation.set(getLocation());
         probe.set(0, moveDirection);
         newLocation.addVector(probe);
         if (getActiveBoard().isSquareFree(newLocation))
-            possibleMoves.add(new Coordinates(getLocation(), probe, false));
+            possibleMoves.add(new MoveCandidate(getLocation(), probe));
     }
 
     private void doubleMove() {
-        newLocation = getLocation();
+        newLocation.set(getLocation());
         newLocation.addVector(probe);
         if (!getActiveBoard().isSquareFree(newLocation))
             return;
         newLocation.addVector(probe);
         if (getActiveBoard().isSquareFree(newLocation)) 
-            possibleMoves.add(new Coordinates(getLocation(), 0, moveDirection * 2, false)); 
+            possibleMoves.add(new MoveCandidate(this.getLocation(), new Vector(0, moveDirection * 2))); 
         
     }
 
     private void leftSideCapture() {
-        newLocation = getLocation(); 
+        newLocation.set(getLocation()); 
         probe.set(-1, moveDirection); 
         if (!newLocation.isValidVector(probe))
             return;
         newLocation.addVector(probe);
         if (!getActiveBoard().isSquareFree(newLocation))
-            possibleMoves.add(new Coordinates(getLocation(), probe, true));
+            possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.CAPTURE));
         
     }
 
     private void rightSideCapture() {
-        newLocation = getLocation(); 
+        newLocation.set(getLocation()); 
         probe.set(1, moveDirection); 
         if (!newLocation.isValidVector(probe))
             return;
         newLocation.addVector(probe);
         if (!getActiveBoard().isSquareFree(newLocation))
-            possibleMoves.add(new Coordinates(getLocation(), probe, true));
+            possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.CAPTURE));
         
     }
 

@@ -5,6 +5,7 @@ import java.util.Set;
 
 import florinczi.projects.chessgame.Board;
 import florinczi.projects.chessgame.Coordinates;
+import florinczi.projects.chessgame.MoveCandidate;
 
 public class Knight extends Piece{
 
@@ -17,7 +18,7 @@ public class Knight extends Piece{
   
 
     @Override
-    public List<Coordinates> checkPossibleMoves() {
+    public List<MoveCandidate> checkPossibleMoves() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'checkPossibleMoves'");
     }
