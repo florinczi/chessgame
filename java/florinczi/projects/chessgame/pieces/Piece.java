@@ -4,6 +4,7 @@ import java.util.List;
 
 import florinczi.projects.chessgame.Board;
 import florinczi.projects.chessgame.Coordinates;
+import florinczi.projects.chessgame.Engine;
 import florinczi.projects.chessgame.MoveCandidate;
 
 public abstract class Piece implements PieceAction{
@@ -16,12 +17,23 @@ public abstract class Piece implements PieceAction{
 
     private Board activeBoard;
 
+    public void setActiveBoard(Board activeBoard) {
+        this.activeBoard = activeBoard;
+    }
+
+    private Engine engine;
+
+
+    public Engine getEngine() {
+        return engine;
+    }
 
     protected List<MoveCandidate> possibleMoves;
 
-    protected Piece (PlayerColor player, Board activeBoard){
+    protected Piece (PlayerColor player, Engine engine){
         this.player = player;
-        this.activeBoard = activeBoard;
+        this.engine = engine;
+        this.activeBoard = engine.getMainBoard();
     }
 
     public char getShortType() {

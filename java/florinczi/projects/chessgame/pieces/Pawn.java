@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import florinczi.projects.chessgame.Board;
 import florinczi.projects.chessgame.Coordinates;
+import florinczi.projects.chessgame.Engine;
 import florinczi.projects.chessgame.MoveCandidate;
 import florinczi.projects.chessgame.Vector;
 import florinczi.projects.chessgame.pieces.SpecialMoves;
@@ -12,8 +13,8 @@ public class Pawn extends Piece{
 
    
 
-    public Pawn(PlayerColor player, Coordinates location, Board activeBoard) {
-        super(player, activeBoard);
+    public Pawn(PlayerColor player, Coordinates location, Engine engine) {
+        super(player, engine);
         if (player == PlayerColor.BLACK){
             super.setShortType('p');
             moveDirection = -1;
@@ -23,7 +24,7 @@ public class Pawn extends Piece{
             moveDirection = 1;
         } 
        super.setLocation(new Coordinates(location));
-        activeBoard.putPiece(this, location);
+        engine.getMainBoard().putPiece(this, location);
         newLocation = new Coordinates(location);
         probe = new Vector(0, 0);
         possibleMoves = new ArrayList<MoveCandidate>(1);
@@ -34,6 +35,7 @@ public class Pawn extends Piece{
     int moveDirection; // which way is the pawn going?
     Coordinates newLocation;
     Vector probe;
+    
 
 
     void promote (Pawn pawn){
@@ -44,6 +46,7 @@ public class Pawn extends Piece{
     @Override
     public List<MoveCandidate> checkPossibleMoves() {
         possibleMoves.clear();
+        setActiveBoard(getEngine().getMainBoard());
         singleMove();        
         if (isFirstMove)
             doubleMove();
@@ -89,6 +92,7 @@ public class Pawn extends Piece{
         if (!newLocation.isValidVector(probe))
             return;
         newLocation.addVector(probe);
+        System.out.println(getActiveBoard().isSquareFree(newLocation));
         if (!getActiveBoard().isSquareFree(newLocation))
             possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.CAPTURE));
         

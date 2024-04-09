@@ -21,17 +21,24 @@ public class Board {
     }
 
     public boolean isSquareFree(Coordinates coord){
-        return boardmap.get(coord) == null;
+        System.out.println(boardmap.get(coord));
+        System.out.println(boardmap.containsKey(coord));
+        return (!boardmap.containsKey(coord));
     }
     
 
     private boolean whiteCastled;
     private boolean blackCastled;
     private PlayerColor nowPlaying;
+    private Engine engine;
 
 
     public boolean isWhiteCastled() {
         return whiteCastled;
+    }
+
+    public Map<Coordinates, Piece> getBoardmap() {
+        return boardmap;
     }
 
     public void setWhiteCastled(boolean whiteCastled) {
@@ -54,39 +61,45 @@ public class Board {
         this.nowPlaying = nowPlaying;
     }
 
-    public Board() {   //(int iteration, int depth)
+    public Board(Engine engine) {   //(int iteration, int depth)
 
+        this.engine = engine;
         boardmap = new HashMap<>();
+
+    }
+
+    public void newGame() {
         whiteCastled = false;
         blackCastled = false;
         nowPlaying = WHITE;
+        
+        
 
 
         for (int i = 1; i <= 8; i++){
-            new Pawn(BLACK, new Coordinates(i, 7), this);
-            new Pawn(WHITE, new Coordinates(i, 2), this);
+            new Pawn(BLACK, new Coordinates(i, 7), engine);
+            new Pawn(WHITE, new Coordinates(i, 2), engine);
         }
         // Populate the board with other pieces
         // Black pieces
-        putPiece(new Rook(BLACK, this), new Coordinates(1, 8));
-        putPiece(new Knight(BLACK, this), new Coordinates(2, 8));
-        putPiece(new Bishop(BLACK, this), new Coordinates(3, 8));
-        putPiece(new Queen(BLACK, this), new Coordinates(4, 8));
-        putPiece(new King(BLACK, this), new Coordinates(5, 8));
-        putPiece(new Bishop(BLACK, this), new Coordinates(6, 8));
-        putPiece(new Knight(BLACK, this), new Coordinates(7, 8));
-        putPiece(new Rook(BLACK, this), new Coordinates(8, 8));
+        // putPiece(new Rook(BLACK, this), new Coordinates(1, 8));
+        // putPiece(new Knight(BLACK, this), new Coordinates(2, 8));
+        // putPiece(new Bishop(BLACK, this), new Coordinates(3, 8));
+        // putPiece(new Queen(BLACK, this), new Coordinates(4, 8));
+        // putPiece(new King(BLACK, this), new Coordinates(5, 8));
+        // putPiece(new Bishop(BLACK, this), new Coordinates(6, 8));
+        // putPiece(new Knight(BLACK, this), new Coordinates(7, 8));
+        // putPiece(new Rook(BLACK, this), new Coordinates(8, 8));
 
-        // White pieces
-        putPiece(new Rook(WHITE, this), new Coordinates(1, 1));
-        putPiece(new Knight(WHITE, this), new Coordinates(2, 1));
-        putPiece(new Bishop(WHITE, this), new Coordinates(3, 1));
-        putPiece(new Queen(WHITE, this), new Coordinates(4, 1));
-        putPiece(new King(WHITE, this), new Coordinates(5, 1));
-        putPiece(new Bishop(WHITE, this), new Coordinates(6, 1));
-        putPiece(new Knight(WHITE, this), new Coordinates(7, 1));
-        putPiece(new Rook(WHITE, this), new Coordinates(8, 1));
-
+        // // White pieces
+        // putPiece(new Rook(WHITE, this), new Coordinates(1, 1));
+        // putPiece(new Knight(WHITE, this), new Coordinates(2, 1));
+        // putPiece(new Bishop(WHITE, this), new Coordinates(3, 1));
+        // putPiece(new Queen(WHITE, this), new Coordinates(4, 1));
+        // putPiece(new King(WHITE, this), new Coordinates(5, 1));
+        // putPiece(new Bishop(WHITE, this), new Coordinates(6, 1));
+        // putPiece(new Knight(WHITE, this), new Coordinates(7, 1));
+        // putPiece(new Rook(WHITE, this), new Coordinates(8, 1));
     }
     
 
@@ -96,6 +109,7 @@ public class Board {
         this.blackCastled = board.whiteCastled;
         this.whiteCastled = board.whiteCastled;
         this.nowPlaying = board.nowPlaying;
+        this.engine = board.engine;
     }
 
     public void putPiece (Piece piece, Coordinates coord){ 
@@ -116,13 +130,16 @@ public class Board {
        
         Piece piece = getPiece(moveCandidate.getCoord());
         PieceAction pa = piece;
-        pa.checkPossibleMoves();
-        System.out.println(piece);
+        
+        
         if (piece == null){
             System.out.println("No piece on this coordinates");
             return null;
         }
+        pa.checkPossibleMoves();
 
+        if (piece.getPlayer() != getNowPlaying())
+            return null;
         if (!piece.isValidMove(moveCandidate))
             return null;
 
@@ -139,14 +156,17 @@ public class Board {
             //TODO check checks
         }
         piece.setLocation(coord);
-        if(testBoard.getNowPlaying() == WHITE){
-            testBoard.setNowPlaying(BLACK);
-        }
-        else
-            testBoard.setNowPlaying(WHITE);
         return testBoard;
     }
     
+    public void changePlayers(){
+        if(getNowPlaying() == WHITE){
+            setNowPlaying(BLACK);
+        }
+        else
+            setNowPlaying(WHITE);
+        
+    }
 
 
 }

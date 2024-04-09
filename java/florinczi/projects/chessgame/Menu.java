@@ -26,9 +26,7 @@ public class Menu {
 
             switch (choice) {
                 case 1:
-                    engine.newGame();
-                    printBoard(engine.getMainBoard());
-                    getPlayerMove();
+                    game();
                     break;
                 case 2:
                     System.out.println("Not yet supported");
@@ -70,21 +68,40 @@ public class Menu {
                
     }    
 
-    public void getPlayerMove (){
-
+    public void game(){
         
+        boolean nextRound = true;
+        engine.newGame();
+        while(nextRound){
+        printBoard(engine.getMainBoard());
+        nextRound = getPlayerMove();
 
-        System.out.printf("Now playing: %s. What is your move?%n", engine.getMainBoard().getNowPlaying());
+
+
+        }
+
+    }
+    public boolean getPlayerMove (){
+
+        String input;
+
+        System.out.printf("Now playing: %s. What is your move?%nEnter 0 to exit%n" , engine.getMainBoard().getNowPlaying());
         System.out.println("From which square do you want to move?");
 
-        Coordinates from = Parser.convertToCoordinates(scanner.nextLine());
+        input = scanner.nextLine();
+        if (input.equals("0"))
+            return false;
+        Coordinates from = Parser.convertToCoordinates(input);
         while (from == null){
              System.out.println("Sorry, wrong coordinates, please try again");
             from = Parser.convertToCoordinates(scanner.nextLine());
         
         }
         System.out.println("To which square do you want to move?");
-        Coordinates to = Parser.convertToCoordinates(scanner.nextLine());
+        input = scanner.nextLine();
+        if (input.equals("0"))
+            return false;
+        Coordinates to = Parser.convertToCoordinates(input);
         while (to == null){
             System.out.println("Wrong coordinates, please try again");
             to = Parser.convertToCoordinates(scanner.nextLine());
@@ -92,7 +109,8 @@ public class Menu {
         MoveCandidate moveCandidate = new MoveCandidate(from, to);
         
         engine.movePiece(moveCandidate);
-        printBoard(engine.getMainBoard());
+        return true;
+
     }
 
 
