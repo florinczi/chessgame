@@ -1,20 +1,20 @@
 package florinczi.projects.chessgame.pieces;
 
+import static florinczi.projects.chessgame.pieces.SpecialMoves.DOUBLE;
+
 import java.util.ArrayList;
 import java.util.List;
-import florinczi.projects.chessgame.Board;
 import florinczi.projects.chessgame.Coordinates;
 import florinczi.projects.chessgame.Engine;
 import florinczi.projects.chessgame.MoveCandidate;
 import florinczi.projects.chessgame.Vector;
-import florinczi.projects.chessgame.pieces.SpecialMoves;
 
 public class Pawn extends Piece{
 
    
 
     public Pawn(PlayerColor player, Coordinates location, Engine engine) {
-        super(player, engine);
+        super(player, engine); //adding color and engine ref
         if (player == PlayerColor.BLACK){
             super.setShortType('p');
             moveDirection = -1;
@@ -22,15 +22,15 @@ public class Pawn extends Piece{
         else{
             super.setShortType('P');
             moveDirection = 1;
-        } 
-       super.setLocation(new Coordinates(location));
-        engine.getMainBoard().putPiece(this, location);
+        } // setting "visuals"
+        super.setLocation(new Coordinates(location)); //setting inner coords
+        engine.getMainBoard().putPiece(this, location); //setting on the hashmap
         newLocation = new Coordinates(location);
-        probe = new Vector(0, 0);
-        possibleMoves = new ArrayList<MoveCandidate>(1);
+        probe = new Vector(0, 0);  //init move-probing location and vector
+        possibleMoves = new ArrayList<MoveCandidate>(1);//init move list
         }
 
-    boolean isFirstMove = true;
+    
     
     int moveDirection; // which way is the pawn going?
     Coordinates newLocation;
@@ -48,8 +48,7 @@ public class Pawn extends Piece{
         possibleMoves.clear();
         setActiveBoard(getEngine().getMainBoard());
         singleMove();        
-        if (isFirstMove)
-            doubleMove();
+        doubleMove();
         leftSideCapture();
         rightSideCapture();
 
@@ -65,13 +64,16 @@ public class Pawn extends Piece{
     }
 
     private void doubleMove() {
+        if (getLocation().getY() != 7 || getLocation().getY() != 2) //check if the pawn have moved already
+            return;
+
         newLocation.set(getLocation());
         newLocation.addVector(probe);
         if (!getActiveBoard().isSquareFree(newLocation))
             return;
         newLocation.addVector(probe);
         if (getActiveBoard().isSquareFree(newLocation)) 
-            possibleMoves.add(new MoveCandidate(this.getLocation(), new Vector(0, moveDirection * 2))); 
+            possibleMoves.add(new MoveCandidate(this.getLocation(), new Vector(0, moveDirection * 2), DOUBLE)); 
         
     }
 
@@ -101,11 +103,6 @@ public class Pawn extends Piece{
     
     
 
-    @Override
-    public void move() {
-
-        // TODO Auto-generated method stub
-        
-    }
+   
 
 }

@@ -31,6 +31,17 @@ public class Vector {
         this.y = vector.getY();
     }
 
+    public void incrementDirection(){
+        if (getX() > 0)
+            x++;
+        if (getY() > 0)
+            y++;
+        if (getX() < 0) 
+            x--;
+        if (getY() < 0)
+            y--;    
+    }
+
     public int getX() {
         return x;
     }

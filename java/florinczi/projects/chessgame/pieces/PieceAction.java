@@ -10,6 +10,7 @@ public interface PieceAction {
 
     boolean isValidMove(MoveCandidate coordinates);
     List<MoveCandidate> checkPossibleMoves();
-    void move();
+    
+    
 
 }

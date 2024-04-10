@@ -38,7 +38,7 @@ public class Coordinates {
     public boolean isValidVector(Vector probe){
         int probeX = this.getX() + probe.getX();
         int probeY = this.getY() + probe.getY();
-        return (probeX >= MIN_X || probeX <= MAX_X && probeY >= MIN_Y || probeY <= MIN_Y);
+        return (probeX >= MIN_X && probeX <= MAX_X && probeY >= MIN_Y && probeY <= MAX_Y);
     }
 
     public void set (Coordinates coord){

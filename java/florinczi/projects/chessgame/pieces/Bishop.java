@@ -1,7 +1,6 @@
 package florinczi.projects.chessgame.pieces;
 
 import java.util.List;
-import florinczi.projects.chessgame.Board;
 import florinczi.projects.chessgame.Coordinates;
 import florinczi.projects.chessgame.Engine;
 import florinczi.projects.chessgame.MoveCandidate;
@@ -21,10 +20,6 @@ public class Bishop extends Piece{
     }
 
    
-    @Override
-    public void move() {
-        // TODO Auto-generated method stub
-        
-    }
+    
 
 }

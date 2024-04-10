@@ -23,10 +23,6 @@ public class King extends Piece{
         throw new UnsupportedOperationException("Unimplemented method 'checkPossibleMoves'");
     }
 
-    @Override
-    public void move() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
-    }
+    
 
 }
