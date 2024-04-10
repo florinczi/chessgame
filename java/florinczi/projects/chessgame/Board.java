@@ -78,7 +78,7 @@ public class Board {
 
         for (int i = 1; i <= 8; i++){
             new Rook(BLACK, new Coordinates(i, 7), engine);
-            new Pawn(WHITE, new Coordinates(i, 2), engine);
+            new Bishop(WHITE, new Coordinates(i, 2), engine);
         }
         // Populate the board with other pieces
         // Black pieces
