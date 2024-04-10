@@ -1,9 +1,6 @@
 package florinczi.projects.chessgame.pieces;
 
 import java.util.List;
-import java.util.Set;
-
-import florinczi.projects.chessgame.Board;
 import florinczi.projects.chessgame.Coordinates;
 import florinczi.projects.chessgame.Engine;
 import florinczi.projects.chessgame.MoveCandidate;
