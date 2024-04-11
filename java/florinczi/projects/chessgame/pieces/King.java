@@ -29,29 +29,34 @@ public class King extends Piece{
         possibleMoves.clear();
         setActiveBoard(getEngine().getMainBoard());
         checkKingMove();
+        for (MoveCandidate king: possibleMoves)
+            System.out.println(king);
         return possibleMoves;
     }
 
     public void checkKingMove(){
         Vector vector = new Vector();
-        newLocation.set(getLocation());
-
+        
         for (int x = -1; x <= 1; x++) {
             for (int y = -1; y <= 1; y++){ // cycle through every possible x and y in <-1, 1> range
+                newLocation.set(getLocation());
 
                 if (x == 0 && y == 0) //skip the vector(0,0) though
                     continue; 
 
-                if (newLocation.isValidVector(vector))
-                    newLocation.addVector(vector); //bounds check
+                vector.set(x, y);
 
-                if (getActiveBoard().isSquareFree(newLocation))
-                    possibleMoves.add(new MoveCandidate(getLocation(), vector));
-                else
-                    possibleMoves.add(new MoveCandidate(getLocation(), vector, CAPTURE));            
-            }
-                                  
-                
+                if (newLocation.isValidVector(vector)){
+                        newLocation.addVector(vector); //bounds check
+                    
+                    
+                    if (getActiveBoard().isSquareFree(newLocation))
+                        possibleMoves.add(new MoveCandidate(getLocation(), vector)); // if it's empty, add to list
+
+                    else if (getActiveBoard().getPiece(newLocation).getPlayer() != getPlayer()) 
+                        possibleMoves.add(new MoveCandidate(getLocation(), vector, CAPTURE)); // if it's capture, add to list            
+                }
+            } 
 
         } 
 

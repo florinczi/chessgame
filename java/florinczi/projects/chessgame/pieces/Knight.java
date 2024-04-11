@@ -42,14 +42,13 @@ public class Knight extends Piece{
             newLocation.set(getLocation());
 
             if (newLocation.isValidVector(vector)){ //bounds check
-
                 newLocation.addVector(vector);
-
+            
                 if (getActiveBoard().isSquareFree(newLocation))
-                    possibleMoves.add(new MoveCandidate(getLocation(), vector)); // is it capture?
-                else
-                    possibleMoves.add(new MoveCandidate(getLocation(), vector, CAPTURE));
-                                
+                    possibleMoves.add(new MoveCandidate(getLocation(), vector)); // if it's free, add to list
+                else if (getActiveBoard().getPiece(newLocation).getPlayer() != getPlayer()) 
+                    possibleMoves.add(new MoveCandidate(getLocation(), vector, CAPTURE)); // if it's capture, add to list
+                                    
             }
             vector.rotate();
 
