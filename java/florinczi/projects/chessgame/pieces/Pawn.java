@@ -51,7 +51,8 @@ public class Pawn extends Piece{
         doubleMove();
         leftSideCapture();
         rightSideCapture();
-
+        for (MoveCandidate mc: possibleMoves)
+            System.out.println(mc);
        return possibleMoves;
     }
 
@@ -64,7 +65,8 @@ public class Pawn extends Piece{
     }
 
     private void doubleMove() {
-        if (getLocation().getY() != 7 || getLocation().getY() != 2) //check if the pawn have moved already
+        System.out.println(getLocation().getY());
+        if (getLocation().getY() != 7 && getLocation().getY() != 2) //check if the pawn have moved already
             return;
 
         newLocation.set(getLocation());

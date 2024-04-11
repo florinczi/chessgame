@@ -75,29 +75,30 @@ public class Board {
 
 
         for (int i = 1; i <= 8; i++){
-            new Rook(BLACK, new Coordinates(i, 7), engine);
-            new King(WHITE, new Coordinates(i, 2), engine);
+            new Pawn(BLACK, new Coordinates(i, 7), engine);
+            new Pawn(WHITE, new Coordinates(i, 2), engine);
         }
-        // Populate the board with other pieces
-        // Black pieces
-        // putPiece(new Rook(BLACK, this), new Coordinates(1, 8));
-        // putPiece(new Knight(BLACK, this), new Coordinates(2, 8));
-        // putPiece(new Bishop(BLACK, this), new Coordinates(3, 8));
-        // putPiece(new Queen(BLACK, this), new Coordinates(4, 8));
-        // putPiece(new King(BLACK, this), new Coordinates(5, 8));
-        // putPiece(new Bishop(BLACK, this), new Coordinates(6, 8));
-        // putPiece(new Knight(BLACK, this), new Coordinates(7, 8));
-        // putPiece(new Rook(BLACK, this), new Coordinates(8, 8));
-
+        
+        // // Black pieces
+        
+        new Rook(BLACK, new Coordinates(1, 8), engine);
+        new Knight(BLACK, new Coordinates(2, 8), engine);
+        new Bishop(BLACK, new Coordinates(3, 8), engine);
+        new Queen(BLACK, new Coordinates(4, 8), engine);
+        new King(BLACK, new Coordinates(5, 8), engine);
+        new Bishop(BLACK, new Coordinates(6, 8), engine);
+        new Knight(BLACK, new Coordinates(7, 8), engine);
+        new Rook(BLACK, new Coordinates(8, 8), engine);
+        
         // // White pieces
-        // putPiece(new Rook(WHITE, this), new Coordinates(1, 1));
-        // putPiece(new Knight(WHITE, this), new Coordinates(2, 1));
-        // putPiece(new Bishop(WHITE, this), new Coordinates(3, 1));
-        // putPiece(new Queen(WHITE, this), new Coordinates(4, 1));
-        // putPiece(new King(WHITE, this), new Coordinates(5, 1));
-        // putPiece(new Bishop(WHITE, this), new Coordinates(6, 1));
-        // putPiece(new Knight(WHITE, this), new Coordinates(7, 1));
-        // putPiece(new Rook(WHITE, this), new Coordinates(8, 1));
+        new Rook(WHITE, new Coordinates(1, 1), engine);
+        new Knight(WHITE, new Coordinates(2, 1), engine);
+        new Bishop(WHITE, new Coordinates(3, 1), engine);
+        new Queen(WHITE, new Coordinates(4, 1), engine);
+        new King(WHITE, new Coordinates(5, 1), engine);
+        new Bishop(WHITE, new Coordinates(6, 1), engine);
+        new Knight(WHITE, new Coordinates(7, 1), engine);
+        new Rook(WHITE, new Coordinates(8, 1), engine);
     }
     
 
