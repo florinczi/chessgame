@@ -22,7 +22,7 @@ public class Queen extends Piece{
     
     }
 
-    Coordinates newLocation;
+    private Coordinates newLocation;
 
     @Override
     public List<MoveCandidate> checkPossibleMoves() {
