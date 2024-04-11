@@ -21,8 +21,6 @@ public class Board {
     }
 
     public boolean isSquareFree(Coordinates coord){
-        System.out.println(boardmap.get(coord));
-        System.out.println(boardmap.containsKey(coord));
         return (!boardmap.containsKey(coord));
     }
     
@@ -78,7 +76,7 @@ public class Board {
 
         for (int i = 1; i <= 8; i++){
             new Rook(BLACK, new Coordinates(i, 7), engine);
-            new Bishop(WHITE, new Coordinates(i, 2), engine);
+            new Knight(WHITE, new Coordinates(i, 2), engine);
         }
         // Populate the board with other pieces
         // Black pieces

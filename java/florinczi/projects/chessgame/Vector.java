@@ -31,6 +31,16 @@ public class Vector {
         this.y = vector.getY();
     }
 
+    public Vector() {
+    }
+    
+    public void rotate(){ //rotate vector 90 degrees clockwise
+        x = x * -1;
+        int z = x;
+        x = y;
+        y = z;
+    }
+
     public void incrementDirection(){
         if (getX() > 0)
             x++;

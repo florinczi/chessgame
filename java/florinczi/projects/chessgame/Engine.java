@@ -20,7 +20,7 @@ public class Engine {
 
     public void movePiece(MoveCandidate moveCandidate){
         Board testBoard = mainBoard.movePiece(moveCandidate);
-        if (testBoard == null){
+        if (testBoard == null){ //movePiece returns null when invalid move has been passed
             System.out.println("Invalid move.");
             return;
         }

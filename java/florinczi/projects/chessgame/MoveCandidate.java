@@ -25,6 +25,12 @@ public class MoveCandidate {
         return Objects.hash(vector, coordinates);
     }
 
+    @Override
+    public String toString() {
+        System.out.printf("CordX: %d, CordY: %d, Vector(%d,%d)%n", coordinates.getX(), coordinates.getY(), vector.getX(), vector.getY());
+        return super.toString();
+    }
+
 
 
     public MoveCandidate (Coordinates coordinates, Vector vector, SpecialMoves specialMove){
