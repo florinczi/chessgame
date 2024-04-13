@@ -36,7 +36,12 @@ public class Rook extends Piece{
     }
 
     Coordinates newLocation;
+    boolean hasMoved = false;
     
+
+    public boolean hasMoved() {
+        return hasMoved;
+    }
 
     public void checkLineMove(Vector vector){
 
