@@ -63,5 +63,10 @@ public class Queen extends Piece{
 
     }
     
+    @Override
+    public Piece clone(Coordinates coord) {
+        Coordinates newCoord = new Coordinates(coord);
+        return new Queen(this.getPlayer(), newCoord, this.getEngine());
+    } 
 
 }

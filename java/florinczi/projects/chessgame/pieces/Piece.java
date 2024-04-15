@@ -1,5 +1,7 @@
 package florinczi.projects.chessgame.pieces;
 
+import static florinczi.projects.chessgame.pieces.SpecialMoves.CAPTURE;
+
 import java.util.List;
 
 import florinczi.projects.chessgame.Board;
@@ -34,7 +36,7 @@ public abstract class Piece implements PieceAction{
         this.player = player;
         this.engine = engine;
         this.activeBoard = engine.getMainBoard();
-    }
+        }
 
     public char getShortType() {
         return shortType;
@@ -66,4 +68,20 @@ public abstract class Piece implements PieceAction{
         return false; 
     return true;
     }
+
+    @Override
+    public void movePiece(MoveCandidate move, Board newBoard) {
+
+        newBoard.getBoardmap().remove(move.getCoord()); //removed the piece from new board
+        move.addVector(); // adding vector
+        if (move.getSpecialMove() == CAPTURE) {
+            newBoard.replaceWClonedPiece((PieceAction) this, move.getCoord());
+        }
+        else {
+            newBoard.putClonedPiece((PieceAction) this, move.getCoord());
+        }
+        
+    }
+
+    
 }

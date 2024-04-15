@@ -35,6 +35,12 @@ public class Rook extends Piece{
         return possibleMoves;
     }
 
+    @Override
+    public Piece clone(Coordinates coord) {
+        Coordinates newCoord = new Coordinates(coord);
+        return new Rook(this.getPlayer(), newCoord, this.getEngine());
+    } 
+
     Coordinates newLocation;
     boolean hasMoved = false;
     

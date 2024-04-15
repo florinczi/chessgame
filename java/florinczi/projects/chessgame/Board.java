@@ -3,7 +3,11 @@ package florinczi.projects.chessgame;
 import florinczi.projects.chessgame.pieces.*;
 import static florinczi.projects.chessgame.pieces.PlayerColor.*;
 import static florinczi.projects.chessgame.pieces.SpecialMoves.*;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 public class Board {
 
@@ -11,7 +15,29 @@ public class Board {
 
     
     private Map<Coordinates, Piece> boardmap;
+    private List<MoveCandidate> moveList;
+    private King blackKing;
+    private King whiteKing;
+    private PlayerColor nowPlaying;
+    private Engine engine;
+
    
+
+    public King getBlackKing() {
+        return blackKing;
+    }
+
+    public void setBlackKing(King blackKing) {
+        this.blackKing = blackKing;
+    }
+
+    public King getWhiteKing() {
+        return whiteKing;
+    }
+
+    public void setWhiteKing(King whiteKing) {
+        this.whiteKing = whiteKing;
+    }
 
     public char printSquare(int x, int y) {
         Coordinates coord = new Coordinates(x, y);
@@ -25,30 +51,9 @@ public class Board {
     }
     
 
-    private boolean whiteCastled;
-    private boolean blackCastled;
-    private PlayerColor nowPlaying;
-    private Engine engine;
-
-
-    public boolean isWhiteCastled() {
-        return whiteCastled;
-    }
 
     public Map<Coordinates, Piece> getBoardmap() {
         return boardmap;
-    }
-
-    public void setWhiteCastled(boolean whiteCastled) {
-        this.whiteCastled = whiteCastled;
-    }
-
-    public boolean isBlackCastled() {
-        return blackCastled;
-    }
-
-    public void setBlackCastled(boolean blackCastled) {
-        this.blackCastled = blackCastled;
     }
 
     public PlayerColor getNowPlaying() {
@@ -63,23 +68,26 @@ public class Board {
 
         this.engine = engine;
         boardmap = new HashMap<>();
+        moveList = new ArrayList<>();
+
+    }
+   
+    public void genMoves(){
+        for (PieceAction p: getBoardmap().values()){
+            p.checkPossibleMoves();
+
+        }
 
     }
 
     public void newGame() {
-        whiteCastled = false;
-        blackCastled = false;
+       
         nowPlaying = WHITE;
-        
-        
-
-
+            
         for (int i = 1; i <= 8; i++){
             new Pawn(BLACK, new Coordinates(i, 7), engine);
             new Pawn(WHITE, new Coordinates(i, 2), engine);
         }
-        
-        // // Black pieces
         
         new Rook(BLACK, new Coordinates(1, 8), engine);
         new Knight(BLACK, new Coordinates(2, 8), engine);
@@ -90,7 +98,6 @@ public class Board {
         new Knight(BLACK, new Coordinates(7, 8), engine);
         new Rook(BLACK, new Coordinates(8, 8), engine);
         
-        // // White pieces
         new Rook(WHITE, new Coordinates(1, 1), engine);
         new Knight(WHITE, new Coordinates(2, 1), engine);
         new Bishop(WHITE, new Coordinates(3, 1), engine);
@@ -105,10 +112,9 @@ public class Board {
     public Board (Board board)
     {
         this.boardmap = new HashMap<>(board.boardmap);
-        this.blackCastled = board.whiteCastled;
-        this.whiteCastled = board.whiteCastled;
         this.nowPlaying = board.nowPlaying;
         this.engine = board.engine;
+        
     }
 
     public void putPiece (Piece piece, Coordinates coord){ 
@@ -116,15 +122,23 @@ public class Board {
           
     }
 
+    public void putClonedPiece (PieceAction piece, Coordinates coord){ 
+        
+        getBoardmap().put(coord, piece.clone(coord));
+   
+    }
+
+    public void replaceWClonedPiece (PieceAction pieceaction, Coordinates coord){ 
+        
+        getBoardmap().replace(coord, pieceaction.clone(coord));
+   
+    }
+
     public Piece getPiece(Coordinates coord){
         return boardmap.get(coord);
     }
-
-    public PlayerColor isKingInCheck(){
-        return null; //TODO
-    }
     
-    public Board movePiece(MoveCandidate moveCandidate){
+    public Board prepareMove(MoveCandidate moveCandidate){
         Coordinates coord = moveCandidate.getCoord();
        
         Piece piece = getPiece(moveCandidate.getCoord());
@@ -144,17 +158,10 @@ public class Board {
 
         Board testBoard = new Board(this);
         
-        testBoard.boardmap.remove(moveCandidate.getCoord());
-        moveCandidate.addVector();
-        if (moveCandidate.getSpecialMove() == CAPTURE) {
-            testBoard.boardmap.replace(coord, piece);
-        }
-        else    
-            testBoard.boardmap.put(coord, piece); 
-        if (testBoard.isKingInCheck() != null){
-            //TODO check checks
-        }
-        piece.setLocation(coord);
+        piece.movePiece(moveCandidate, testBoard); //move it with MoveCandidate on testBoard
+              
+    
+        
         return testBoard;
     }
     
@@ -166,6 +173,8 @@ public class Board {
             setNowPlaying(WHITE);
         
     }
+
+   
 
 
 }

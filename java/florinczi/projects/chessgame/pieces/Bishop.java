@@ -2,6 +2,7 @@ package florinczi.projects.chessgame.pieces;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import florinczi.projects.chessgame.Coordinates;
 import florinczi.projects.chessgame.Engine;
 import florinczi.projects.chessgame.MoveCandidate;
@@ -21,6 +22,13 @@ public class Bishop extends Piece{
         newLocation = new Coordinates(location); //init move-probing location
         possibleMoves = new ArrayList<MoveCandidate>(1); //init move list
     
+    }
+
+   
+    public Bishop clone(Coordinates coord){
+        Coordinates newCoord = new Coordinates(coord);
+        return new Bishop(this.getPlayer(), newCoord, this.getEngine());
+        
     }
 
     Coordinates newLocation;
@@ -59,6 +67,10 @@ public class Bishop extends Piece{
 
 
     }
+
+
+    
+
    
     
 

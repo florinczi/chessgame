@@ -56,6 +56,12 @@ public class Knight extends Piece{
                 vector.setX(vector.getX() * -1); //after 4 rotations, mirror the vector
         }
     }
+
+    @Override
+    public Piece clone(Coordinates coord) {
+        Coordinates newCoord = new Coordinates(coord);
+        return new Knight(this.getPlayer(), newCoord, this.getEngine());
+    }    
    
 
 }

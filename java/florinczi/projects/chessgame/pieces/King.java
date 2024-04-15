@@ -22,7 +22,8 @@ public class King extends Piece{
           
     }
 
-    private Coordinates newLocation;
+    private Coordinates newLocation; 
+    boolean hasMoved = false;
     
     @Override
     public List<MoveCandidate> checkPossibleMoves() {
@@ -32,6 +33,33 @@ public class King extends Piece{
         for (MoveCandidate king: possibleMoves)
             System.out.println(king);
         return possibleMoves;
+    }
+
+    public void checkCastleLeft(){
+        if (hasMoved)
+            return;
+        
+        newLocation.set(1, getLocation().getY()); //just reusing newLocation to probe the Rooks
+        Piece piece = getActiveBoard().getPiece(newLocation); 
+
+        if (!(piece instanceof Rook))
+            return;
+
+        Rook rook = (Rook) piece;
+        
+        if (rook.hasMoved)
+            return;
+        
+        for (int i = 2; i < 5; i++)
+            {
+                newLocation.set(i, getLocation().getY());
+                if (!getActiveBoard().isSquareFree(newLocation)) //checking if square 2,3,4 are free of pieces
+                    return;
+            }
+
+            
+        
+
     }
 
     public void checkKingMove(){
@@ -62,6 +90,11 @@ public class King extends Piece{
 
     }
 
+    @Override
+    public Piece clone(Coordinates coord) {
+        Coordinates newCoord = new Coordinates(coord);
+        return new King(this.getPlayer(), newCoord, this.getEngine());
+    } 
     
 
 }

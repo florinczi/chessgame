@@ -69,5 +69,9 @@ public class Coordinates {
         if (!isValidVector(vector)) throw new IllegalArgumentException("Vector coordinates out of bound.");
         this.y = this.y + vector.getY();
         this.x = this.x + vector.getX();
+    }
+    public void set(int x, int y) {
+        setX(x);
+        setY(y);
     }      
 }

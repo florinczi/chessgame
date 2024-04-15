@@ -1,6 +1,7 @@
 package florinczi.projects.chessgame.pieces;
 
 import static florinczi.projects.chessgame.pieces.SpecialMoves.DOUBLE;
+import static florinczi.projects.chessgame.pieces.SpecialMoves.PROMOTE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,8 +61,12 @@ public class Pawn extends Piece{
         newLocation.set(getLocation());
         probe.set(0, moveDirection);
         newLocation.addVector(probe);
-        if (getActiveBoard().isSquareFree(newLocation))
-            possibleMoves.add(new MoveCandidate(getLocation(), probe));
+        if (getActiveBoard().isSquareFree(newLocation)){
+            if (newLocation.getY() == 8 || newLocation.getY() == 1)                
+                possibleMoves.add(new MoveCandidate(getLocation(), probe, PROMOTE));
+            else
+                 possibleMoves.add(new MoveCandidate(getLocation(), probe));
+        }
     }
 
     private void doubleMove() {
@@ -96,10 +101,17 @@ public class Pawn extends Piece{
         if (!newLocation.isValidVector(probe))
             return;
         newLocation.addVector(probe);
-        System.out.println(getActiveBoard().isSquareFree(newLocation));
+        
         if (!getActiveBoard().isSquareFree(newLocation))
+    
             possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.CAPTURE));
         
+    }
+
+    @Override
+    public Piece clone(Coordinates coord) {
+        Coordinates newCoord = new Coordinates(coord);
+        return new Pawn(this.getPlayer(), newCoord, this.getEngine());
     }
 
     
