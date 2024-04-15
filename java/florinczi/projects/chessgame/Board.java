@@ -72,12 +72,12 @@ public class Board {
 
     }
    
-    public void genMoves(){
+    public List <MoveCandidate> genMoves(){
+        List <MoveCandidate> boardMoveList = new ArrayList<>();
         for (PieceAction p: getBoardmap().values()){
-            p.checkPossibleMoves();
-
+            boardMoveList.addAll(p.checkPossibleMoves());
         }
-
+        return boardMoveList;
     }
 
     public void newGame() {
