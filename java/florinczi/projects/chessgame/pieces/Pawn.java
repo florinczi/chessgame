@@ -5,8 +5,9 @@ import static florinczi.projects.chessgame.pieces.SpecialMoves.PROMOTE;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import florinczi.projects.chessgame.Board;
 import florinczi.projects.chessgame.Coordinates;
-import florinczi.projects.chessgame.Engine;
 import florinczi.projects.chessgame.MoveCandidate;
 import florinczi.projects.chessgame.Vector;
 
@@ -14,8 +15,8 @@ public class Pawn extends Piece{
 
    
 
-    public Pawn(PlayerColor player, Coordinates location, Engine engine) {
-        super(player, engine); //adding color and engine ref
+    public Pawn(PlayerColor player, Coordinates location, Board board) {
+        super(player, board); //adding color and engine ref
         if (player == PlayerColor.BLACK){
             super.setShortType('p');
             moveDirection = -1;
@@ -25,7 +26,7 @@ public class Pawn extends Piece{
             moveDirection = 1;
         } // setting "visuals"
         super.setLocation(new Coordinates(location)); //setting inner coords
-        engine.getMainBoard().putPiece(this, location); //setting on the hashmap
+        board.putPiece(this, location); //setting on the hashmap
         newLocation = new Coordinates(location);
         probe = new Vector(0, 0);  //init move-probing location and vector
         possibleMoves = new ArrayList<MoveCandidate>(1);//init move list
@@ -47,7 +48,7 @@ public class Pawn extends Piece{
     @Override
     public List<MoveCandidate> checkPossibleMoves() {
         possibleMoves.clear();
-        setActiveBoard(getEngine().getMainBoard());
+        this.setActiveBoard(getActiveBoard().getEngine().getMainBoard()); // gets updated board via engine
         singleMove();        
         doubleMove();
         leftSideCapture();
@@ -109,9 +110,9 @@ public class Pawn extends Piece{
     }
 
     @Override
-    public Piece clone(Coordinates coord) {
+    public Piece clone(Coordinates coord, Board newBoard) {
         Coordinates newCoord = new Coordinates(coord);
-        return new Pawn(this.getPlayer(), newCoord, this.getEngine());
+        return new Pawn(this.getPlayer(), newCoord, newBoard);
     }
 
     

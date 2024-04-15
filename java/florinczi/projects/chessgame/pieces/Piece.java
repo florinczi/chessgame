@@ -6,7 +6,7 @@ import java.util.List;
 
 import florinczi.projects.chessgame.Board;
 import florinczi.projects.chessgame.Coordinates;
-import florinczi.projects.chessgame.Engine;
+
 import florinczi.projects.chessgame.MoveCandidate;
 
 public abstract class Piece implements PieceAction{
@@ -19,23 +19,21 @@ public abstract class Piece implements PieceAction{
 
     private Board activeBoard;
 
+      
+
     public void setActiveBoard(Board activeBoard) {
         this.activeBoard = activeBoard;
     }
 
-    private Engine engine;
-
-
-    public Engine getEngine() {
-        return engine;
+    public List<MoveCandidate> getPossibleMoves() {
+        return possibleMoves;
     }
 
     protected List<MoveCandidate> possibleMoves;
 
-    protected Piece (PlayerColor player, Engine engine){
+    protected Piece (PlayerColor player, Board board){
         this.player = player;
-        this.engine = engine;
-        this.activeBoard = engine.getMainBoard();
+        this.activeBoard = board;
         }
 
     public char getShortType() {
@@ -75,11 +73,12 @@ public abstract class Piece implements PieceAction{
         newBoard.getBoardmap().remove(move.getCoord()); //removed the piece from new board
         move.addVector(); // adding vector
         if (move.getSpecialMove() == CAPTURE) {
-            newBoard.replaceWClonedPiece((PieceAction) this, move.getCoord());
+            newBoard.replaceWClonedPiece(this, move.getCoord(), newBoard);
         }
         else {
-            newBoard.putClonedPiece((PieceAction) this, move.getCoord());
+            newBoard.putClonedPiece(this, move.getCoord(), newBoard);
         }
+        this.activeBoard = newBoard;
         
     }
 

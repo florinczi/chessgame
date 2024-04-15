@@ -2,21 +2,22 @@ package florinczi.projects.chessgame.pieces;
 import static florinczi.projects.chessgame.pieces.SpecialMoves.CAPTURE;
 import java.util.ArrayList;
 import java.util.List;
+
+import florinczi.projects.chessgame.Board;
 import florinczi.projects.chessgame.Coordinates;
-import florinczi.projects.chessgame.Engine;
 import florinczi.projects.chessgame.MoveCandidate;
 import florinczi.projects.chessgame.Vector;
 
 public class King extends Piece{
 
-    public King(PlayerColor player, Coordinates location, Engine engine) {
-        super(player, engine); //adding color and engine ref
+    public King(PlayerColor player, Coordinates location, Board board) {
+        super(player, board); //adding color and engine ref
 
         if (player == PlayerColor.BLACK) super.setShortType('k');
         else super.setShortType('K'); // setting "visuals"
 
         super.setLocation(new Coordinates(location)); //setting inner coords
-        engine.getMainBoard().putPiece(this, location); //setting on the hashmap
+        board.putPiece(this, location); //setting on the hashmap
         newLocation = new Coordinates(location); //init move-probing location
         possibleMoves = new ArrayList<MoveCandidate>(1); //init move list
           
@@ -28,7 +29,8 @@ public class King extends Piece{
     @Override
     public List<MoveCandidate> checkPossibleMoves() {
         possibleMoves.clear();
-        setActiveBoard(getEngine().getMainBoard());
+        this.setActiveBoard(getActiveBoard().getEngine().getMainBoard()); // gets updated board via engine
+
         checkKingMove();
         for (MoveCandidate king: possibleMoves)
             System.out.println(king);
@@ -91,9 +93,9 @@ public class King extends Piece{
     }
 
     @Override
-    public Piece clone(Coordinates coord) {
+    public Piece clone(Coordinates coord, Board newBoard) {
         Coordinates newCoord = new Coordinates(coord);
-        return new King(this.getPlayer(), newCoord, this.getEngine());
+        return new King(this.getPlayer(), newCoord, newBoard);
     } 
     
 

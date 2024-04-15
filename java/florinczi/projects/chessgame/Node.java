@@ -31,7 +31,7 @@ public class Node {
 
     
 
-    public Node(Node parent, MoveCandidate seed, de){
+    public Node(Node parent, MoveCandidate seed){
         this.depth = parent.getDepth() + 1;
         this.seed = seed;  
         this.targetDepth = targetDepth;

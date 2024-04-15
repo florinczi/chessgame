@@ -5,20 +5,20 @@ import static florinczi.projects.chessgame.pieces.SpecialMoves.CAPTURE;
 import java.util.ArrayList;
 import java.util.List;
 import florinczi.projects.chessgame.Coordinates;
-import florinczi.projects.chessgame.Engine;
+import florinczi.projects.chessgame.Board;
 import florinczi.projects.chessgame.MoveCandidate;
 import florinczi.projects.chessgame.Vector;
 
 public class Rook extends Piece{
 
-    public Rook(PlayerColor player, Coordinates location, Engine engine) {
-        super(player, engine); //adding color and engine ref
+    public Rook(PlayerColor player, Coordinates location, Board board) {
+        super(player, board); //adding color and engine ref
 
         if (player == PlayerColor.BLACK) super.setShortType('r');
         else super.setShortType('R'); // setting "visuals"
 
         super.setLocation(new Coordinates(location)); //setting inner coords
-        engine.getMainBoard().putPiece(this, location); //setting on the hashmap
+        board.putPiece(this, location); //setting on the hashmap
         newLocation = new Coordinates(location); //init move-probing location
         possibleMoves = new ArrayList<MoveCandidate>(1); //init move list
     }
@@ -26,7 +26,8 @@ public class Rook extends Piece{
     @Override
     public List<MoveCandidate> checkPossibleMoves() {
         possibleMoves.clear();
-        setActiveBoard(getEngine().getMainBoard());
+        this.setActiveBoard(getActiveBoard().getEngine().getMainBoard()); // gets updated board via engine
+
         checkLineMove(new Vector(-1, 0)); //west
         checkLineMove(new Vector(1, 0)); //east
         checkLineMove(new Vector(0, 1)); //north
@@ -36,9 +37,9 @@ public class Rook extends Piece{
     }
 
     @Override
-    public Piece clone(Coordinates coord) {
+    public Piece clone(Coordinates coord, Board newBoard) {
         Coordinates newCoord = new Coordinates(coord);
-        return new Rook(this.getPlayer(), newCoord, this.getEngine());
+        return new Rook(this.getPlayer(), newCoord, newBoard);
     } 
 
     Coordinates newLocation;

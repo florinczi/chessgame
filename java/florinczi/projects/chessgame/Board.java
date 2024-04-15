@@ -23,6 +23,10 @@ public class Board {
 
    
 
+    public Engine getEngine() {
+        return engine;
+    }
+
     public King getBlackKing() {
         return blackKing;
     }
@@ -85,27 +89,27 @@ public class Board {
         nowPlaying = WHITE;
             
         for (int i = 1; i <= 8; i++){
-            new Pawn(BLACK, new Coordinates(i, 7), engine);
-            new Pawn(WHITE, new Coordinates(i, 2), engine);
+            new Pawn(BLACK, new Coordinates(i, 7), this);
+            new Pawn(WHITE, new Coordinates(i, 2), this);
         }
         
-        new Rook(BLACK, new Coordinates(1, 8), engine);
-        new Knight(BLACK, new Coordinates(2, 8), engine);
-        new Bishop(BLACK, new Coordinates(3, 8), engine);
-        new Queen(BLACK, new Coordinates(4, 8), engine);
-        new King(BLACK, new Coordinates(5, 8), engine);
-        new Bishop(BLACK, new Coordinates(6, 8), engine);
-        new Knight(BLACK, new Coordinates(7, 8), engine);
-        new Rook(BLACK, new Coordinates(8, 8), engine);
+        new Rook(BLACK, new Coordinates(1, 8), this);
+        new Knight(BLACK, new Coordinates(2, 8), this);
+        new Bishop(BLACK, new Coordinates(3, 8), this);
+        new Queen(BLACK, new Coordinates(4, 8), this);
+        new King(BLACK, new Coordinates(5, 8), this);
+        new Bishop(BLACK, new Coordinates(6, 8), this);
+        new Knight(BLACK, new Coordinates(7, 8), this);
+        new Rook(BLACK, new Coordinates(8, 8), this);
         
-        new Rook(WHITE, new Coordinates(1, 1), engine);
-        new Knight(WHITE, new Coordinates(2, 1), engine);
-        new Bishop(WHITE, new Coordinates(3, 1), engine);
-        new Queen(WHITE, new Coordinates(4, 1), engine);
-        new King(WHITE, new Coordinates(5, 1), engine);
-        new Bishop(WHITE, new Coordinates(6, 1), engine);
-        new Knight(WHITE, new Coordinates(7, 1), engine);
-        new Rook(WHITE, new Coordinates(8, 1), engine);
+        new Rook(WHITE, new Coordinates(1, 1), this);
+        new Knight(WHITE, new Coordinates(2, 1), this);
+        new Bishop(WHITE, new Coordinates(3, 1), this);
+        new Queen(WHITE, new Coordinates(4, 1), this);
+        new King(WHITE, new Coordinates(5, 1), this);
+        new Bishop(WHITE, new Coordinates(6, 1), this);
+        new Knight(WHITE, new Coordinates(7, 1), this);
+        new Rook(WHITE, new Coordinates(8, 1), this);
     }
     
 
@@ -122,15 +126,15 @@ public class Board {
           
     }
 
-    public void putClonedPiece (PieceAction piece, Coordinates coord){ 
+    public void putClonedPiece (PieceAction piece, Coordinates coord, Board newBoard){ 
         
-        getBoardmap().put(coord, piece.clone(coord));
+        getBoardmap().put(coord, piece.clone(coord, newBoard));
    
     }
 
-    public void replaceWClonedPiece (PieceAction pieceaction, Coordinates coord){ 
+    public void replaceWClonedPiece (PieceAction pieceaction, Coordinates coord, Board newBoard){ 
         
-        getBoardmap().replace(coord, pieceaction.clone(coord));
+        getBoardmap().replace(coord, pieceaction.clone(coord, newBoard));
    
     }
 

@@ -3,31 +3,31 @@ package florinczi.projects.chessgame.pieces;
 import java.util.ArrayList;
 import java.util.List;
 
+import florinczi.projects.chessgame.Board;
 import florinczi.projects.chessgame.Coordinates;
-import florinczi.projects.chessgame.Engine;
 import florinczi.projects.chessgame.MoveCandidate;
 import florinczi.projects.chessgame.Vector;
 import static florinczi.projects.chessgame.pieces.SpecialMoves.CAPTURE;
 
 public class Bishop extends Piece{
 
-    public Bishop(PlayerColor player, Coordinates location, Engine engine) {
-        super(player, engine); //adding color and engine ref
+    public Bishop(PlayerColor player, Coordinates location, Board board) {
+        super(player, board); //adding color and engine ref
 
         if (player == PlayerColor.BLACK) super.setShortType('b');
         else super.setShortType('B'); // setting "visuals"
 
         super.setLocation(new Coordinates(location)); //setting inner coords
-        engine.getMainBoard().putPiece(this, location); //setting on the hashmap
+        board.putPiece(this, location); //setting on the hashmap
         newLocation = new Coordinates(location); //init move-probing location
         possibleMoves = new ArrayList<MoveCandidate>(1); //init move list
     
     }
 
    
-    public Bishop clone(Coordinates coord){
+    public Bishop clone(Coordinates coord, Board newBoard){
         Coordinates newCoord = new Coordinates(coord);
-        return new Bishop(this.getPlayer(), newCoord, this.getEngine());
+        return new Bishop(this.getPlayer(), newCoord, newBoard);
         
     }
 
@@ -36,7 +36,7 @@ public class Bishop extends Piece{
     @Override
     public List<MoveCandidate> checkPossibleMoves() {
         possibleMoves.clear();
-        setActiveBoard(getEngine().getMainBoard());
+        this.setActiveBoard(getActiveBoard().getEngine().getMainBoard()); // gets updated board via engine
         checkLineMove(new Vector(-1, -1)); //southwest
         checkLineMove(new Vector(1, 1)); //northeast
         checkLineMove(new Vector(-1, 1)); //northwest
