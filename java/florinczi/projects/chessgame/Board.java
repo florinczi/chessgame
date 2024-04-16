@@ -2,26 +2,34 @@ package florinczi.projects.chessgame;
 
 import florinczi.projects.chessgame.pieces.*;
 import static florinczi.projects.chessgame.pieces.PlayerColor.*;
-import static florinczi.projects.chessgame.pieces.SpecialMoves.*;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 public class Board {
-
-    
-
-    
+      
     private Map<Coordinates, Piece> boardmap;
-    private List<MoveCandidate> moveList;
     private King blackKing;
     private King whiteKing;
     private PlayerColor nowPlaying;
     private Engine engine;
 
    
+
+    public Board(Engine engine) {   //(int iteration, int depth)
+
+        this.engine = engine;
+        boardmap = new HashMap<>();
+
+    }
+
+    public Board (Board board)
+    {
+        this.boardmap = new HashMap<>(board.boardmap);
+        this.nowPlaying = board.nowPlaying;
+        this.engine = board.engine;
+        
+    }
 
     public Engine getEngine() {
         return engine;
@@ -42,6 +50,8 @@ public class Board {
     public void setWhiteKing(King whiteKing) {
         this.whiteKing = whiteKing;
     }
+    
+
 
     public char printSquare(int x, int y) {
         Coordinates coord = new Coordinates(x, y);
@@ -53,8 +63,6 @@ public class Board {
     public boolean isSquareFree(Coordinates coord){
         return (!boardmap.containsKey(coord));
     }
-    
-
 
     public Map<Coordinates, Piece> getBoardmap() {
         return boardmap;
@@ -63,19 +71,11 @@ public class Board {
     public PlayerColor getNowPlaying() {
         return nowPlaying;
     }
-
+   
     public void setNowPlaying(PlayerColor nowPlaying) {
         this.nowPlaying = nowPlaying;
     }
 
-    public Board(Engine engine) {   //(int iteration, int depth)
-
-        this.engine = engine;
-        boardmap = new HashMap<>();
-        moveList = new ArrayList<>();
-
-    }
-   
     public List <MoveCandidate> genMoves(){
         List <MoveCandidate> boardMoveList = new ArrayList<>();
         for (PieceAction p: getBoardmap().values()){
@@ -83,6 +83,7 @@ public class Board {
         }
         return boardMoveList;
     }
+    
 
     public void newGame() {
        
@@ -111,15 +112,6 @@ public class Board {
         new Knight(WHITE, new Coordinates(7, 1), this);
         new Rook(WHITE, new Coordinates(8, 1), this);
     }
-    
-
-    public Board (Board board)
-    {
-        this.boardmap = new HashMap<>(board.boardmap);
-        this.nowPlaying = board.nowPlaying;
-        this.engine = board.engine;
-        
-    }
 
     public void putPiece (Piece piece, Coordinates coord){ 
                boardmap.put(coord, piece);
@@ -143,12 +135,10 @@ public class Board {
     }
     
     public Board prepareMove(MoveCandidate moveCandidate){
-        Coordinates coord = moveCandidate.getCoord();
-       
+                
         Piece piece = getPiece(moveCandidate.getCoord());
         PieceAction pa = piece;
-        
-        
+                
         if (piece == null){
             System.out.println("No piece on this coordinates");
             return null;
@@ -162,10 +152,7 @@ public class Board {
 
         Board testBoard = new Board(this);
         
-        piece.movePiece(moveCandidate, testBoard); //move it with MoveCandidate on testBoard
-              
-    
-        
+        piece.movePiece(moveCandidate, testBoard); //move it with MoveCandidate on testBoard   
         return testBoard;
     }
     
@@ -177,8 +164,4 @@ public class Board {
             setNowPlaying(WHITE);
         
     }
-
-   
-
-
 }

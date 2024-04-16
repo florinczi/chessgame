@@ -5,6 +5,7 @@ import static florinczi.projects.chessgame.pieces.SpecialMoves.PROMOTE;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import florinczi.projects.chessgame.Board;
 import florinczi.projects.chessgame.Coordinates;
@@ -40,8 +41,42 @@ public class Pawn extends Piece{
     
 
 
-    void promote (Pawn pawn){
-        //TODO important so the pawns don't fall off the board
+    void promoteHuman (){
+        boolean success = false;
+        while (!success){
+            try (Scanner scanner = new Scanner(System.in)) {
+                System.out.println("Choose promotion for the pawn:");
+                System.out.println("q for Queen, n for Knight, b for Bishop, r for Rook :");
+                String input;
+                input = scanner.nextLine();
+                                     
+                switch (input.charAt(0)){
+                    case 'q':
+                        getActiveBoard().getBoardmap().replace(newLocation, new Queen(getPlayer(), newLocation, getActiveBoard()));
+                        success = true;
+                        break;
+                    case 'n':
+                        getActiveBoard().getBoardmap().replace(newLocation, new Knight(getPlayer(), newLocation, getActiveBoard()));
+                        success = true;
+                        break;
+                    case 'b':
+                        getActiveBoard().getBoardmap().replace(newLocation, new Bishop(getPlayer(), newLocation, getActiveBoard()));
+                        success = true;
+                        break;
+                    case 'r':
+                        getActiveBoard().getBoardmap().replace(newLocation, new Rook(getPlayer(), newLocation, getActiveBoard()));
+                        success = true;
+                        break;
+                    default:
+                        System.out.println("Wrong input, try again:");
+                }
+            }        
+        }
+
+    }
+
+    private void promoteAI(char choice){
+
 
     }
 
@@ -91,10 +126,17 @@ public class Pawn extends Piece{
         if (!newLocation.isValidVector(probe))
             return;
         newLocation.addVector(probe);
-        if (!getActiveBoard().isSquareFree(newLocation))
+
+        if (!getActiveBoard().isSquareFree(newLocation)){
+            if (newLocation.getY() == 8 || newLocation.getY() == 1) {
+                possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.CAPTUREPROMOTE));
+            }
+        else{
             possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.CAPTURE));
-        
+            }
+        }
     }
+    
 
     private void rightSideCapture() {
         newLocation.set(getLocation()); 
@@ -103,11 +145,17 @@ public class Pawn extends Piece{
             return;
         newLocation.addVector(probe);
         
-        if (!getActiveBoard().isSquareFree(newLocation))
-    
-            possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.CAPTURE));
-        
+        if (!getActiveBoard().isSquareFree(newLocation)){
+            if (newLocation.getY() == 8 || newLocation.getY() == 1) {
+                possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.CAPTUREPROMOTE));
+            }
+            else{
+                possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.CAPTURE));
+            }
+        }
     }
+
+   
 
     @Override
     public Piece clone(Coordinates coord, Board newBoard) {

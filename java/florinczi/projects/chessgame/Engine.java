@@ -1,14 +1,11 @@
 package florinczi.projects.chessgame;
 
-import java.util.List;
-import java.util.LinkedList;
 
-import florinczi.projects.chessgame.pieces.PieceAction;
 
 public class Engine {
 
     private Board mainBoard;
-
+    
     
     public void setMainBoard(Board mainBoard) {
         this.mainBoard = mainBoard;
