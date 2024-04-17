@@ -8,6 +8,10 @@ public class MoveCandidate {
     private Vector vector;
 
     private Coordinates coordinates;
+    private char promoteTo;
+    public char getPromoteTo() {
+        return promoteTo;
+    }
 
     private SpecialMoves specialMove;
 
@@ -34,6 +38,15 @@ public class MoveCandidate {
 
 
     public MoveCandidate (Coordinates coordinates, Vector vector, SpecialMoves specialMove){
+        this.coordinates = new Coordinates(coordinates);
+        this.vector = new Vector(vector);
+        setSpecialMove(specialMove);
+        this.promoteTo = '0';
+        
+    }
+    
+    public MoveCandidate (Coordinates coordinates, Vector vector, SpecialMoves specialMove, char promoteTo){
+        this.promoteTo = promoteTo;
         this.coordinates = new Coordinates(coordinates);
         this.vector = new Vector(vector);
         setSpecialMove(specialMove);

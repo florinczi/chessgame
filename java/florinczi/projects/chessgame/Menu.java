@@ -5,13 +5,16 @@ import java.util.Scanner;
 public class Menu {
 
     private Scanner scanner;
+    public Scanner getScanner() {
+        return scanner;
+    }
     private boolean exit;
     protected Engine engine;
     
     public Menu (){
         scanner = new Scanner(System.in);
         exit = false;
-        engine = new Engine();
+        engine = new Engine(this);
     }
 
     public void mainMenu(){
@@ -108,7 +111,7 @@ public class Menu {
             }
         MoveCandidate moveCandidate = new MoveCandidate(from, to);
         
-        engine.movePiece(moveCandidate);
+        engine.movePieceHuman(moveCandidate);
         return true;
 
     }

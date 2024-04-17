@@ -1,12 +1,22 @@
 package florinczi.projects.chessgame;
 
-
+import florinczi.projects.chessgame.pieces.Pawn;
 
 public class Engine {
 
     private Board mainBoard;
+    private Menu menu;
     
     
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public Engine(Menu menu) {
+
+        this.menu = menu;
+    }
+
     public void setMainBoard(Board mainBoard) {
         this.mainBoard = mainBoard;
     }
@@ -21,13 +31,16 @@ public class Engine {
     }
 
 
-    public void movePiece(MoveCandidate moveCandidate){
+    public void movePieceHuman(MoveCandidate moveCandidate){
         Board testBoard = mainBoard.prepareMove(moveCandidate);
         if (testBoard == null){ //movePiece returns null when invalid move has been passed
             System.out.println("Invalid move.");
             return;
         }
         mainBoard = testBoard;
+        if (mainBoard.getPiece(moveCandidate.getCoord()) instanceof Pawn && (moveCandidate.getCoord().getY() == 8 || moveCandidate.getCoord().getY() == 1)){
+            ((Pawn)mainBoard.getPiece(moveCandidate.getCoord())).promoteHuman();
+            }
         mainBoard.changePlayers();
         
     }

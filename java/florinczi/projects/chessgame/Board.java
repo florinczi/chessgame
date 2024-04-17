@@ -93,7 +93,7 @@ public class Board {
             new Pawn(BLACK, new Coordinates(i, 7), this);
             new Pawn(WHITE, new Coordinates(i, 2), this);
         }
-        
+        new Pawn (WHITE, new Coordinates(1, 6), this);
         new Rook(BLACK, new Coordinates(1, 8), this);
         new Knight(BLACK, new Coordinates(2, 8), this);
         new Bishop(BLACK, new Coordinates(3, 8), this);
@@ -118,6 +118,23 @@ public class Board {
           
     }
 
+    public void promotePawn (char choice, PlayerColor pc, Coordinates coord, Board newBoard){ 
+        Piece piece;
+        switch (choice){
+            case 'q': piece = new Queen(pc, coord, newBoard);
+            break;
+            case 'r': piece = new Rook(pc, coord, newBoard);
+            break;
+            case 'b': piece = new Bishop(pc, coord, newBoard);
+            break;
+            case 'n': piece = new Knight(pc, coord, newBoard);
+            break;
+            default: piece = new Queen(pc, coord, newBoard);
+        }
+        boardmap.put(coord, piece);
+   
+}
+
     public void putClonedPiece (PieceAction piece, Coordinates coord, Board newBoard){ 
         
         getBoardmap().put(coord, piece.clone(coord, newBoard));
@@ -129,6 +146,8 @@ public class Board {
         getBoardmap().replace(coord, pieceaction.clone(coord, newBoard));
    
     }
+
+    
 
     public Piece getPiece(Coordinates coord){
         return boardmap.get(coord);
@@ -145,13 +164,15 @@ public class Board {
         }
         pa.checkPossibleMoves();
 
-        if (piece.getPlayer() != getNowPlaying())
+        if (piece.getPlayer() != getNowPlaying()){
+            System.out.println("Wrong player");
             return null;
-        if (!piece.isValidMove(moveCandidate))
+        }
+        if (!piece.isValidMove(moveCandidate)){
+            System.out.println("Invalid move");
             return null;
-
+        }
         Board testBoard = new Board(this);
-        
         piece.movePiece(moveCandidate, testBoard); //move it with MoveCandidate on testBoard   
         return testBoard;
     }

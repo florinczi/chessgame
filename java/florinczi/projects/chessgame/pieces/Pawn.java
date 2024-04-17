@@ -41,45 +41,45 @@ public class Pawn extends Piece{
     
 
 
-    void promoteHuman (){
+    public void promoteHuman (){
         boolean success = false;
         while (!success){
-            try (Scanner scanner = new Scanner(System.in)) {
+                Scanner scanner = getActiveBoard().getEngine().getMenu().getScanner(); // :D
                 System.out.println("Choose promotion for the pawn:");
                 System.out.println("q for Queen, n for Knight, b for Bishop, r for Rook :");
                 String input;
                 input = scanner.nextLine();
+                System.out.println("Promoted to");
                                      
                 switch (input.charAt(0)){
                     case 'q':
-                        getActiveBoard().getBoardmap().replace(newLocation, new Queen(getPlayer(), newLocation, getActiveBoard()));
+                        getActiveBoard().getBoardmap().replace(getLocation(), new Queen(getPlayer(), getLocation(), getActiveBoard()));
+                        System.out.println("Promoted to Queen!");
                         success = true;
                         break;
                     case 'n':
-                        getActiveBoard().getBoardmap().replace(newLocation, new Knight(getPlayer(), newLocation, getActiveBoard()));
+                        getActiveBoard().getBoardmap().replace(getLocation(), new Knight(getPlayer(), getLocation(), getActiveBoard()));
+                        System.out.println("Promoted to Knight!");
                         success = true;
                         break;
                     case 'b':
-                        getActiveBoard().getBoardmap().replace(newLocation, new Bishop(getPlayer(), newLocation, getActiveBoard()));
+                        getActiveBoard().getBoardmap().replace(getLocation(), new Bishop(getPlayer(), getLocation(), getActiveBoard()));
+                        System.out.println("Promoted to Bishop!");
                         success = true;
                         break;
                     case 'r':
-                        getActiveBoard().getBoardmap().replace(newLocation, new Rook(getPlayer(), newLocation, getActiveBoard()));
+                        getActiveBoard().getBoardmap().replace(getLocation(), new Rook(getPlayer(), getLocation(), getActiveBoard()));
+                        System.out.println("Promoted to Rook!");
                         success = true;
                         break;
                     default:
                         System.out.println("Wrong input, try again:");
-                }
+                
             }        
         }
 
     }
-
-    private void promoteAI(char choice){
-
-
-    }
-
+    
     @Override
     public List<MoveCandidate> checkPossibleMoves() {
         possibleMoves.clear();
@@ -98,8 +98,12 @@ public class Pawn extends Piece{
         probe.set(0, moveDirection);
         newLocation.addVector(probe);
         if (getActiveBoard().isSquareFree(newLocation)){
-            if (newLocation.getY() == 8 || newLocation.getY() == 1)                
-                possibleMoves.add(new MoveCandidate(getLocation(), probe, PROMOTE));
+            if (newLocation.getY() == 8 || newLocation.getY() == 1){               
+                possibleMoves.add(new MoveCandidate(getLocation(), probe, PROMOTE, 'q'));
+                possibleMoves.add(new MoveCandidate(getLocation(), probe, PROMOTE, 'r'));
+                possibleMoves.add(new MoveCandidate(getLocation(), probe, PROMOTE, 'b'));
+                possibleMoves.add(new MoveCandidate(getLocation(), probe, PROMOTE, 'n'));
+            }
             else
                  possibleMoves.add(new MoveCandidate(getLocation(), probe));
         }
@@ -129,7 +133,10 @@ public class Pawn extends Piece{
 
         if (!getActiveBoard().isSquareFree(newLocation)){
             if (newLocation.getY() == 8 || newLocation.getY() == 1) {
-                possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.CAPTUREPROMOTE));
+                possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.PROMOTE, 'q'));
+                possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.PROMOTE, 'r'));
+                possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.PROMOTE, 'b'));
+                possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.PROMOTE, 'n'));
             }
         else{
             possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.CAPTURE));
@@ -147,7 +154,10 @@ public class Pawn extends Piece{
         
         if (!getActiveBoard().isSquareFree(newLocation)){
             if (newLocation.getY() == 8 || newLocation.getY() == 1) {
-                possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.CAPTUREPROMOTE));
+                possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.PROMOTE, 'q'));
+                possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.PROMOTE, 'r'));
+                possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.PROMOTE, 'b'));
+                possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.PROMOTE, 'n'));
             }
             else{
                 possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.CAPTURE));
