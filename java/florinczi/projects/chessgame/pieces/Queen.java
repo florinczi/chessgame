@@ -20,24 +20,25 @@ public class Queen extends Piece{
         board.putPiece(this, location); //setting on the hashmap
         newLocation = new Coordinates(location); //init move-probing location
         possibleMoves = new ArrayList<MoveCandidate>(1); //init move list
+        vector = new Vector();
     
     }
 
     private Coordinates newLocation;
+    private Vector vector;
 
     @Override
     public List<MoveCandidate> checkPossibleMoves() {
         possibleMoves.clear();
         this.setActiveBoard(getActiveBoard().getEngine().getMainBoard()); // gets updated board via engine
 
-        checkLineMove(new Vector(-1, 0)); //west
-        checkLineMove(new Vector(1, 0)); //east
-        checkLineMove(new Vector(0, 1)); //north
-        checkLineMove(new Vector(0, -1)); //south
-        checkLineMove(new Vector(-1, -1)); //southwest
-        checkLineMove(new Vector(1, 1)); //northeast
-        checkLineMove(new Vector(-1, 1)); //northwest
-        checkLineMove(new Vector(1, -1)); //southeast
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) { //iterate through all directions
+                if (i == 0 && j == 0) continue; // Skip the king's own position
+                vector.set(i, j);
+                checkLineMove(vector); //check this direction
+            }
+        }
         return possibleMoves;
     }
 
@@ -61,8 +62,6 @@ public class Queen extends Piece{
         
         if(getActiveBoard().getPiece(newLocation).getPlayer() != getPlayer()) //if the Piece is the opposite color, this is also a valid move (capture)
             possibleMoves.add(new MoveCandidate(getLocation(), vector, CAPTURE)); 
-
-
     }
     
     @Override

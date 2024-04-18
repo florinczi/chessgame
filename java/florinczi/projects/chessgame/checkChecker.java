@@ -12,6 +12,15 @@ import florinczi.projects.chessgame.pieces.Rook;
 
 public class CheckChecker {
 
+
+
+   /*
+    Can be further enhanced by limiting the checks according to pieces actually onboard 
+
+
+    */
+
+
    public CheckChecker(){
       this.king = new Coordinates(0,0);
       this.probe = new Coordinates(0,0);
