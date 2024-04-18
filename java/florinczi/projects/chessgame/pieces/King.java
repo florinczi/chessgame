@@ -1,5 +1,6 @@
 package florinczi.projects.chessgame.pieces;
 import static florinczi.projects.chessgame.pieces.SpecialMoves.CAPTURE;
+import static florinczi.projects.chessgame.pieces.PlayerColor.BLACK;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,12 +21,22 @@ public class King extends Piece{
         board.putPiece(this, location); //setting on the hashmap
         newLocation = new Coordinates(location); //init move-probing location
         possibleMoves = new ArrayList<MoveCandidate>(1); //init move list
+        this.hasMoved = false; //freshly spawned king
           
     }
 
+
     private Coordinates newLocation; 
-    boolean hasMoved = false;
+    boolean hasMoved;
     
+    public boolean isHasMoved() {
+        return hasMoved;
+    }
+
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
+    }
+
     @Override
     public List<MoveCandidate> checkPossibleMoves() {
         possibleMoves.clear();
@@ -95,7 +106,13 @@ public class King extends Piece{
     @Override
     public Piece clone(Coordinates coord, Board newBoard) {
         Coordinates newCoord = new Coordinates(coord);
-        return new King(this.getPlayer(), newCoord, newBoard);
+        King king = new King(this.getPlayer(), newCoord, newBoard);
+        if (king.getPlayer() == BLACK)
+            newBoard.setBlackKing(king);
+        else
+            newBoard.setWhiteKing(king);
+        king.hasMoved = true; //if it gets cloned - it gets moved
+        return king;
     } 
     
 

@@ -21,6 +21,7 @@ public class Rook extends Piece{
         board.putPiece(this, location); //setting on the hashmap
         newLocation = new Coordinates(location); //init move-probing location
         possibleMoves = new ArrayList<MoveCandidate>(1); //init move list
+        this.hasMoved = false; //this is freshly spawned rook
     }
 
     @Override
@@ -39,11 +40,13 @@ public class Rook extends Piece{
     @Override
     public Piece clone(Coordinates coord, Board newBoard) {
         Coordinates newCoord = new Coordinates(coord);
-        return new Rook(this.getPlayer(), newCoord, newBoard);
+        Rook rook = new Rook(this.getPlayer(), newCoord, newBoard);
+        rook.hasMoved = true;
+        return rook;
     } 
 
     Coordinates newLocation;
-    boolean hasMoved = false;
+    boolean hasMoved;
     
 
     public boolean hasMoved() {
