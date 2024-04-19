@@ -7,7 +7,7 @@ import florinczi.projects.chessgame.util.MoveCandidate;
 import florinczi.projects.chessgame.util.Parser;
 
 public class Menu {
-
+    //added testing scenarios
     private Scanner scanner;
     public Scanner getScanner() {
         return scanner;
