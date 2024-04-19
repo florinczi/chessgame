@@ -40,6 +40,7 @@ public class Rook extends Piece{
     @Override
     public Piece clone(Coordinates coord, Board newBoard) {
         Coordinates newCoord = new Coordinates(coord);
+        newBoard.removePiece(this.getLocation());
         Rook rook = new Rook(this.getPlayer(), newCoord, newBoard);
         rook.hasMoved = true;
         return rook;

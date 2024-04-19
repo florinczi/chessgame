@@ -22,8 +22,8 @@ public class CheckChecker {
 
 
    public CheckChecker(){
-      this.king = new Coordinates(0,0);
-      this.probe = new Coordinates(0,0);
+      this.king = new Coordinates();
+      this.probe = new Coordinates();
       this.vector = new Vector();
    }
 
@@ -102,7 +102,8 @@ public class CheckChecker {
       while (!collision){ //incrementing and adding moves until a Piece detected
          probe.set(king);
          if (!probe.isValidVector(vector))
-            probe.addVector(vector);
+            return false;
+         probe.addVector(vector);
 
          if (activeBoard.isSquareFree(probe))
             vector.incrementDirection();

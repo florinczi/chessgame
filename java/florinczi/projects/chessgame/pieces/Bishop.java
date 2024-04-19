@@ -26,6 +26,7 @@ public class Bishop extends Piece{
 
    
     public Bishop clone(Coordinates coord, Board newBoard){
+        newBoard.removePiece(this.getLocation());
         Coordinates newCoord = new Coordinates(coord);
         return new Bishop(this.getPlayer(), newCoord, newBoard);
         

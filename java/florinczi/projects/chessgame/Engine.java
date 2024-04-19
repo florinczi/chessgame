@@ -6,8 +6,13 @@ public class Engine {
 
     private Board mainBoard;
     private Menu menu;
+    CheckChecker checkChecker;
     
     
+    public CheckChecker getCheckChecker() {
+        return checkChecker;
+    }
+
     public Menu getMenu() {
         return menu;
     }
@@ -19,6 +24,7 @@ public class Engine {
 
     public void setMainBoard(Board mainBoard) {
         this.mainBoard = mainBoard;
+        checkChecker = new CheckChecker();
     }
 
     public Board getMainBoard() {

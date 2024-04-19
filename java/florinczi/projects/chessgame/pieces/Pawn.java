@@ -88,6 +88,7 @@ public class Pawn extends Piece{
         doubleMove();
         leftSideCapture();
         rightSideCapture();
+        System.out.println("Printing pawn Ln 92, possible moves");
         for (MoveCandidate mc: possibleMoves)
             System.out.println(mc);
        return possibleMoves;
@@ -169,6 +170,7 @@ public class Pawn extends Piece{
 
     @Override
     public Piece clone(Coordinates coord, Board newBoard) {
+        newBoard.removePiece(this.getLocation());
         Coordinates newCoord = new Coordinates(coord);
         return new Pawn(this.getPlayer(), newCoord, newBoard);
     }

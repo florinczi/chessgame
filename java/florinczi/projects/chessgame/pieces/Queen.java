@@ -66,6 +66,7 @@ public class Queen extends Piece{
     
     @Override
     public Piece clone(Coordinates coord, Board newBoard) {
+        newBoard.removePiece(this.getLocation());
         Coordinates newCoord = new Coordinates(coord);
         return new Queen(this.getPlayer(), newCoord, newBoard);
     } 

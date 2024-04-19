@@ -1,5 +1,8 @@
 package florinczi.projects.chessgame.pieces;
 
+import static florinczi.projects.chessgame.pieces.PlayerColor.BLACK;
+import static florinczi.projects.chessgame.pieces.SpecialMoves.LONGCASTLE;
+
 import java.util.List;
 
 import florinczi.projects.chessgame.Board;
@@ -62,17 +65,22 @@ public abstract class Piece implements PieceAction{
     int index = possibleMoves.indexOf(candidate);
     if (index == -1) 
         return false; 
+    candidate.setSpecialMove(possibleMoves.get(index).getSpecialMove()); // gets special move flag from Piece's internal move list
     return true;
     }
 
     @Override
     public void movePiece(MoveCandidate move, Board newBoard) {
+        if (move.getSpecialMove() == LONGCASTLE){
+            ((King) newBoard.getPiece(move.getCoord())).longCastle(newBoard);
+           
+        }
 
-        newBoard.getBoardmap().remove(move.getCoord()); //removed the piece from new board
         move.addVector(); // adding vector
-        if (move.getPromoteTo() != 0){
+        if (move.getPromoteTo() != 0){ //is the move a pawn promotion?
             newBoard.promotePawn(move.getPromoteTo(), this.getPlayer(), move.getCoord(), newBoard);
         }
+        
         if (newBoard.getBoardmap().containsKey(move.getCoord())) {
             newBoard.replaceWClonedPiece(this, move.getCoord(), newBoard);
         }

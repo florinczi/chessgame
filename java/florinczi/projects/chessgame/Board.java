@@ -95,9 +95,9 @@ public class Board {
         }
         new Pawn (WHITE, new Coordinates(1, 6), this);
         new Rook(BLACK, new Coordinates(1, 8), this);
-        new Knight(BLACK, new Coordinates(2, 8), this);
-        new Bishop(BLACK, new Coordinates(3, 8), this);
-        new Queen(BLACK, new Coordinates(4, 8), this);
+        //new Knight(BLACK, new Coordinates(2, 8), this);
+        //new Bishop(BLACK, new Coordinates(3, 8), this);
+        //new Queen(BLACK, new Coordinates(4, 8), this);
         new King(BLACK, new Coordinates(5, 8), this);
         new Bishop(BLACK, new Coordinates(6, 8), this);
         new Knight(BLACK, new Coordinates(7, 8), this);
@@ -151,6 +151,9 @@ public class Board {
 
     public Piece getPiece(Coordinates coord){
         return boardmap.get(coord);
+    }
+    public Piece removePiece(Coordinates coord){
+        return boardmap.remove(coord);
     }
     
     public Board prepareMove(MoveCandidate moveCandidate){

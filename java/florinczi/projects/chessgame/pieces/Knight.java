@@ -61,6 +61,7 @@ public class Knight extends Piece{
 
     @Override
     public Piece clone(Coordinates coord, Board newBoard) {
+        newBoard.removePiece(this.getLocation());
         Coordinates newCoord = new Coordinates(coord);
         return new Knight(this.getPlayer(), newCoord, newBoard);
     }    
