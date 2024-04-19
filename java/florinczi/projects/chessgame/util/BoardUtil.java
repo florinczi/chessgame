@@ -1,7 +1,8 @@
-package florinczi.projects.chessgame;
+package florinczi.projects.chessgame.util;
 import static florinczi.projects.chessgame.pieces.PlayerColor.BLACK;
 import static florinczi.projects.chessgame.pieces.PlayerColor.WHITE;
 
+import florinczi.projects.chessgame.Board;
 import florinczi.projects.chessgame.pieces.*;
 
 public class BoardUtil {

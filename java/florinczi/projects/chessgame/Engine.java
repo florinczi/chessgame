@@ -1,5 +1,8 @@
 package florinczi.projects.chessgame;
 import florinczi.projects.chessgame.pieces.*;
+import florinczi.projects.chessgame.util.BoardUtil;
+import florinczi.projects.chessgame.util.Coordinates;
+import florinczi.projects.chessgame.util.MoveCandidate;
 
 public class Engine {
 

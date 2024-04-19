@@ -9,6 +9,8 @@ import florinczi.projects.chessgame.pieces.Pawn;
 import florinczi.projects.chessgame.pieces.PlayerColor;
 import florinczi.projects.chessgame.pieces.Queen;
 import florinczi.projects.chessgame.pieces.Rook;
+import florinczi.projects.chessgame.util.Coordinates;
+import florinczi.projects.chessgame.util.Vector;
 
 public class CheckChecker {
 

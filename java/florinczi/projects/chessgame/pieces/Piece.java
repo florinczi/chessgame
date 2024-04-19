@@ -6,9 +6,8 @@ import static florinczi.projects.chessgame.pieces.SpecialMoves.LONGCASTLE;
 import java.util.List;
 
 import florinczi.projects.chessgame.Board;
-import florinczi.projects.chessgame.Coordinates;
-
-import florinczi.projects.chessgame.MoveCandidate;
+import florinczi.projects.chessgame.util.Coordinates;
+import florinczi.projects.chessgame.util.MoveCandidate;
 
 public abstract class Piece implements PieceAction{
   

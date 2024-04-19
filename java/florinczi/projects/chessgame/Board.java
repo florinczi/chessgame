@@ -1,6 +1,9 @@
 package florinczi.projects.chessgame;
 
 import florinczi.projects.chessgame.pieces.*;
+import florinczi.projects.chessgame.util.Coordinates;
+import florinczi.projects.chessgame.util.MoveCandidate;
+
 import static florinczi.projects.chessgame.pieces.PlayerColor.*;
 import java.util.ArrayList;
 import java.util.HashMap;

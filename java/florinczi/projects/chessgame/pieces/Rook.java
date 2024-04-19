@@ -4,10 +4,11 @@ import static florinczi.projects.chessgame.pieces.SpecialMoves.CAPTURE;
 
 import java.util.ArrayList;
 import java.util.List;
-import florinczi.projects.chessgame.Coordinates;
+
 import florinczi.projects.chessgame.Board;
-import florinczi.projects.chessgame.MoveCandidate;
-import florinczi.projects.chessgame.Vector;
+import florinczi.projects.chessgame.util.Coordinates;
+import florinczi.projects.chessgame.util.MoveCandidate;
+import florinczi.projects.chessgame.util.Vector;
 
 public class Rook extends Piece{
 

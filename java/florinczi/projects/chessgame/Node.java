@@ -3,6 +3,7 @@ package florinczi.projects.chessgame;
 import java.util.List;
 
 import florinczi.projects.chessgame.pieces.Piece;
+import florinczi.projects.chessgame.util.MoveCandidate;
 
 public class Node {
 

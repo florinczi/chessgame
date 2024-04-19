@@ -1,4 +1,4 @@
-package florinczi.projects.chessgame;
+package florinczi.projects.chessgame.util;
 
 import java.util.Objects;
 

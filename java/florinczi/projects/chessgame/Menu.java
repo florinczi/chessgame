@@ -2,6 +2,10 @@ package florinczi.projects.chessgame;
 
 import java.util.Scanner;
 
+import florinczi.projects.chessgame.util.Coordinates;
+import florinczi.projects.chessgame.util.MoveCandidate;
+import florinczi.projects.chessgame.util.Parser;
+
 public class Menu {
 
     private Scanner scanner;
