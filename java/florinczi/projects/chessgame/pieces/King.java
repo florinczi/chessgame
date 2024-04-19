@@ -140,7 +140,7 @@ public class King extends Piece{
     public void longCastle(Board newBoard){
         newLocation = getLocation();        
         newLocation.setX(3);
-        this.clone(newLocation, newBoard); // set the king
+       newBoard.putClonedPiece(this, newLocation, newBoard); // set the king
         newLocation.setX(4);
         Coordinates tempCoord = newLocation;
         tempCoord.setX(1);
