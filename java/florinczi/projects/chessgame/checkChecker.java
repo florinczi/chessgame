@@ -99,30 +99,39 @@ public class CheckChecker {
    private boolean checkLineMove(Vector vector){
 
       boolean collision = false;
+      int range = 0;
       while (!collision){ //incrementing and adding moves until a Piece detected
          probe.set(king);
          if (!probe.isValidVector(vector))
             return false;
          probe.addVector(vector);
+         range++;
 
          if (activeBoard.isSquareFree(probe))
             vector.incrementDirection();
-         else
-            collision = true;           
+         else{
+            collision = true;
+            if(range < 2 && activeBoard.getPiece(probe) instanceof King && activeBoard.getPiece(probe).getPlayer() != checkedPlayer){ //this checks only in range of 1
+               System.out.println(activeBoard.getPiece(probe) instanceof King);
+               System.out.println(activeBoard.getPiece(probe).getPlayer());
+               System.out.println(checkedPlayer);
+
+
+               return true;  
+            }         
+         }
       }
       
       if(activeBoard.getPiece(probe).getPlayer() != checkedPlayer &&
          vector.getX() + vector.getY() % 2 == 0 &&                   //modulo is 0 for moves across files as rank ie not diagonal
          (activeBoard.getPiece(probe) instanceof Queen ||
-         activeBoard.getPiece(probe) instanceof Rook ||
-         activeBoard.getPiece(probe) instanceof King))
+         activeBoard.getPiece(probe) instanceof Rook))
             return true;
 
       if(activeBoard.getPiece(probe).getPlayer() != checkedPlayer &&
       vector.getX() + vector.getY() % 2 == 1 &&                   //modulo is 1 for diagonal moves
       (activeBoard.getPiece(probe) instanceof Queen ||
-      activeBoard.getPiece(probe) instanceof Bishop ||
-      activeBoard.getPiece(probe) instanceof King))
+      activeBoard.getPiece(probe) instanceof Bishop))
          return true;     
 
       return false;

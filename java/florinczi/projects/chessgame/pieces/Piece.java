@@ -72,23 +72,19 @@ public abstract class Piece implements PieceAction{
     @Override
     public void movePiece(MoveCandidate move, Board newBoard) {
         if (move.getSpecialMove() == LONGCASTLE){
-            ((King) newBoard.getPiece(move.getCoord())).longCastle(newBoard);
-           
+            ((King) newBoard.getPiece(move.getCoord())).longCastle(newBoard);        
+            return;
         }
 
         move.addVector(); // adding vector
         if (move.getPromoteTo() != 0){ //is the move a pawn promotion?
-            newBoard.promotePawn(move.getPromoteTo(), this.getPlayer(), move.getCoord(), newBoard);
+            newBoard.getEngine().promotePawn(move.getPromoteTo(), move.getCoord(), newBoard);
         }
         
-        if (newBoard.getBoardmap().containsKey(move.getCoord())) {
-            newBoard.replaceWClonedPiece(this, move.getCoord(), newBoard);
-        }
-        else {
-            newBoard.putClonedPiece(this, move.getCoord(), newBoard);
-        }
-        this.activeBoard = newBoard;
-        //now back to Engine
+        newBoard.putClonedPiece(this, move.getCoord());
+        
+       
+        
     }
 
     

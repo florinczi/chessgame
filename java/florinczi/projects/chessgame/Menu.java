@@ -21,21 +21,21 @@ public class Menu {
         while(!exit){
          System.out.println("Let's play some chess!");
          System.out.println("1: New game");
-         System.out.println("2: Save game");
-         System.out.println("0: Load game");
+         System.out.println("2: Pawn capture and promotion test");
+         System.out.println("3: Castling test");
          System.out.println("0: Exit");
          int choice = scanner.nextInt();
          scanner.nextLine();
 
             switch (choice) {
                 case 1:
-                    game();
+                    game1();
                     break;
                 case 2:
-                    System.out.println("Not yet supported");
+                    game2();
                     break;
                 case 3:
-                    System.out.println("Not yet supported");
+                    game3();
                     break;
                 case 0:
                     exit = true;
@@ -71,19 +71,37 @@ public class Menu {
                
     }    
 
-    public void game(){
+    public void game1(){
         
         boolean nextRound = true;
         engine.newGame();
         while(nextRound){
         printBoard(engine.getMainBoard());
         nextRound = getPlayerMove();
-
-
-
         }
-
     }
+
+    public void game2(){
+        
+        boolean nextRound = true;
+        engine.newGame2();
+        while(nextRound){
+        printBoard(engine.getMainBoard());
+        nextRound = getPlayerMove();
+        }
+    }
+
+    public void game3(){
+        
+        boolean nextRound = true;
+        engine.newGame3();
+        while(nextRound){
+        printBoard(engine.getMainBoard());
+        nextRound = getPlayerMove();
+        }
+    }
+
+
     public boolean getPlayerMove (){
 
         String input;

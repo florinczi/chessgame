@@ -7,7 +7,7 @@ import florinczi.projects.chessgame.Board;
 import florinczi.projects.chessgame.Coordinates;
 import florinczi.projects.chessgame.MoveCandidate;
 import florinczi.projects.chessgame.Vector;
-import static florinczi.projects.chessgame.pieces.SpecialMoves.CAPTURE;
+
 
 public class Bishop extends Piece{
 
@@ -64,7 +64,7 @@ public class Bishop extends Piece{
         }
         
         if(getActiveBoard().getPiece(newLocation).getPlayer() != getPlayer()) //if the Piece is the opposite color, this is also a valid move (capture)
-            possibleMoves.add(new MoveCandidate(getLocation(), vector, CAPTURE)); 
+            possibleMoves.add(new MoveCandidate(getLocation(), vector)); 
 
 
     }

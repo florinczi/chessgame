@@ -1,5 +1,5 @@
 package florinczi.projects.chessgame.pieces;
-import static florinczi.projects.chessgame.pieces.SpecialMoves.CAPTURE;
+
 import static florinczi.projects.chessgame.pieces.SpecialMoves.LONGCASTLE;
 import static florinczi.projects.chessgame.pieces.PlayerColor.BLACK;
 import java.util.ArrayList;
@@ -74,7 +74,7 @@ public class King extends Piece{
                     return;
             }
 
-        Coordinates checkCoordinates = new Coordinates();
+        Coordinates checkCoordinates = new Coordinates(); 
         
         if (getPlayer() == BLACK)
             checkCoordinates.setY(8);
@@ -84,7 +84,7 @@ public class King extends Piece{
         for (int i = 3; i < 6; i++)
         {
             checkCoordinates.setX(i);
-            if(checkChecker.checkChecks(checkCoordinates, getPlayer(), getActiveBoard()))
+            if(checkChecker.checkChecks(checkCoordinates, getPlayer(), getActiveBoard()))//tu jets stop
                 return;
             
         }
@@ -107,16 +107,13 @@ public class King extends Piece{
                 vector.set(x, y);
 
                 if (!newLocation.isValidVector(vector))
-                    return;
+                    continue;
 
                 newLocation.addVector(vector); //bounds check
                     
                     
-                if (getActiveBoard().isSquareFree(newLocation))
-                    possibleMoves.add(new MoveCandidate(getLocation(), vector)); // if it's empty, add to list
-
-                else if (getActiveBoard().getPiece(newLocation).getPlayer() != getPlayer()) //whose piece is it?
-                    possibleMoves.add(new MoveCandidate(getLocation(), vector, CAPTURE)); // if it's enemy's, add as a capture          
+                if (getActiveBoard().isSquareFree(newLocation) || getActiveBoard().getPiece(newLocation).getPlayer() != getPlayer())
+                    possibleMoves.add(new MoveCandidate(getLocation(), vector)); // if it's empty, or an enemy piece is on it, add to the move list      
                 
             } 
 
@@ -133,18 +130,18 @@ public class King extends Piece{
             newBoard.setBlackKing(king);
         else
             newBoard.setWhiteKing(king);
-        king.hasMoved = true; //if it gets cloned - it gets moved
+        king.hasMoved = true; //if it gets cloned - it means it gets moved
         return king;
     } 
 
     public void longCastle(Board newBoard){
-        newLocation = getLocation();        
+        newLocation.set(getLocation());        
         newLocation.setX(3);
-       newBoard.putClonedPiece(this, newLocation, newBoard); // set the king
+        newBoard.putClonedPiece(this, newLocation); // set the king
+        newLocation.setX(1);
+        Rook rook = (Rook) newBoard.getPiece(newLocation);
         newLocation.setX(4);
-        Coordinates tempCoord = newLocation;
-        tempCoord.setX(1);
-        newBoard.putClonedPiece(((Rook) newBoard.getPiece(tempCoord)).clone(newLocation, newBoard), tempCoord, newBoard); // set the rook
+        newBoard.putClonedPiece(rook, newLocation); // set the rook
 
 
 

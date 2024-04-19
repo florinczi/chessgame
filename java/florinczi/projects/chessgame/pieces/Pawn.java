@@ -1,5 +1,7 @@
 package florinczi.projects.chessgame.pieces;
 
+import static florinczi.projects.chessgame.pieces.PlayerColor.BLACK;
+import static florinczi.projects.chessgame.pieces.PlayerColor.WHITE;
 import static florinczi.projects.chessgame.pieces.SpecialMoves.DOUBLE;
 import static florinczi.projects.chessgame.pieces.SpecialMoves.PROMOTE;
 
@@ -31,15 +33,24 @@ public class Pawn extends Piece{
         newLocation = new Coordinates(location);
         probe = new Vector(0, 0);  //init move-probing location and vector
         possibleMoves = new ArrayList<MoveCandidate>(1);//init move list
+        if ((player == WHITE && location.getY() == 2) || (player == BLACK && location.getY() == 7))
+            hasMoved = false;
+        else 
+            hasMoved = true;
         }
 
     
     
-    int moveDirection; // which way is the pawn going?
-    Coordinates newLocation;
-    Vector probe;
+    private int moveDirection; // which way is the pawn going?
+    private Coordinates newLocation;
+    private Vector probe;
+    private boolean hasMoved;
     
 
+
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
+    }
 
     public void promoteHuman (){
         boolean success = false;
@@ -111,10 +122,8 @@ public class Pawn extends Piece{
     }
 
     private void doubleMove() {
-        System.out.println(getLocation().getY());
-        if (getLocation().getY() != 7 && getLocation().getY() != 2) //check if the pawn have moved already
+        if (hasMoved) //check if the pawn have moved already
             return;
-
         newLocation.set(getLocation());
         newLocation.addVector(probe);
         if (!getActiveBoard().isSquareFree(newLocation))
@@ -132,7 +141,7 @@ public class Pawn extends Piece{
             return;
         newLocation.addVector(probe);
 
-        if (!getActiveBoard().isSquareFree(newLocation)){
+        if (!getActiveBoard().isSquareFree(newLocation) && getActiveBoard().getPiece(newLocation).getPlayer() != getPlayer()){
             if (newLocation.getY() == 8 || newLocation.getY() == 1) {
                 possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.PROMOTE, 'q'));
                 possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.PROMOTE, 'r'));
@@ -153,7 +162,7 @@ public class Pawn extends Piece{
             return;
         newLocation.addVector(probe);
         
-        if (!getActiveBoard().isSquareFree(newLocation)){
+        if (!getActiveBoard().isSquareFree(newLocation) && getActiveBoard().getPiece(newLocation).getPlayer() != getPlayer()){
             if (newLocation.getY() == 8 || newLocation.getY() == 1) {
                 possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.PROMOTE, 'q'));
                 possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.PROMOTE, 'r'));
@@ -172,7 +181,9 @@ public class Pawn extends Piece{
     public Piece clone(Coordinates coord, Board newBoard) {
         newBoard.removePiece(this.getLocation());
         Coordinates newCoord = new Coordinates(coord);
-        return new Pawn(this.getPlayer(), newCoord, newBoard);
+        Pawn newPawn = new Pawn(this.getPlayer(), newCoord, newBoard);
+        newPawn.setHasMoved(true);
+        return newPawn;
     }
 
     
