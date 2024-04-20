@@ -27,6 +27,7 @@ public class Menu {
          System.out.println("1: New game");
          System.out.println("2: Pawn capture and promotion test");
          System.out.println("3: Castling test");
+         System.out.println("4: En passant test");
          System.out.println("0: Exit");
          int choice = scanner.nextInt();
          scanner.nextLine();
@@ -41,6 +42,9 @@ public class Menu {
                 case 3:
                     game3();
                     break;
+                case 4:
+                    game4();
+                    break;    
                 case 0:
                     exit = true;
                     break;
@@ -99,6 +103,16 @@ public class Menu {
         
         boolean nextRound = true;
         engine.newGame3();
+        while(nextRound){
+        printBoard(engine.getMainBoard());
+        nextRound = getPlayerMove();
+        }
+    }
+
+    public void game4(){
+        
+        boolean nextRound = true;
+        engine.newGame4();
         while(nextRound){
         printBoard(engine.getMainBoard());
         nextRound = getPlayerMove();

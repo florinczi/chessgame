@@ -48,6 +48,11 @@ public class Engine {
         BoardUtil.castlingTest(mainBoard);
     }
 
+    public void newGame4(){
+        setMainBoard(new Board(this));
+        BoardUtil.enPassantTest(mainBoard);
+    }
+
 
     public void movePieceHuman(MoveCandidate moveCandidate){
         Board testBoard = prepareMove(getMainBoard(), moveCandidate);

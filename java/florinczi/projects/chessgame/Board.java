@@ -16,17 +16,39 @@ public class Board {
     private King whiteKing;
     private PlayerColor nowPlaying;
     private Engine engine;
+    private Coordinates enPassant;
+    private PlayerColor enPassColor;
+    
   
+
+    public Coordinates getEnPassant() {
+        return enPassant;
+    }
+
+    public PlayerColor getEnPassColor() {
+        return enPassColor;
+    }
+
+    public void setEnPassant(Coordinates coord, PlayerColor color) {
+        enPassant = new Coordinates(coord);
+        enPassColor = color;
+        if (enPassColor == BLACK)
+            enPassant.setY(enPassant.getY() - 1);
+        else   
+            enPassant.setY(enPassant.getY() + 1);
+    }
 
     public Board(Engine engine) { 
         this.engine = engine;
         boardmap = new HashMap<>();
+        enPassant = new Coordinates();
     }
 
     public Board (Board board) {
         this.boardmap = new HashMap<>(board.boardmap);
         this.nowPlaying = board.nowPlaying;
-        this.engine = board.engine;        
+        this.engine = board.engine;
+        enPassant = new Coordinates();        
     }
 
     public Engine getEngine() {

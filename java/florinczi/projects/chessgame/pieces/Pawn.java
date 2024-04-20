@@ -4,6 +4,7 @@ import static florinczi.projects.chessgame.pieces.PlayerColor.BLACK;
 import static florinczi.projects.chessgame.pieces.PlayerColor.WHITE;
 import static florinczi.projects.chessgame.pieces.SpecialMoves.DOUBLE;
 import static florinczi.projects.chessgame.pieces.SpecialMoves.PROMOTE;
+import static florinczi.projects.chessgame.pieces.SpecialMoves.ENPASSANT;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,10 @@ import florinczi.projects.chessgame.util.Vector;
 public class Pawn extends Piece{
 
    
+
+    
+
+
 
     public Pawn(PlayerColor player, Coordinates location, Board board) {
         super(player, board); //adding color and engine ref
@@ -152,6 +157,9 @@ public class Pawn extends Piece{
             possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.CAPTURE));
             }
         }
+
+        if (getActiveBoard().getEnPassant().equals(newLocation) && getActiveBoard().getEnPassColor() != this.getPlayer()) //the other check shouldn't actually be needed, maybe I'll get rid of it after some testing
+            possibleMoves.add(new MoveCandidate(getLocation(), probe, ENPASSANT));
     }
     
 
@@ -173,6 +181,10 @@ public class Pawn extends Piece{
                 possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.CAPTURE));
             }
         }
+
+        if (getActiveBoard().getEnPassant().equals(newLocation) && getActiveBoard().getEnPassColor() != this.getPlayer())
+            possibleMoves.add(new MoveCandidate(getLocation(), probe, ENPASSANT)); 
+        
     }
 
    

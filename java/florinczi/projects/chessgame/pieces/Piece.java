@@ -1,7 +1,8 @@
 package florinczi.projects.chessgame.pieces;
 
-import static florinczi.projects.chessgame.pieces.PlayerColor.BLACK;
-import static florinczi.projects.chessgame.pieces.SpecialMoves.LONGCASTLE;
+
+import static florinczi.projects.chessgame.pieces.SpecialMoves.*;
+
 
 import java.util.List;
 
@@ -69,13 +70,22 @@ public abstract class Piece implements PieceAction{
     }
 
     @Override
-    public void movePiece(MoveCandidate move, Board newBoard) {
+    public void movePiece(MoveCandidate move, Board newBoard) { //it would probably be nice to refactor special moves into specific classes
         if (move.getSpecialMove() == LONGCASTLE){
             ((King) newBoard.getPiece(move.getCoord())).longCastle(newBoard);        
             return;
         }
 
+        if (move.getSpecialMove() == ENPASSANT){
+            newBoard.removePiece(newBoard.getEnPassant());
+        }
+
+        if(move.getSpecialMove() == DOUBLE){
+            newBoard.setEnPassant(move.getCoord(), newBoard.getPiece(move.getCoord()).getPlayer()); // setting en passant square using starting coord and player coord
+        }
+
         move.addVector(); // adding vector
+        
         if (move.getPromoteTo() != 0){ //is the move a pawn promotion?
             newBoard.getEngine().promotePawn(move.getPromoteTo(), move.getCoord(), newBoard);
         }

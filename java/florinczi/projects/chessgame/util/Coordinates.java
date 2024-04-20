@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class Coordinates {
  
+    
     private static final int MIN_X = 1;
     private static final int MAX_X = 8;
     private static final int MIN_Y = 1;
