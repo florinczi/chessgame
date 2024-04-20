@@ -1,6 +1,7 @@
 package florinczi.projects.chessgame.pieces;
 
 import static florinczi.projects.chessgame.pieces.SpecialMoves.LONGCASTLE;
+import static florinczi.projects.chessgame.pieces.SpecialMoves.SHORTCASTLE;
 import static florinczi.projects.chessgame.pieces.PlayerColor.BLACK;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,7 @@ public class King extends Piece{
 
         checkKingMove();
         checkCastleLong();
+        checkCastleShort();
         System.out.println("Printing possible moves from King ln.51");
         for (MoveCandidate king: possibleMoves)
             System.out.println(king);
@@ -89,9 +91,39 @@ public class King extends Piece{
             
         }
         possibleMoves.add(new MoveCandidate(getLocation(), new Vector(-2, 0), LONGCASTLE));
-            
-        
+    }
 
+    public void checkCastleShort(){
+        if (hasMoved)
+            return;
+        
+        newLocation.set(8, getLocation().getY()); //just reusing newLocation to probe the Rooks
+        Piece piece = getActiveBoard().getPiece(newLocation); 
+
+        if (!(piece instanceof Rook))
+            return;
+
+        if (((Rook)piece).hasMoved)
+            return;
+        
+        newLocation.set(6, getLocation().getY());
+        if (!getActiveBoard().isSquareFree(newLocation)) //checking if square x=6,x=7 are free of pieces
+            return;
+
+        newLocation.set(7, getLocation().getY());
+        if (!getActiveBoard().isSquareFree(newLocation)) //checking if square x=6,x=7 are free of pieces
+            return;
+
+        Coordinates checkCoordinates = new Coordinates(getLocation()); 
+        
+        for (int i = 5; i < 8; i++)
+        {
+            checkCoordinates.setX(i);
+            if(checkChecker.checkChecks(checkCoordinates, getPlayer(), getActiveBoard()))
+                return;
+            
+        }
+        possibleMoves.add(new MoveCandidate(getLocation(), new Vector(2, 0), SHORTCASTLE));
     }
 
     public void checkKingMove(){
@@ -145,6 +177,16 @@ public class King extends Piece{
 
 
 
+    }
+
+    public void shortCastle(Board newBoard) {
+        newLocation.set(getLocation());        
+        newLocation.setX(7);
+        newBoard.putClonedPiece(this, newLocation); // set the king
+        newLocation.setX(8);
+        Rook rook = (Rook) newBoard.getPiece(newLocation);
+        newLocation.setX(6);
+        newBoard.putClonedPiece(rook, newLocation); // set the rook
     }
     
 

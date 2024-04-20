@@ -76,6 +76,11 @@ public abstract class Piece implements PieceAction{
             return;
         }
 
+        if (move.getSpecialMove() == SHORTCASTLE){
+            ((King) newBoard.getPiece(move.getCoord())).shortCastle(newBoard);        
+            return;
+        }
+
         if (move.getSpecialMove() == ENPASSANT){
             newBoard.removePiece(newBoard.getEnPassant());
         }
@@ -85,7 +90,7 @@ public abstract class Piece implements PieceAction{
         }
 
         move.addVector(); // adding vector
-        
+
         if (move.getPromoteTo() != 0){ //is the move a pawn promotion?
             newBoard.getEngine().promotePawn(move.getPromoteTo(), move.getCoord(), newBoard);
         }
