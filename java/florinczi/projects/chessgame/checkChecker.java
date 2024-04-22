@@ -1,14 +1,9 @@
 package florinczi.projects.chessgame;
 
 import static florinczi.projects.chessgame.pieces.PlayerColor.BLACK;
+import static florinczi.projects.chessgame.pieces.PlayerColor.WHITE;
 
-import florinczi.projects.chessgame.pieces.Bishop;
-import florinczi.projects.chessgame.pieces.King;
-import florinczi.projects.chessgame.pieces.Knight;
-import florinczi.projects.chessgame.pieces.Pawn;
-import florinczi.projects.chessgame.pieces.PlayerColor;
-import florinczi.projects.chessgame.pieces.Queen;
-import florinczi.projects.chessgame.pieces.Rook;
+import florinczi.projects.chessgame.pieces.*;
 import florinczi.projects.chessgame.util.Coordinates;
 import florinczi.projects.chessgame.util.Vector;
 
@@ -39,6 +34,25 @@ public class CheckChecker {
       
       king.set(coord);
       checkedPlayer = targetColor;
+      activeBoard = board;
+      if (checkKnightChecks())
+         return true;
+      if (checkPawnChecks())
+         return true;
+      if (checkLinesAndDiags())
+         return true;
+
+    return false;
+   }
+
+   public boolean checkChecks (Board board){ 
+      checkedPlayer = board.getNowPlaying();
+
+      if (checkedPlayer == WHITE)
+         king.set(board.getWhiteKing().getLocation());
+      else
+         king.set(board.getBlackKing().getLocation());
+
       activeBoard = board;
       if (checkKnightChecks())
          return true;
@@ -117,20 +131,15 @@ public class CheckChecker {
             return true;  
             }         
          }
+      }  
+
+      if(activeBoard.getPiece(probe).getPlayer() != checkedPlayer){
+         if (Math.abs(vector.getX()) != Math.abs(vector.getY())) // checks if the move is orthogonal
+            return (activeBoard.getPiece(probe) instanceof Queen || activeBoard.getPiece(probe) instanceof Rook); //if so, only queen and rook are the danger, as we've already checked for king
+         else
+            return (activeBoard.getPiece(probe) instanceof Queen || activeBoard.getPiece(probe) instanceof Bishop); //this is the case for diagonal movement
+
       }
-      
-      if(activeBoard.getPiece(probe).getPlayer() != checkedPlayer &&
-         Math.abs(vector.getX()) != Math.abs(vector.getY()) &&                   //modulo is 0 for moves across files as rank ie not diagonal
-         (activeBoard.getPiece(probe) instanceof Queen ||
-         activeBoard.getPiece(probe) instanceof Rook))
-            return true;
-
-      if(activeBoard.getPiece(probe).getPlayer() != checkedPlayer &&
-      Math.abs(vector.getX()) == Math.abs(vector.getY()) &&                   //modulo is 1 for diagonal moves
-      (activeBoard.getPiece(probe) instanceof Queen ||
-      activeBoard.getPiece(probe) instanceof Bishop))
-         return true;     
-
       return false;
    }
 
@@ -147,6 +156,15 @@ public class CheckChecker {
      return false;
    }
 
-  
+   private boolean checkCheckmate(){
+      if(activeBoard.getNowPlaying() == WHITE){
+         king.set(activeBoard.getWhiteKing().getLocation());
+      }
+      else
+         king.set(activeBoard.getBlackKing().getLocation());
+
+      return true; //hmm
+      
+   }
 
 }

@@ -1,4 +1,7 @@
 package florinczi.projects.chessgame;
+import java.util.ArrayList;
+import java.util.List;
+
 import florinczi.projects.chessgame.pieces.*;
 import florinczi.projects.chessgame.util.BoardUtil;
 import florinczi.projects.chessgame.util.Coordinates;
@@ -68,6 +71,16 @@ public class Engine {
         
     }
 
+    public List <MoveCandidate> genAllMoves(Board board){
+        List <MoveCandidate> list = new ArrayList<>();
+        board.getBoardmap().forEach((k, v) ->{
+            list.addAll(v.checkPossibleMoves());
+
+        });
+
+        return list;
+    }
+
     public Board prepareMove(Board board, MoveCandidate moveCandidate){ //This method checks if the
                 
         Piece piece = board.getPiece(moveCandidate.getCoord());
@@ -77,7 +90,7 @@ public class Engine {
             System.out.println("No piece on this coordinates");
             return null;
         }
-        pa.checkPossibleMoves();
+        pa.checkPossibleMoves(); //TODO remove when external movegen created
     
         if (piece.getPlayer() != board.getNowPlaying()){
             System.out.println("Wrong player");

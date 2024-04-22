@@ -30,6 +30,19 @@ public abstract class Piece implements PieceAction{
         return possibleMoves;
     }
 
+    private void cullCheckMoves(){
+        for (MoveCandidate ms: possibleMoves){
+            Board testBoard = new Board(activeBoard);
+            
+
+
+        }
+
+
+
+
+    }
+
     protected List<MoveCandidate> possibleMoves;
 
     protected Piece (PlayerColor player, Board board){

@@ -83,6 +83,7 @@ public class Board {
     }
 
     public Map<Coordinates, Piece> getBoardmap() {
+        
         return boardmap;
     }
 

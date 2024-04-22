@@ -138,10 +138,10 @@ public class King extends Piece{
 
                 vector.set(x, y);
 
-                if (!newLocation.isValidVector(vector))
+                if (!newLocation.isValidVector(vector))  //bounds check
                     continue;
 
-                newLocation.addVector(vector); //bounds check
+                newLocation.addVector(vector);
                     
                     
                 if (getActiveBoard().isSquareFree(newLocation) || getActiveBoard().getPiece(newLocation).getPlayer() != getPlayer())
