@@ -3,10 +3,12 @@ package florinczi.projects.chessgame.pieces;
 
 import static florinczi.projects.chessgame.pieces.SpecialMoves.*;
 
+import java.util.ArrayList;
 
 import java.util.List;
 
 import florinczi.projects.chessgame.Board;
+
 import florinczi.projects.chessgame.util.Coordinates;
 import florinczi.projects.chessgame.util.MoveCandidate;
 
@@ -30,24 +32,15 @@ public abstract class Piece implements PieceAction{
         return possibleMoves;
     }
 
-    private void cullCheckMoves(){
-        for (MoveCandidate ms: possibleMoves){
-            Board testBoard = new Board(activeBoard);
-            
-
-
-        }
-
-
-
-
-    }
+    
 
     protected List<MoveCandidate> possibleMoves;
+ 
 
     protected Piece (PlayerColor player, Board board){
         this.player = player;
         this.activeBoard = board;
+        possibleMoves = new ArrayList<>(1);//init move list
         }
 
     public char getShortType() {
@@ -104,7 +97,7 @@ public abstract class Piece implements PieceAction{
 
         move.addVector(); // adding vector
 
-        if (move.getPromoteTo() != 0){ //is the move a pawn promotion?
+        if (move.getPromoteTo() != '0'){ //is the move a pawn promotion?
             newBoard.getEngine().promotePawn(move.getPromoteTo(), move.getCoord(), newBoard);
         }
         

@@ -57,19 +57,23 @@ public class MoveCandidate {
         this.coordinates = new Coordinates(coordinates);
         this.vector = new Vector(vector);
         setSpecialMove(null);
+        this.promoteTo = '0';
         
     }
 
     public MoveCandidate (Coordinates coordinates, int vecX, int vecY){
         this.coordinates = new Coordinates(coordinates);
-        this.vector = new Vector(vecX, vecY);               
+        this.vector = new Vector(vecX, vecY);
+        this.promoteTo = '0';               
     }
 
    
     public MoveCandidate (Coordinates from, Coordinates to){
         this.coordinates = new Coordinates(from);
         this.vector = saveAsVector(to);
-            }
+        this.promoteTo = '0';
+            
+    }
 
     public Vector getVector() {
         return vector;

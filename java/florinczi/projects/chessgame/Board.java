@@ -6,6 +6,7 @@ import florinczi.projects.chessgame.util.MoveCandidate;
 
 import static florinczi.projects.chessgame.pieces.PlayerColor.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ public class Board {
     private Engine engine;
     private Coordinates enPassant;
     private PlayerColor enPassColor;
+    
     
   
 
@@ -38,6 +40,10 @@ public class Board {
             enPassant.setY(enPassant.getY() + 1);
     }
 
+    public boolean isInCheck(){
+        return getEngine().getCheckChecker().checkChecks(this);
+    }
+
     public Board(Engine engine) { 
         this.engine = engine;
         boardmap = new HashMap<>();
@@ -48,6 +54,8 @@ public class Board {
         this.boardmap = new HashMap<>(board.boardmap);
         this.nowPlaying = board.nowPlaying;
         this.engine = board.engine;
+        this.setBlackKing(board.getBlackKing());
+        this.setWhiteKing(board.getWhiteKing());
         enPassant = new Coordinates();        
     }
 

@@ -11,7 +11,8 @@ public interface PieceAction {
     boolean isValidMove(MoveCandidate coordinates);
     List<MoveCandidate> checkPossibleMoves();
     void movePiece(MoveCandidate move, Board newBoard);
-    Piece clone(Coordinates coord, Board newBoard);    
+    Piece clone(Coordinates coord, Board newBoard);
+     
     
 
 }

@@ -6,7 +6,7 @@ import static florinczi.projects.chessgame.pieces.SpecialMoves.DOUBLE;
 import static florinczi.projects.chessgame.pieces.SpecialMoves.PROMOTE;
 import static florinczi.projects.chessgame.pieces.SpecialMoves.ENPASSANT;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -37,7 +37,7 @@ public class Pawn extends Piece{
         board.putPiece(this, location); //setting on the hashmap
         newLocation = new Coordinates(location);
         probe = new Vector(0, 0);  //init move-probing location and vector
-        possibleMoves = new ArrayList<MoveCandidate>(1);//init move list
+        
         if ((player == WHITE && location.getY() == 2) || (player == BLACK && location.getY() == 7))
             hasMoved = false;
         else 
@@ -104,10 +104,7 @@ public class Pawn extends Piece{
         doubleMove();
         leftSideCapture();
         rightSideCapture();
-        System.out.println("Printing pawn Ln 92, possible moves");
-        for (MoveCandidate mc: possibleMoves)
-            System.out.println(mc);
-       return possibleMoves;
+        return possibleMoves;
     }
 
     private void singleMove() {

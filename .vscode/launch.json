@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "florinczi.projects.chessgame.App",
+            "projectName": "chessgame_8415d60e"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"

@@ -1,5 +1,10 @@
 package florinczi.projects.chessgame;
+import static florinczi.projects.chessgame.pieces.PlayerColor.BLACK;
+import static florinczi.projects.chessgame.pieces.PlayerColor.WHITE;
+
 import java.util.ArrayList;
+import java.util.Collection;
+
 import java.util.List;
 
 import florinczi.projects.chessgame.pieces.*;
@@ -11,7 +16,12 @@ public class Engine {
 
     private Board mainBoard;
     private Menu menu;
-    CheckChecker checkChecker;
+    private CheckChecker checkChecker;
+    private boolean whitePlayerAI = false;
+    private boolean blackPlayerAI = false;
+    private Collection <MoveCandidate> possibleMoves;
+    public boolean checkmate;
+    public boolean stalemate;
     
     
     public CheckChecker getCheckChecker() {
@@ -23,8 +33,10 @@ public class Engine {
     }
 
     public Engine(Menu menu) {
-
+        this.possibleMoves = new ArrayList<>();
         this.menu = menu;
+        this.checkmate = false;
+        this.stalemate = false;
     }
 
     public void setMainBoard(Board mainBoard) {
@@ -36,26 +48,29 @@ public class Engine {
         return mainBoard;
     }
    
-    public void newGame(){
-        setMainBoard(new Board(this));
-        BoardUtil.newGameStd(mainBoard);
+    public void newGame(int choice){
+        switch (choice) {
+            case 1:
+                setMainBoard(new Board(this));
+                BoardUtil.newGameStd(mainBoard);
+                break;
+            case 2:
+                setMainBoard(new Board(this));
+                BoardUtil.pawnPromotionCaptureTest(mainBoard);
+                break;
+            case 3:
+                setMainBoard(new Board(this));
+                BoardUtil.castlingTest(mainBoard);
+                break;
+            case 4:
+                setMainBoard(new Board(this));
+                BoardUtil.enPassantTest(mainBoard);
+                break;
+            default:
+                break;
+        }
+        
     }
-
-    public void newGame2(){
-        setMainBoard(new Board(this));
-        BoardUtil.pawnPromotionCaptureTest(mainBoard);
-    }
-
-    public void newGame3(){
-        setMainBoard(new Board(this));
-        BoardUtil.castlingTest(mainBoard);
-    }
-
-    public void newGame4(){
-        setMainBoard(new Board(this));
-        BoardUtil.enPassantTest(mainBoard);
-    }
-
 
     public void movePieceHuman(MoveCandidate moveCandidate){
         Board testBoard = prepareMove(getMainBoard(), moveCandidate);
@@ -71,17 +86,7 @@ public class Engine {
         
     }
 
-    public List <MoveCandidate> genAllMoves(Board board){
-        List <MoveCandidate> list = new ArrayList<>();
-        board.getBoardmap().forEach((k, v) ->{
-            list.addAll(v.checkPossibleMoves());
-
-        });
-
-        return list;
-    }
-
-    public Board prepareMove(Board board, MoveCandidate moveCandidate){ //This method checks if the
+    public Board prepareMove(Board board, MoveCandidate moveCandidate){ //This method checks if the move is valid
                 
         Piece piece = board.getPiece(moveCandidate.getCoord());
         PieceAction pa = piece;
@@ -90,13 +95,12 @@ public class Engine {
             System.out.println("No piece on this coordinates");
             return null;
         }
-        pa.checkPossibleMoves(); //TODO remove when external movegen created
     
         if (piece.getPlayer() != board.getNowPlaying()){
             System.out.println("Wrong player");
             return null;
         }
-        if (!piece.isValidMove(moveCandidate)){
+        if (!possibleMoves.contains(moveCandidate)){
             System.out.println("Invalid move");
             return null;
         }
@@ -105,6 +109,68 @@ public class Engine {
         piece.setActiveBoard(testBoard);
         return testBoard;
     }
+
+
+
+    public Collection <MoveCandidate> genBoardMoves(Board board){
+        List <MoveCandidate> list = new ArrayList<>();
+        board.getBoardmap().forEach((k, v) -> list.addAll(v.checkPossibleMoves()));
+        return list;
+    }
+
+    public Collection <Board> genNextBoards(Board currentBoard, Collection <MoveCandidate> boardMoves){
+        List <Board> nextBoards = new ArrayList<>();
+        boardMoves.forEach(move -> {
+            Board newBoard = new Board(currentBoard);
+            currentBoard.getPiece(move.getCoord()).movePiece(move, newBoard);
+            if (newBoard.isInCheck()) 
+                boardMoves.remove(move);
+            else
+                nextBoards.add(newBoard);
+        });
+        return nextBoards;
+    }
+
+    public boolean nextTurn(){
+        mainBoard.changePlayers();
+        if ((mainBoard.getNowPlaying() == WHITE && whitePlayerAI) || (mainBoard.getNowPlaying() == BLACK && blackPlayerAI))  {
+            // TODO here is entry point for AI takeover
+        }
+        else{ //this is when it's human's turn
+            possibleMoves = genBoardMoves(mainBoard);
+            cullCheckMoves();
+            if (hasTheGameEnded()) 
+                return false;
+            movePieceHuman(getMenu().getPlayerMove());
+        }
+        return true;
+    }
+
+    private boolean hasTheGameEnded (){
+        if (possibleMoves.isEmpty()){
+            if (checkChecker.checkChecks(mainBoard))
+                checkmate = true;
+            else
+                stalemate = true;
+            return true;
+        } 
+        return false;
+    }
+
+
+    
+
+    public void cullCheckMoves(){
+        for (MoveCandidate ms: possibleMoves){
+            Board testBoard = new Board(getMainBoard());
+            testBoard.getPiece(ms.getCoord()).movePiece(ms, testBoard);
+            if (getMainBoard().getEngine().getCheckChecker().checkChecks(testBoard))
+                possibleMoves.remove(ms);
+        }
+            
+    }
+
+   
 
     public void promotePawn (char choice, Coordinates coord, Board newBoard){ 
         Piece piece;

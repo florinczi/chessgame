@@ -16,6 +16,7 @@ public class BoardUtil {
     public static void newGameStd(Board board) {
 
         board.setNowPlaying(WHITE);
+        
             
         for (int i = 1; i <= 8; i++){
             new Pawn(BLACK, new Coordinates(i, 7), board);
@@ -25,7 +26,7 @@ public class BoardUtil {
         new Knight(BLACK, new Coordinates(2, 8), board);
         new Bishop(BLACK, new Coordinates(3, 8), board);
         new Queen(BLACK, new Coordinates(4, 8), board);
-        new King(BLACK, new Coordinates(5, 8), board);
+        board.setBlackKing(new King(BLACK, new Coordinates(5, 8), board));
         new Bishop(BLACK, new Coordinates(6, 8), board);
         new Knight(BLACK, new Coordinates(7, 8), board);
         new Rook(BLACK, new Coordinates(8, 8), board);
@@ -34,7 +35,7 @@ public class BoardUtil {
         new Knight(WHITE, new Coordinates(2, 1), board);
         new Bishop(WHITE, new Coordinates(3, 1), board);
         new Queen(WHITE, new Coordinates(4, 1), board);
-        new King(WHITE, new Coordinates(5, 1), board);
+        board.setWhiteKing(new King(WHITE, new Coordinates(5, 1), board));
         new Bishop(WHITE, new Coordinates(6, 1), board);
         new Knight(WHITE, new Coordinates(7, 1), board);
         new Rook(WHITE, new Coordinates(8, 1), board);

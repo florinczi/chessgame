@@ -50,9 +50,6 @@ public class King extends Piece{
         checkKingMove();
         checkCastleLong();
         checkCastleShort();
-        System.out.println("Printing possible moves from King ln.51");
-        for (MoveCandidate king: possibleMoves)
-            System.out.println(king);
         return possibleMoves;
     }
 

@@ -31,28 +31,14 @@ public class Menu {
          System.out.println("0: Exit");
          int choice = scanner.nextInt();
          scanner.nextLine();
-
-            switch (choice) {
-                case 1:
-                    game1();
-                    break;
-                case 2:
-                    game2();
-                    break;
-                case 3:
-                    game3();
-                    break;
-                case 4:
-                    game4();
-                    break;    
-                case 0:
-                    exit = true;
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-
-
-            }
+        
+        if (choice == 0)
+            exit = true;
+        if (choice > 0 && choice <=4)
+            game(choice);
+        else
+            System.out.println("Wrong choice,try again");
+         
         }
 
     }
@@ -79,77 +65,52 @@ public class Menu {
                
     }    
 
-    public void game1(){
+    public void game(int choice){
         
         boolean nextRound = true;
-        engine.newGame();
+        engine.newGame(choice);
+        engine.getMainBoard().changePlayers(); //TODO ugly fix
         while(nextRound){
         printBoard(engine.getMainBoard());
-        nextRound = getPlayerMove();
-        }
-    }
-
-    public void game2(){
-        
-        boolean nextRound = true;
-        engine.newGame2();
-        while(nextRound){
-        printBoard(engine.getMainBoard());
-        nextRound = getPlayerMove();
-        }
-    }
-
-    public void game3(){
-        
-        boolean nextRound = true;
-        engine.newGame3();
-        while(nextRound){
-        printBoard(engine.getMainBoard());
-        nextRound = getPlayerMove();
-        }
-    }
-
-    public void game4(){
-        
-        boolean nextRound = true;
-        engine.newGame4();
-        while(nextRound){
-        printBoard(engine.getMainBoard());
-        nextRound = getPlayerMove();
+        nextRound = engine.nextTurn();
         }
     }
 
 
-    public boolean getPlayerMove (){
+    public MoveCandidate getPlayerMove (){
 
         String input;
+        
 
+        
         System.out.printf("Now playing: %s. What is your move?%nEnter 0 to exit%n" , engine.getMainBoard().getNowPlaying());
         System.out.println("From which square do you want to move?");
 
         input = scanner.nextLine();
+
         if (input.equals("0"))
-            return false;
+            return null;
         Coordinates from = Parser.convertToCoordinates(input);
         while (from == null){
-             System.out.println("Sorry, wrong coordinates, please try again");
+            System.out.println("Sorry, wrong coordinates, please try again");
             from = Parser.convertToCoordinates(scanner.nextLine());
         
         }
         System.out.println("To which square do you want to move?");
         input = scanner.nextLine();
         if (input.equals("0"))
-            return false;
+            return null;
         Coordinates to = Parser.convertToCoordinates(input);
         while (to == null){
             System.out.println("Wrong coordinates, please try again");
             to = Parser.convertToCoordinates(scanner.nextLine());
             }
-        MoveCandidate moveCandidate = new MoveCandidate(from, to);
         
-        engine.movePieceHuman(moveCandidate);
-        return true;
-
+        
+        return new MoveCandidate(from, to);
+            
+        
+        
     }
 
     

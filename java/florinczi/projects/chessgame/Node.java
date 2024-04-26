@@ -40,10 +40,22 @@ public class Node {
         genNodeMoves();           
     }
 
-    public Node(Board rootBoard){
-        this.depth = 0;
-        this.nodeBoard = rootBoard;    
+    public Node(Board board, int depth){
+        this.depth = depth;
+        this.nodeBoard = board;
+    
     }
+
+    public MoveCandidate minmax(MoveCandidate move, int depth){
+
+        if (depth == 0)
+            return move;
+        
+        return move;
+
+
+    }
+
 
     private void genNodeMoves(){
         nodeMoves = nodeBoard.genMoves();
