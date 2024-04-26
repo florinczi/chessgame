@@ -2,9 +2,10 @@ package florinczi.projects.chessgame;
 import static florinczi.projects.chessgame.pieces.PlayerColor.BLACK;
 import static florinczi.projects.chessgame.pieces.PlayerColor.WHITE;
 
+import java.text.CollationElementIterator;
 import java.util.ArrayList;
 import java.util.Collection;
-
+import java.util.HashSet;
 import java.util.List;
 
 import florinczi.projects.chessgame.pieces.*;
@@ -33,7 +34,7 @@ public class Engine {
     }
 
     public Engine(Menu menu) {
-        this.possibleMoves = new ArrayList<>();
+        this.possibleMoves = new HashSet<>();
         this.menu = menu;
         this.checkmate = false;
         this.stalemate = false;
@@ -117,7 +118,7 @@ public class Engine {
         board.getBoardmap().forEach((k, v) -> list.addAll(v.checkPossibleMoves()));
         return list;
     }
-
+ /* 
     public Collection <Board> genNextBoards(Board currentBoard, Collection <MoveCandidate> boardMoves){
         List <Board> nextBoards = new ArrayList<>();
         boardMoves.forEach(move -> {
@@ -130,9 +131,9 @@ public class Engine {
         });
         return nextBoards;
     }
-
+*/
     public boolean nextTurn(){
-        mainBoard.changePlayers();
+        
         if ((mainBoard.getNowPlaying() == WHITE && whitePlayerAI) || (mainBoard.getNowPlaying() == BLACK && blackPlayerAI))  {
             // TODO here is entry point for AI takeover
         }
@@ -157,20 +158,17 @@ public class Engine {
         return false;
     }
 
-
-    
-
     public void cullCheckMoves(){
-        for (MoveCandidate ms: possibleMoves){
+        Collection <MoveCandidate> clonedPossibleMoves = new HashSet<>(possibleMoves);
+        for (MoveCandidate ms: clonedPossibleMoves){
+            MoveCandidate copyCandidate = new MoveCandidate(ms.getCoord(), ms.getVector());
             Board testBoard = new Board(getMainBoard());
-            testBoard.getPiece(ms.getCoord()).movePiece(ms, testBoard);
+            testBoard.getPiece(copyCandidate.getCoord()).movePiece(copyCandidate, testBoard);
             if (getMainBoard().getEngine().getCheckChecker().checkChecks(testBoard))
                 possibleMoves.remove(ms);
-        }
-            
+        }            
     }
 
-   
 
     public void promotePawn (char choice, Coordinates coord, Board newBoard){ 
         Piece piece;

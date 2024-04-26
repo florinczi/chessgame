@@ -69,7 +69,6 @@ public class Menu {
         
         boolean nextRound = true;
         engine.newGame(choice);
-        engine.getMainBoard().changePlayers(); //TODO ugly fix
         while(nextRound){
         printBoard(engine.getMainBoard());
         nextRound = engine.nextTurn();
