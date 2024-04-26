@@ -28,13 +28,14 @@ public class Menu {
          System.out.println("2: Pawn capture and promotion test");
          System.out.println("3: Castling test");
          System.out.println("4: En passant test");
+         System.out.println("5: Checkmate test");
          System.out.println("0: Exit");
          int choice = scanner.nextInt();
          scanner.nextLine();
         
         if (choice == 0)
             exit = true;
-        if (choice > 0 && choice <=4)
+        if (choice > 0 && choice <=5)
             game(choice);
         else
             System.out.println("Wrong choice,try again");

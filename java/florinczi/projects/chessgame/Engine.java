@@ -2,7 +2,6 @@ package florinczi.projects.chessgame;
 import static florinczi.projects.chessgame.pieces.PlayerColor.BLACK;
 import static florinczi.projects.chessgame.pieces.PlayerColor.WHITE;
 
-import java.text.CollationElementIterator;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -21,8 +20,8 @@ public class Engine {
     private boolean whitePlayerAI = false;
     private boolean blackPlayerAI = false;
     private Collection <MoveCandidate> possibleMoves;
-    public boolean checkmate;
-    public boolean stalemate;
+    private boolean checkmate;
+    private boolean stalemate;
     
     
     public CheckChecker getCheckChecker() {
@@ -66,6 +65,10 @@ public class Engine {
             case 4:
                 setMainBoard(new Board(this));
                 BoardUtil.enPassantTest(mainBoard);
+                break;
+            case 5:
+                setMainBoard(new Board(this));
+                BoardUtil.checkmateTest(mainBoard);;
                 break;
             default:
                 break;

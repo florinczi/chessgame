@@ -155,16 +155,4 @@ public class CheckChecker {
      }
      return false;
    }
-
-   private boolean checkCheckmate(){
-      if(activeBoard.getNowPlaying() == WHITE){
-         king.set(activeBoard.getWhiteKing().getLocation());
-      }
-      else
-         king.set(activeBoard.getBlackKing().getLocation());
-
-      return true; //hmm
-      
-   }
-
 }
