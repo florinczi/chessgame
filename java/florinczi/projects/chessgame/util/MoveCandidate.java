@@ -91,7 +91,7 @@ public class MoveCandidate {
         return coordinates;
     }
 
-    public void addVector(){
+    public void consumeVector(){
         coordinates.addVector(this.vector);
     }
 

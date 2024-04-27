@@ -95,7 +95,7 @@ public abstract class Piece implements PieceAction{
             newBoard.setEnPassant(move.getCoord(), newBoard.getPiece(move.getCoord()).getPlayer()); // setting en passant square using starting coord and player coord
         }
 
-        move.addVector(); // adding vector
+        move.consumeVector(); // adding vector
 
         if (move.getPromoteTo() != '0'){ //is the move a pawn promotion?
             newBoard.getEngine().promotePawn(move.getPromoteTo(), move.getCoord(), newBoard);

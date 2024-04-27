@@ -16,11 +16,12 @@ public class Engine {
 
     private Board mainBoard;
     private Menu menu;
-    private CheckChecker checkChecker;
+    CheckChecker checkChecker;
     private boolean whitePlayerAI = false;
     private boolean blackPlayerAI = false;
     private Collection <MoveCandidate> possibleMoves;
-    private boolean checkmate;
+    boolean checkmate;
+    private RootNode aiRootNode;
     public boolean isCheckmate() {
         return checkmate;
     }
@@ -30,7 +31,7 @@ public class Engine {
     }
 
 
-    private boolean stalemate;
+    boolean stalemate;
     
     
     public CheckChecker getCheckChecker() {
@@ -130,33 +131,27 @@ public class Engine {
             if (v.getPlayer() == board.getNowPlaying())
                 list.addAll(v.checkPossibleMoves());
         });
+        //board.getMoveList().addAll(list);
         return list;
     }
  
     public boolean nextTurn(){
         
         if ((mainBoard.getNowPlaying() == WHITE && whitePlayerAI) || (mainBoard.getNowPlaying() == BLACK && blackPlayerAI))  {
-            //  here is entry point for AI takeover
+            aiRootNode = new RootNode(mainBoard);
+            mainBoard = aiRootNode.minmaxRoot();
         }
         else{ //this is when it's human's turn
             possibleMoves = genBoardMoves(mainBoard);
             cullCheckMoves();
-            if (hasTheGameEnded()) 
+            if (checkChecker.hasTheGameEnded(possibleMoves, mainBoard)){ 
+                checkmate = checkChecker.isCheckmate();
+                stalemate = checkChecker.isStalemate();
                 return false;
+            }
             movePieceHuman(getMenu().getPlayerMove());
         }
         return true;
-    }
-
-    private boolean hasTheGameEnded (){
-        if (possibleMoves.isEmpty()){
-            if (checkChecker.checkChecks(mainBoard))
-                checkmate = true;
-            else
-                stalemate = true;
-            return true;
-        } 
-        return false;
     }
 
     public void cullCheckMoves(){

@@ -3,8 +3,11 @@ package florinczi.projects.chessgame;
 import static florinczi.projects.chessgame.pieces.PlayerColor.BLACK;
 import static florinczi.projects.chessgame.pieces.PlayerColor.WHITE;
 
+import java.util.Collection;
+
 import florinczi.projects.chessgame.pieces.*;
 import florinczi.projects.chessgame.util.Coordinates;
+import florinczi.projects.chessgame.util.MoveCandidate;
 import florinczi.projects.chessgame.util.Vector;
 
 public class CheckChecker {
@@ -22,13 +25,25 @@ public class CheckChecker {
       this.king = new Coordinates();
       this.probe = new Coordinates();
       this.vector = new Vector();
+      checkmate = false;
+      stalemate = false;
    }
 
-   Board activeBoard;
-   PlayerColor checkedPlayer;
-   Vector vector;
-   Coordinates probe;
-   Coordinates king;
+   private Board activeBoard;
+   private PlayerColor checkedPlayer;
+   private Vector vector;
+   private Coordinates probe;
+   private Coordinates king;
+   private boolean checkmate;
+   private boolean stalemate;
+
+   public boolean isCheckmate() {
+      return checkmate;
+   }
+
+   public boolean isStalemate() {
+      return stalemate;
+   }
 
    public boolean checkChecks (Coordinates coord, PlayerColor targetColor, Board board){ //is the target checked?
       
@@ -47,6 +62,7 @@ public class CheckChecker {
 
    public boolean checkChecks (Board board){ 
       checkedPlayer = board.getNowPlaying();
+      
 
       if (checkedPlayer == WHITE)
          king.set(board.getWhiteKing().getLocation());
@@ -155,4 +171,17 @@ public class CheckChecker {
      }
      return false;
    }
+
+public boolean hasTheGameEnded (Collection<MoveCandidate> moves, Board board){
+   checkmate = false;
+   stalemate = false;
+    if (moves.isEmpty()){
+        if (checkChecks(board))
+            checkmate = true;
+        else
+            stalemate = true;
+        return true;
+    } 
+    return false;
+}
 }

@@ -19,9 +19,20 @@ public class Board {
     private Coordinates enPassant;
     private PlayerColor enPassColor;
     private float evaluation;
+    private List <MoveCandidate> moveList;
     
     
   
+
+    public List<MoveCandidate> getMoveList() {
+        if (moveList.isEmpty())
+            getEngine().genBoardMoves(this);
+        return moveList;
+    }
+
+    public void setMoveList(List<MoveCandidate> moveList) {
+        this.moveList = moveList;
+    }
 
     public float getEvaluation() {
         return evaluation;
