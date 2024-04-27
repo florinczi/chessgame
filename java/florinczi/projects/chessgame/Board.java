@@ -6,6 +6,7 @@ import florinczi.projects.chessgame.util.MoveCandidate;
 
 import static florinczi.projects.chessgame.pieces.PlayerColor.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,14 +20,14 @@ public class Board {
     private Coordinates enPassant;
     private PlayerColor enPassColor;
     private float evaluation;
-    private List <MoveCandidate> moveList;
+    private Collection <MoveCandidate> moveList;
     
     
   
 
-    public List<MoveCandidate> getMoveList() {
-        if (moveList.isEmpty())
-            getEngine().genBoardMoves(this);
+    public Collection<MoveCandidate> getMoveList() {
+        if (moveList == null)
+            moveList = getEngine().genBoardMoves(this);
         return moveList;
     }
 

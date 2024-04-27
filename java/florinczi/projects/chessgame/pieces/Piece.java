@@ -77,31 +77,33 @@ public abstract class Piece implements PieceAction{
 
     @Override
     public void movePiece(MoveCandidate move, Board newBoard) { //it would probably be nice to refactor special moves into specific classes
-        if (move.getSpecialMove() == LONGCASTLE){
-            ((King) newBoard.getPiece(move.getCoord())).longCastle(newBoard);        
+        MoveCandidate copyCoord = new MoveCandidate(move.getCoord(), move.getVector());
+       
+        if (copyCoord.getSpecialMove() == LONGCASTLE){
+            ((King) newBoard.getPiece(copyCoord.getCoord())).longCastle(newBoard);        
             return;
         }
 
-        if (move.getSpecialMove() == SHORTCASTLE){
-            ((King) newBoard.getPiece(move.getCoord())).shortCastle(newBoard);        
+        if (copyCoord.getSpecialMove() == SHORTCASTLE){
+            ((King) newBoard.getPiece(copyCoord.getCoord())).shortCastle(newBoard);        
             return;
         }
 
-        if (move.getSpecialMove() == ENPASSANT){
+        if (copyCoord.getSpecialMove() == ENPASSANT){
             newBoard.removePiece(newBoard.getEnPassant());
         }
 
-        if(move.getSpecialMove() == DOUBLE){
-            newBoard.setEnPassant(move.getCoord(), newBoard.getPiece(move.getCoord()).getPlayer()); // setting en passant square using starting coord and player coord
+        if(copyCoord.getSpecialMove() == DOUBLE){
+            newBoard.setEnPassant(copyCoord.getCoord(), newBoard.getPiece(copyCoord.getCoord()).getPlayer()); // setting en passant square using starting coord and player coord
         }
 
-        move.consumeVector(); // adding vector
+        copyCoord.consumeVector(); // adding vector
 
-        if (move.getPromoteTo() != '0'){ //is the move a pawn promotion?
-            newBoard.getEngine().promotePawn(move.getPromoteTo(), move.getCoord(), newBoard);
+        if (copyCoord.getPromoteTo() != '0'){ //is the move a pawn promotion?
+            newBoard.getEngine().promotePawn(copyCoord.getPromoteTo(), copyCoord.getCoord(), newBoard);
         }
         
-        newBoard.putClonedPiece(this, move.getCoord());
+        newBoard.putClonedPiece(this, copyCoord.getCoord());
         
        
         

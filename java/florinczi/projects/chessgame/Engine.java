@@ -91,17 +91,18 @@ public class Engine {
         
     }
 
-    public void movePieceHuman(MoveCandidate moveCandidate){
+    public boolean movePieceHuman(MoveCandidate moveCandidate){
+        mainBoard.setMoveList((List<MoveCandidate>) genBoardMoves(mainBoard));
         Board testBoard = prepareMove(getMainBoard(), moveCandidate);
         if (testBoard == null){ //movePiece returns null when invalid move has been passed
             System.out.println("Invalid move.");
-            return;
+            return false;
         }
         mainBoard = testBoard;
         if (mainBoard.getPiece(moveCandidate.getCoord()) instanceof Pawn && (moveCandidate.getCoord().getY() == 8 || moveCandidate.getCoord().getY() == 1)){
             ((Pawn)mainBoard.getPiece(moveCandidate.getCoord())).promoteHuman();
             }
-        mainBoard.changePlayers();
+        return true;
         
     }
 
@@ -118,7 +119,7 @@ public class Engine {
             System.out.println("Wrong player");
             return null;
         }
-        if (!possibleMoves.contains(moveCandidate)){
+        if (!board.getMoveList().contains(moveCandidate)){
             System.out.println("Invalid move");
             return null;
         }
@@ -145,6 +146,8 @@ public class Engine {
         if ((mainBoard.getNowPlaying() == WHITE && whitePlayerAI) || (mainBoard.getNowPlaying() == BLACK && blackPlayerAI))  {
             aiRootNode = new RootNode(mainBoard);
             mainBoard = aiRootNode.minmaxRoot();
+            mainBoard.changePlayers();
+            
         }
         else{ //this is when it's human's turn
             possibleMoves = genBoardMoves(mainBoard);
@@ -154,7 +157,8 @@ public class Engine {
                 stalemate = checkChecker.isStalemate();
                 return false;
             }
-            movePieceHuman(getMenu().getPlayerMove());
+            if(movePieceHuman(getMenu().getPlayerMove()))
+                mainBoard.changePlayers();
         }
         return true;
     }

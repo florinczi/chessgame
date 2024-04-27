@@ -8,14 +8,14 @@ import florinczi.projects.chessgame.util.MoveCandidate;
 
 public class RootNode {
  
-    private static int DEPTH = 8;
+    private static int DEPTH = 4;
     
     Board rootBoard;
     Collection <MoveCandidate> rootMoveList;
 
     public RootNode(Board board) {
         this.rootBoard = board;
-        this.rootMoveList = board.getEngine().genBoardMoves(board);
+        this.rootMoveList = board.getMoveList();
     }
 
     
