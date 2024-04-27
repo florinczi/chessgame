@@ -80,6 +80,11 @@ public class Engine {
                 setMainBoard(new Board(this));
                 BoardUtil.checkmateTest(mainBoard);
                 break;
+            case 6:
+                setMainBoard(new Board(this));
+                BoardUtil.newGameStd(mainBoard);
+                blackPlayerAI = true;
+                break;    
             default:
                 break;
         }
