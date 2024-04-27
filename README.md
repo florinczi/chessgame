@@ -7,8 +7,8 @@ Roadmap:
 ✓ 4. Check detection  
 ✓ 5. Castling  
 ✓ 6. En passant  
-☐ 7. Checkmate and stalemate detection  
-☐ 8. Endgame conditions and game loop  
+✓ 7. Checkmate and stalemate detection  
+✓ 8. Endgame conditions and game loop  
 ☐ 9. AI game loop   
 ☐ 10. Position evaluation  
 ☐ 11. Min-max AI implementation   
