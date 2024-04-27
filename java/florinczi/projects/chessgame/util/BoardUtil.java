@@ -1,6 +1,7 @@
 package florinczi.projects.chessgame.util;
-import static florinczi.projects.chessgame.pieces.PlayerColor.BLACK;
-import static florinczi.projects.chessgame.pieces.PlayerColor.WHITE;
+import static florinczi.projects.chessgame.pieces.PlayerColor.*;
+
+
 
 import florinczi.projects.chessgame.Board;
 import florinczi.projects.chessgame.pieces.*;
@@ -126,5 +127,18 @@ public class BoardUtil {
 
     }
 
+    public static float evaluate (Board board){
+        float eval=0;
+        
+        for (Piece piece: board.getBoardmap().values()){
+            if ( piece.getPlayer() == WHITE)
+                eval += piece.getValue();
+            else
+                eval -= piece.getValue();
+        }
+
+
+        return eval;
+    }
 
 }

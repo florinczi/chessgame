@@ -66,5 +66,9 @@ public class Knight extends Piece{
         return new Knight(this.getPlayer(), newCoord, newBoard);
     }    
    
+    @Override
+    public float getValue() {
+        return 3f;
+    }
 
 }

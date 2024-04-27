@@ -185,6 +185,11 @@ public class King extends Piece{
         newLocation.setX(6);
         newBoard.putClonedPiece(rook, newLocation); // set the rook
     }
+
+    @Override
+    public float getValue() {
+        return 200f;
+    }
     
 
 }

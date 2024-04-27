@@ -74,14 +74,18 @@ public class Menu {
         printBoard(engine.getMainBoard());
         nextRound = engine.nextTurn();
         }
-    }
+        if (engine.isCheckmate())
+            System.out.println("Checkmate! Game Over!");
+        if (engine.isStalemate())
+            System.out.println("Stalemate! Game Over!");
+        System.out.printf("%n%n*********************%n%n");
+        
+}
 
 
     public MoveCandidate getPlayerMove (){
 
         String input;
-        
-
         
         System.out.printf("Now playing: %s. What is your move?%nEnter 0 to exit%n" , engine.getMainBoard().getNowPlaying());
         System.out.println("From which square do you want to move?");
@@ -108,14 +112,6 @@ public class Menu {
         
         
         return new MoveCandidate(from, to);
-            
-        
-        
+
     }
-
-    
-
-  
-
-
 }

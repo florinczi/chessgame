@@ -70,6 +70,12 @@ public class Bishop extends Piece{
     }
 
 
+    @Override
+    public float getValue() {
+        return 3f;
+    }
+
+
     
 
    

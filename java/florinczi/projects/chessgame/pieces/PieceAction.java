@@ -12,6 +12,7 @@ public interface PieceAction {
     List<MoveCandidate> checkPossibleMoves();
     void movePiece(MoveCandidate move, Board newBoard);
     Piece clone(Coordinates coord, Board newBoard);
+    float getValue();
      
     
 

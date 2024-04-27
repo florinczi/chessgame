@@ -195,7 +195,10 @@ public class Pawn extends Piece{
         return newPawn;
     }
 
-    
+    @Override
+    public float getValue() {
+        return 1f;
+    }
     
 
    

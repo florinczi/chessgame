@@ -21,6 +21,15 @@ public class Engine {
     private boolean blackPlayerAI = false;
     private Collection <MoveCandidate> possibleMoves;
     private boolean checkmate;
+    public boolean isCheckmate() {
+        return checkmate;
+    }
+
+    public boolean isStalemate() {
+        return stalemate;
+    }
+
+
     private boolean stalemate;
     
     
@@ -68,7 +77,7 @@ public class Engine {
                 break;
             case 5:
                 setMainBoard(new Board(this));
-                BoardUtil.checkmateTest(mainBoard);;
+                BoardUtil.checkmateTest(mainBoard);
                 break;
             default:
                 break;
@@ -93,8 +102,7 @@ public class Engine {
     public Board prepareMove(Board board, MoveCandidate moveCandidate){ //This method checks if the move is valid
                 
         Piece piece = board.getPiece(moveCandidate.getCoord());
-        PieceAction pa = piece;
-                
+                        
         if (piece == null){
             System.out.println("No piece on this coordinates");
             return null;
@@ -118,27 +126,17 @@ public class Engine {
 
     public Collection <MoveCandidate> genBoardMoves(Board board){
         List <MoveCandidate> list = new ArrayList<>();
-        board.getBoardmap().forEach((k, v) -> list.addAll(v.checkPossibleMoves()));
+        board.getBoardmap().forEach((k, v) -> {
+            if (v.getPlayer() == board.getNowPlaying())
+                list.addAll(v.checkPossibleMoves());
+        });
         return list;
     }
- /* 
-    public Collection <Board> genNextBoards(Board currentBoard, Collection <MoveCandidate> boardMoves){
-        List <Board> nextBoards = new ArrayList<>();
-        boardMoves.forEach(move -> {
-            Board newBoard = new Board(currentBoard);
-            currentBoard.getPiece(move.getCoord()).movePiece(move, newBoard);
-            if (newBoard.isInCheck()) 
-                boardMoves.remove(move);
-            else
-                nextBoards.add(newBoard);
-        });
-        return nextBoards;
-    }
-*/
+ 
     public boolean nextTurn(){
         
         if ((mainBoard.getNowPlaying() == WHITE && whitePlayerAI) || (mainBoard.getNowPlaying() == BLACK && blackPlayerAI))  {
-            // TODO here is entry point for AI takeover
+            //  here is entry point for AI takeover
         }
         else{ //this is when it's human's turn
             possibleMoves = genBoardMoves(mainBoard);

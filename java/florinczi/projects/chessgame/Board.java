@@ -18,9 +18,18 @@ public class Board {
     private Engine engine;
     private Coordinates enPassant;
     private PlayerColor enPassColor;
+    private float evaluation;
     
     
   
+
+    public float getEvaluation() {
+        return evaluation;
+    }
+
+    public void setEvaluation(float evaluation) {
+        this.evaluation = evaluation;
+    }
 
     public Coordinates getEnPassant() {
         return enPassant;
@@ -47,9 +56,12 @@ public class Board {
         this.engine = engine;
         boardmap = new HashMap<>();
         enPassant = new Coordinates();
+        this.evaluation = 0f;
     }
 
     public Board (Board board) {
+        this.evaluation = 0f;
+    
         this.boardmap = new HashMap<>(board.boardmap);
         this.nowPlaying = board.nowPlaying;
         this.engine = board.engine;

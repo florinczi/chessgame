@@ -70,5 +70,10 @@ public class Queen extends Piece{
         Coordinates newCoord = new Coordinates(coord);
         return new Queen(this.getPlayer(), newCoord, newBoard);
     } 
+    
+    @Override
+    public float getValue() {
+        return 9f;
+    }
 
 }

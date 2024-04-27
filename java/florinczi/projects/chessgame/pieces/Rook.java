@@ -79,6 +79,10 @@ public class Rook extends Piece{
 
     }
 
+    @Override
+    public float getValue() {
+        return 5f;
+    }
 
     
 
