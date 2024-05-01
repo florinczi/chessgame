@@ -8,7 +8,7 @@ import florinczi.projects.chessgame.util.MoveCandidate;
 
 public class RootNode {
  
-    private static int DEPTH = 4;
+    private static int DEPTH = 2;
     
     Board rootBoard;
     Collection <MoveCandidate> rootMoveList;
@@ -73,7 +73,7 @@ public class RootNode {
                 }
                 else{
                    float minEv = Float.POSITIVE_INFINITY; 
-                   minEv = Math.max(minEv, minmax(board, depth-1));
+                   minEv = Math.min(minEv, minmax(board, depth-1));
                    result = minEv;
                 }
             }

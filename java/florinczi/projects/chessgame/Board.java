@@ -21,19 +21,26 @@ public class Board {
     private PlayerColor enPassColor;
     private float evaluation;
     private Collection <MoveCandidate> moveList;
+    private Collection <MoveCandidate> oppositePlayerMoveList;
     
     
   
 
+    public Collection<MoveCandidate> getOppositePlayerMoveList() {
+        if (moveList == null)
+            moveList = getEngine().genBoardMoves(this, this.getNowPlaying().getOpponent());
+        return oppositePlayerMoveList;
+    }
+
+
+
     public Collection<MoveCandidate> getMoveList() {
         if (moveList == null)
-            moveList = getEngine().genBoardMoves(this);
+            moveList = getEngine().genBoardMoves(this, this.getNowPlaying());
         return moveList;
     }
 
-    public void setMoveList(List<MoveCandidate> moveList) {
-        this.moveList = moveList;
-    }
+  
 
     public float getEvaluation() {
         return evaluation;
@@ -124,14 +131,6 @@ public class Board {
    
     public void setNowPlaying(PlayerColor nowPlaying) {
         this.nowPlaying = nowPlaying;
-    }
-
-    public List <MoveCandidate> genMoves() {
-        List <MoveCandidate> boardMoveList = new ArrayList<>();
-        for (PieceAction p: getBoardmap().values()){
-            boardMoveList.addAll(p.checkPossibleMoves());
-        }
-        return boardMoveList;
     }
         
     public void putPiece (Piece piece, Coordinates coord){ 

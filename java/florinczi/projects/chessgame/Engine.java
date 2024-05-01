@@ -92,7 +92,7 @@ public class Engine {
     }
 
     public boolean movePieceHuman(MoveCandidate moveCandidate){
-        mainBoard.setMoveList((List<MoveCandidate>) genBoardMoves(mainBoard));
+        mainBoard.getMoveList();
         Board testBoard = prepareMove(getMainBoard(), moveCandidate);
         if (testBoard == null){ //movePiece returns null when invalid move has been passed
             System.out.println("Invalid move.");
@@ -131,13 +131,12 @@ public class Engine {
 
 
 
-    public Collection <MoveCandidate> genBoardMoves(Board board){
+    public Collection <MoveCandidate> genBoardMoves(Board board, PlayerColor color){
         List <MoveCandidate> list = new ArrayList<>();
         board.getBoardmap().forEach((k, v) -> {
-            if (v.getPlayer() == board.getNowPlaying())
+            if (v.getPlayer() == color)
                 list.addAll(v.checkPossibleMoves());
         });
-        //board.getMoveList().addAll(list);
         return list;
     }
  
@@ -150,7 +149,7 @@ public class Engine {
             
         }
         else{ //this is when it's human's turn
-            possibleMoves = genBoardMoves(mainBoard);
+            possibleMoves = genBoardMoves(mainBoard, mainBoard.getNowPlaying());
             cullCheckMoves();
             if (checkChecker.hasTheGameEnded(possibleMoves, mainBoard)){ 
                 checkmate = checkChecker.isCheckmate();

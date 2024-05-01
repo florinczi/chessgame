@@ -32,11 +32,22 @@ public class Evaluator {
                 eval -= piece.getValue();
         }
 
-        eval += board.getMoveList().size() * 0.5f;
+        eval += evaluateMobility(board);
 
 
         return eval;
     }
 
+    private static float evaluateMobility(Board board){
+        float ev = 0;
+        ev += board.getNowPlaying() == WHITE?
+        board.getEngine().genBoardMoves(board).size() : -board.getEngine().genBoardMoves(board).size();
+        board.changePlayers();
+        ev += board.getNowPlaying() == WHITE?
+        board.getEngine().genBoardMoves(board).size() : -board.getEngine().genBoardMoves(board).size();
+        board.changePlayers();
+
+        return ev;
+    }
     
 }
