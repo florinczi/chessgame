@@ -8,6 +8,7 @@ public class MoveCandidate {
     private Vector vector;
 
     private Coordinates coordinates;
+    private Coordinates destination;
     private char promoteTo;
     public char getPromoteTo() {
         return promoteTo;
@@ -91,8 +92,12 @@ public class MoveCandidate {
         return coordinates;
     }
 
-    public void consumeVector(){
-        coordinates.addVector(this.vector);
+    public Coordinates getDestination(){
+        if (destination == null){
+            destination = new Coordinates(coordinates);
+            destination.addVector(this.vector);
+        }
+        return destination;
     }
 
     public boolean isThisVectorValid(){

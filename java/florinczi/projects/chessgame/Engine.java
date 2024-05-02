@@ -131,13 +131,17 @@ public class Engine {
 
 
 
-    public Collection <MoveCandidate> genBoardMoves(Board board, PlayerColor color){
-        List <MoveCandidate> list = new ArrayList<>();
+    public void genBoardMoves(Board board){
+        List <MoveCandidate> whiteList = new ArrayList<>();
+        List <MoveCandidate> blackList = new ArrayList<>();
         board.getBoardmap().forEach((k, v) -> {
-            if (v.getPlayer() == color)
-                list.addAll(v.checkPossibleMoves());
+            if (v.getPlayer() == WHITE)
+                whiteList.addAll(v.checkPossibleMoves());
+            else
+                blackList.addAll(v.checkPossibleMoves());
         });
-        return list;
+        board.setMoveList(whiteList, WHITE);       
+        board.setMoveList(blackList, BLACK);
     }
  
     public boolean nextTurn(){

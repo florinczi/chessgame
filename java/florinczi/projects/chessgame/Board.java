@@ -20,24 +20,29 @@ public class Board {
     private Coordinates enPassant;
     private PlayerColor enPassColor;
     private float evaluation;
-    private Collection <MoveCandidate> moveList;
-    private Collection <MoveCandidate> oppositePlayerMoveList;
+    private Collection <MoveCandidate> whiteMoveList;
+    private Collection <MoveCandidate> blackMoveList;
     
     
   
-
-    public Collection<MoveCandidate> getOppositePlayerMoveList() {
-        if (moveList == null)
-            moveList = getEngine().genBoardMoves(this, this.getNowPlaying().getOpponent());
-        return oppositePlayerMoveList;
+    
+    public Collection<MoveCandidate> getMoveList(PlayerColor color) {
+        if (whiteMoveList == null)
+            getEngine().genBoardMoves(this);
+        if (color == WHITE) 
+            return whiteMoveList;    
+        else
+            return blackMoveList;
+    }
+    public Collection<MoveCandidate> getMoveList() {
+        return getMoveList(nowPlaying);
     }
 
-
-
-    public Collection<MoveCandidate> getMoveList() {
-        if (moveList == null)
-            moveList = getEngine().genBoardMoves(this, this.getNowPlaying());
-        return moveList;
+    public void setMoveList (Collection<MoveCandidate> list, PlayerColor color){
+        if (color == WHITE)
+            whiteMoveList = list;
+        else    
+            blackMoveList = list;
     }
 
   
