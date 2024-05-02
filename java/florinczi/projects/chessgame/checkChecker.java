@@ -172,10 +172,10 @@ public class CheckChecker {
      return false;
    }
 
-public boolean hasTheGameEnded (Collection<MoveCandidate> moves, Board board){
+public boolean hasTheGameEnded (Board board){
    checkmate = false;
    stalemate = false;
-    if (moves.isEmpty()){
+    if (board.getMoveList().isEmpty()){
         if (checkChecks(board))
             checkmate = true;
         else

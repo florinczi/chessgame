@@ -104,7 +104,7 @@ public class King extends Piece{
             return;
         
         newLocation.set(6, getLocation().getY());
-        if (!getActiveBoard().isSquareFree(newLocation)) //checking if square x=6,x=7 are free of pieces
+        if (!getActiveBoard().isSquareFree(newLocation)) //checking if square x=6,x=7 are free of pieces !!! no need to check sq7
             return;
 
         newLocation.set(7, getLocation().getY());
@@ -164,7 +164,7 @@ public class King extends Piece{
     } 
 
     public void longCastle(Board newBoard){
-        newLocation.set(getLocation());        
+        newLocation.setY(getLocation().getY());        
         newLocation.setX(3);
         newBoard.putClonedPiece(this, newLocation); // set the king
         newLocation.setX(1);

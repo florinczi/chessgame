@@ -155,7 +155,7 @@ public class Pawn extends Piece{
             }
         }
 
-        if (getActiveBoard().getEnPassant().equals(newLocation) && getActiveBoard().getEnPassColor() != this.getPlayer()) //the other check shouldn't actually be needed, maybe I'll get rid of it after some testing
+        if (getActiveBoard().getEnPassant() != null && getActiveBoard().getEnPassant().getGhostPawn().equals(newLocation))
             possibleMoves.add(new MoveCandidate(getLocation(), probe, ENPASSANT));
     }
     
@@ -179,7 +179,7 @@ public class Pawn extends Piece{
             }
         }
 
-        if (getActiveBoard().getEnPassant().equals(newLocation) && getActiveBoard().getEnPassColor() != this.getPlayer())
+        if (getActiveBoard().getEnPassant() != null && getActiveBoard().getEnPassant().getGhostPawn().equals(newLocation))
             possibleMoves.add(new MoveCandidate(getLocation(), probe, ENPASSANT)); 
         
     }

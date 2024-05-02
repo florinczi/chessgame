@@ -2,14 +2,17 @@ package florinczi.projects.chessgame;
 
 import florinczi.projects.chessgame.pieces.*;
 import florinczi.projects.chessgame.util.Coordinates;
+import florinczi.projects.chessgame.util.EnPassant;
 import florinczi.projects.chessgame.util.MoveCandidate;
 
 import static florinczi.projects.chessgame.pieces.PlayerColor.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 public class Board {
       
     private Map<Coordinates, Piece> boardmap;
@@ -17,16 +20,15 @@ public class Board {
     private King whiteKing;
     private PlayerColor nowPlaying;
     private Engine engine;
-    private Coordinates enPassant;
-    private PlayerColor enPassColor;
+    private EnPassant enPassant;
     private float evaluation;
-    private Collection <MoveCandidate> whiteMoveList;
-    private Collection <MoveCandidate> blackMoveList;
+    private List<MoveCandidate> whiteMoveList;
+    private List <MoveCandidate> blackMoveList;
     
     
   
     
-    public Collection<MoveCandidate> getMoveList(PlayerColor color) {
+    public List<MoveCandidate> getMoveList(PlayerColor color) {
         if (whiteMoveList == null)
             getEngine().genBoardMoves(this);
         if (color == WHITE) 
@@ -34,11 +36,11 @@ public class Board {
         else
             return blackMoveList;
     }
-    public Collection<MoveCandidate> getMoveList() {
+    public List<MoveCandidate> getMoveList() {
         return getMoveList(nowPlaying);
     }
 
-    public void setMoveList (Collection<MoveCandidate> list, PlayerColor color){
+    public void setMoveList (List<MoveCandidate> list, PlayerColor color){
         if (color == WHITE)
             whiteMoveList = list;
         else    
@@ -55,21 +57,12 @@ public class Board {
         this.evaluation = evaluation;
     }
 
-    public Coordinates getEnPassant() {
+    public EnPassant getEnPassant() {
         return enPassant;
     }
-
-    public PlayerColor getEnPassColor() {
-        return enPassColor;
-    }
-
-    public void setEnPassant(Coordinates coord, PlayerColor color) {
-        enPassant = new Coordinates(coord);
-        enPassColor = color;
-        if (enPassColor == BLACK)
-            enPassant.setY(enPassant.getY() - 1);
-        else   
-            enPassant.setY(enPassant.getY() + 1);
+ 
+    public void setEnPassant(MoveCandidate move) {
+        enPassant = new EnPassant(move);    
     }
 
     public boolean isInCheck(){
@@ -79,7 +72,6 @@ public class Board {
     public Board(Engine engine) { 
         this.engine = engine;
         boardmap = new HashMap<>();
-        enPassant = new Coordinates();
         this.evaluation = 0f;
     }
 
@@ -90,8 +82,7 @@ public class Board {
         this.nowPlaying = board.nowPlaying;
         this.engine = board.engine;
         this.setBlackKing(board.getBlackKing());
-        this.setWhiteKing(board.getWhiteKing());
-        enPassant = new Coordinates();        
+        this.setWhiteKing(board.getWhiteKing());      
     }
 
     public Engine getEngine() {

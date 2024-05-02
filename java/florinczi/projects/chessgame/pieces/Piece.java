@@ -89,14 +89,12 @@ public abstract class Piece implements PieceAction{
         }
 
         if (move.getSpecialMove() == ENPASSANT){
-            newBoard.removePiece(newBoard.getEnPassant());
+            newBoard.removePiece(getActiveBoard().getEnPassant().getActualPawn());
         }
 
         if(move.getSpecialMove() == DOUBLE){
-            newBoard.setEnPassant(move.getCoord(), newBoard.getPiece(move.getCoord()).getPlayer()); // setting en passant square using starting coord and player coord
+            newBoard.setEnPassant(move); // setting en passant square using starting coord and player coord
         }
-
-        move.getDestination(); // adding vector
 
         if (move.getPromoteTo() != '0'){ //is the move a pawn promotion?
             newBoard.getEngine().promotePawn(move.getPromoteTo(), move.getDestination(), newBoard);
