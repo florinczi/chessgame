@@ -143,8 +143,8 @@ public class Engine {
             else
                 blackList.addAll(v.checkPossibleMoves());
         });
-        cullCheckMoves(blackList);
-        cullCheckMoves(whiteList);
+        cullCheckMoves(blackList, board);
+        cullCheckMoves(whiteList, board);
         board.setMoveList(whiteList, WHITE);       
         board.setMoveList(blackList, BLACK);
     }
@@ -155,6 +155,7 @@ public class Engine {
             aiRootNode = new RootNode(mainBoard);
             mainBoard = aiRootNode.minmaxRoot();
             mainBoard.changePlayers();
+            genBoardMoves(mainBoard);
             
         }
         else{ //this is when it's human's turn
@@ -165,16 +166,17 @@ public class Engine {
             }
             if(movePieceHuman(getMenu().getPlayerMove()))
                 mainBoard.changePlayers();
+            genBoardMoves(mainBoard);
         }
         return true;
     }
 
-    public void cullCheckMoves(Collection <MoveCandidate> moveSet){
+    public void cullCheckMoves(Collection <MoveCandidate> moveSet, Board board){
         Collection <MoveCandidate> clonedPossibleMoves = new HashSet<>(moveSet);
 
         for (MoveCandidate move: clonedPossibleMoves){
             
-            Board testBoard = new Board(getMainBoard());
+            Board testBoard = new Board(board);
             testBoard.getPiece(move.getCoord()).movePiece(move, testBoard);
             if (getMainBoard().getEngine().getCheckChecker().checkChecks(testBoard))
                 moveSet.remove(move);

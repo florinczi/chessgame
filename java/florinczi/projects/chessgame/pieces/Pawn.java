@@ -142,7 +142,7 @@ public class Pawn extends Piece{
         if (!newLocation.isValidVector(probe))
             return;
         newLocation.addVector(probe);
-
+        
         if (!getActiveBoard().isSquareFree(newLocation) && getActiveBoard().getPiece(newLocation).getPlayer() != getPlayer()){
             if (newLocation.getY() == 8 || newLocation.getY() == 1) {
                 possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.PROMOTE, 'q'));
@@ -150,9 +150,9 @@ public class Pawn extends Piece{
                 possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.PROMOTE, 'b'));
                 possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.PROMOTE, 'n'));
             }
-        else{
-            possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.CAPTURE));
-            }
+            else
+                possibleMoves.add(new MoveCandidate(getLocation(), probe, SpecialMoves.CAPTURE));
+            
         }
 
         if (getActiveBoard().getEnPassant() != null && getActiveBoard().getEnPassant().getGhostPawn().equals(newLocation))

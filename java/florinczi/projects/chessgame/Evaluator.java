@@ -1,5 +1,6 @@
 package florinczi.projects.chessgame;
 
+import static florinczi.projects.chessgame.pieces.PlayerColor.BLACK;
 import static florinczi.projects.chessgame.pieces.PlayerColor.WHITE;
 
 import florinczi.projects.chessgame.pieces.Piece;
@@ -13,7 +14,7 @@ public class Evaluator {
     public static float evaluate (Board board){
         float eval=0f;
 
-        if (board.getEngine().getCheckChecker().hasTheGameEnded(board.getMoveList(), board)){
+        if (board.getEngine().getCheckChecker().hasTheGameEnded(board)){
             if (board.getEngine().getCheckChecker().isCheckmate()) {
                 if (board.getNowPlaying() == WHITE)
                     return -100000f;
@@ -40,12 +41,8 @@ public class Evaluator {
 
     private static float evaluateMobility(Board board){
         float ev = 0;
-        ev += board.getNowPlaying() == WHITE?
-        board.getEngine().genBoardMoves(board).size() : -board.getEngine().genBoardMoves(board).size();
-        board.changePlayers();
-        ev += board.getNowPlaying() == WHITE?
-        board.getEngine().genBoardMoves(board).size() : -board.getEngine().genBoardMoves(board).size();
-        board.changePlayers();
+       ev -= board.getMoveList(BLACK).size();
+       ev += board.getMoveList(WHITE).size();
 
         return ev;
     }
