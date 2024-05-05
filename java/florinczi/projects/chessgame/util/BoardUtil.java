@@ -114,6 +114,30 @@ public class BoardUtil {
         new Rook(WHITE, new Coordinates(8, 1), board);
     }
 
+    public static void aiTest1(Board board) {
+
+        board.setNowPlaying(WHITE);
+        
+            
+        
+        //new Pawn(BLACK, new Coordinates(4, 7), board);
+        new Pawn(WHITE, new Coordinates(4, 2), board);
+        //new Pawn(BLACK, new Coordinates(5, 7), board);
+        new Pawn(WHITE, new Coordinates(5, 2), board);
+        
+        
+        new Knight(BLACK, new Coordinates(2, 8), board);
+        
+        
+        board.setBlackKing(new King(BLACK, new Coordinates(5, 8), board));
+        
+        
+        
+       
+        board.setWhiteKing(new King(WHITE, new Coordinates(5, 1), board));
+    
+    }
+
     public static void enPassantTest(Board board) {
 
         board.setNowPlaying(WHITE);

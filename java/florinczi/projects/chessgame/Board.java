@@ -24,10 +24,14 @@ public class Board {
     private float evaluation;
     private List<MoveCandidate> whiteMoveList;
     private List <MoveCandidate> blackMoveList;
+    private int turn;
     
     
   
     
+    public int getTurn() {
+        return turn;
+    }
     public List<MoveCandidate> getMoveList(PlayerColor color) {
         if (whiteMoveList == null)
             getEngine().genBoardMoves(this);
@@ -61,8 +65,8 @@ public class Board {
         return enPassant;
     }
  
-    public void setEnPassant(MoveCandidate move) {
-        enPassant = new EnPassant(move);    
+    public void setEnPassant(MoveCandidate move, int turn) {
+        enPassant = new EnPassant(move, turn);    
     }
 
     public boolean isInCheck(){
@@ -73,6 +77,7 @@ public class Board {
         this.engine = engine;
         boardmap = new HashMap<>();
         this.evaluation = 0f;
+        this.turn = 1;
     }
 
     public Board (Board board) {
@@ -82,7 +87,11 @@ public class Board {
         this.nowPlaying = board.nowPlaying;
         this.engine = board.engine;
         this.setBlackKing(board.getBlackKing());
-        this.setWhiteKing(board.getWhiteKing());      
+        this.setWhiteKing(board.getWhiteKing());
+        this.turn = getTurn() + 1; 
+        if (board.getEnPassant() != null )
+            this.enPassant = board.getEnPassant();
+
     }
 
     public Engine getEngine() {

@@ -93,7 +93,7 @@ public abstract class Piece implements PieceAction{
         }
 
         if(move.getSpecialMove() == DOUBLE){
-            newBoard.setEnPassant(move); // setting en passant square using starting coord and player coord
+            newBoard.setEnPassant(move, getActiveBoard().getTurn()); // setting en passant square using starting coord and player coord
         }
 
         if (move.getPromoteTo() != '0'){ //is the move a pawn promotion?

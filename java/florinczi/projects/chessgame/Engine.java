@@ -85,6 +85,11 @@ public class Engine {
                 BoardUtil.newGameStd(mainBoard);
                 blackPlayerAI = true;
                 break;    
+            case 7:
+                setMainBoard(new Board(this));
+                BoardUtil.aiTest1(mainBoard);
+                blackPlayerAI = true;
+                break;
             default:
                 break;
         }

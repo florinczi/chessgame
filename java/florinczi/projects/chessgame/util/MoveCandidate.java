@@ -32,7 +32,7 @@ public class MoveCandidate {
 
     @Override
     public String toString() {
-        System.out.printf("CordX: %d, CordY: %d, Vector(%d,%d)%n", coordinates.getX(), coordinates.getY(), vector.getX(), vector.getY());
+        System.out.printf("CordX: %d, CordY: %d, Destination: x%dy%d)%n", coordinates.getX(), coordinates.getY(), getDestination().getX(), getDestination().getY());
         return super.toString();
     }
 

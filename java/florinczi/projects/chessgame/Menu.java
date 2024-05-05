@@ -1,5 +1,8 @@
 package florinczi.projects.chessgame;
 
+import static florinczi.projects.chessgame.pieces.PlayerColor.BLACK;
+import static florinczi.projects.chessgame.pieces.PlayerColor.WHITE;
+
 import java.util.Scanner;
 
 import florinczi.projects.chessgame.util.Coordinates;
@@ -30,13 +33,14 @@ public class Menu {
          System.out.println("4: En passant test");
          System.out.println("5: Checkmate test");
          System.out.println("6: Game against black AI");
+         System.out.println("7: AI test 1");
          System.out.println("0: Exit");
          int choice = scanner.nextInt();
          scanner.nextLine();
         
         if (choice == 0)
             exit = true;
-        if (choice > 0 && choice <=6)
+        if (choice > 0 && choice <=7)
             game(choice);
         else
             System.out.println("Wrong choice,try again");
@@ -74,6 +78,7 @@ public class Menu {
         while(nextRound){
         printBoard(engine.getMainBoard());
         System.out.printf("%nEvaluation: %.2f %n", Evaluator.evaluate(engine.getMainBoard()));
+        System.out.printf("Black move count: %d%nWhite move count %d%n", engine.getMainBoard().getMoveList(BLACK).size(), engine.getMainBoard().getMoveList(WHITE).size());
         nextRound = engine.nextTurn();
         }
         if (engine.isCheckmate())
