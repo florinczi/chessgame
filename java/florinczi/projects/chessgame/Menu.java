@@ -73,6 +73,7 @@ public class Menu {
         engine.newGame(choice);
         while(nextRound){
         printBoard(engine.getMainBoard());
+        System.out.printf("%nEvaluation: %.2f %n", Evaluator.evaluate(engine.getMainBoard()));
         nextRound = engine.nextTurn();
         }
         if (engine.isCheckmate())

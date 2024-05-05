@@ -8,7 +8,7 @@ import florinczi.projects.chessgame.util.MoveCandidate;
 
 public class RootNode {
  
-    private static int DEPTH = 2;
+    private static int DEPTH = 4;
     
     Board rootBoard;
     Collection <MoveCandidate> rootMoveList;
