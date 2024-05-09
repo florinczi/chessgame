@@ -3,6 +3,7 @@ import static florinczi.projects.chessgame.pieces.PlayerColor.BLACK;
 import static florinczi.projects.chessgame.pieces.PlayerColor.WHITE;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class Engine {
     CheckChecker checkChecker;
     private boolean whitePlayerAI = false;
     private boolean blackPlayerAI = false;
-    private Collection <MoveCandidate> possibleMoves;
+    private Collection<MoveCandidate> possibleMoves;
     boolean checkmate;
     private RootNode aiRootNode;
     public boolean isCheckmate() {
