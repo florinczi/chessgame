@@ -8,7 +8,7 @@ import florinczi.projects.chessgame.util.MoveCandidate;
 
 public class RootNode {
  
-    private static int DEPTH = 3;
+    private static final int DEPTH = 4;
     
     Board rootBoard;
     Collection <MoveCandidate> rootMoveList;
@@ -31,26 +31,26 @@ public class RootNode {
             eval = Float.POSITIVE_INFINITY;
 
         for (MoveCandidate mc: rootMoveList){
-            if (rootBoard.getNowPlaying() == WHITE){
-                Board newboard = rootBoard.getEngine().prepareMove(rootBoard, mc);
-                float maxeval = minmax(newboard, DEPTH);
-                if (maxeval > eval){
-                    eval = maxeval;
-                    winner = newboard;
-                }
+
+            Board newboard = rootBoard.getEngine().prepareMove(rootBoard, mc);
+            newboard.changePlayers();
+            float branchEval = minmax(newboard, DEPTH);
+
+            if (rootBoard.getNowPlaying() == WHITE && branchEval > eval){
+                winner = newboard;
+                eval = branchEval;
+
             }
-            else {
-                Board newboard = rootBoard.getEngine().prepareMove(rootBoard, mc);
-                float maxeval = minmax(newboard, DEPTH);
-                if (maxeval < eval){
-                    eval = maxeval;
-                    winner = newboard;
-                }
+            else if (branchEval < eval){
+                winner = newboard;
+                eval = branchEval;
             }
+
             //System.out.printf("Considering move %s now%n", mc);
             
         }
-        //System.out.printf("Chosen this move with eval %.2f%n", eval);
+        System.out.printf("Chosen this move with expected eval %.2f%n. Analysed %d nodes", eval,nodeCount);
+        winner.changePlayers();
         return winner;
 
     }

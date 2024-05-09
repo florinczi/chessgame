@@ -41,8 +41,8 @@ public class Evaluator {
 
     private static float evaluateMobility(Board board){
         float ev = 0;
-       ev -= board.getMoveList(BLACK).size() * 0.1;
-       ev += board.getMoveList(WHITE).size() * 0.1;
+       ev -= board.getMoveList(BLACK).size() * 0.01;
+       ev += board.getMoveList(WHITE).size() * 0.01;
        
 
         return ev;
