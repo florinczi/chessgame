@@ -15,11 +15,11 @@ import florinczi.projects.chessgame.util.MoveCandidate;
 public class Engine {
 
     private Board mainBoard;
-    private Menu menu;
+    private final Menu menu;
     CheckChecker checkChecker;
     private boolean whitePlayerAI = false;
     private boolean blackPlayerAI = false;
-    private Collection<MoveCandidate> possibleMoves;
+    private final Collection<MoveCandidate> possibleMoves;
     boolean checkmate;
     private RootNode aiRootNode;
     public boolean isCheckmate() {
