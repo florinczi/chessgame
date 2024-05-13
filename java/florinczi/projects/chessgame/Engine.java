@@ -17,11 +17,10 @@ public class Engine {
     private Board mainBoard;
     private final Menu menu;
     CheckChecker checkChecker;
-    private boolean whitePlayerAI = false;
+    //private boolean whitePlayerAI = false;
     private boolean blackPlayerAI = false;
-    private final Collection<MoveCandidate> possibleMoves;
     boolean checkmate;
-    private RootNode aiRootNode;
+
     public boolean isCheckmate() {
         return checkmate;
     }
@@ -43,7 +42,6 @@ public class Engine {
     }
 
     public Engine(Menu menu) {
-        this.possibleMoves = new HashSet<>();
         this.menu = menu;
         this.checkmate = false;
         this.stalemate = false;
@@ -143,7 +141,7 @@ public class Engine {
     public void genBoardMoves(Board board){
         List <MoveCandidate> whiteList = new ArrayList<>();
         List <MoveCandidate> blackList = new ArrayList<>();
-        board.getBoardmap().forEach((k, v) -> {
+        board.getBoardmap().forEach((_, v) -> {
             if (v.getPlayer() == WHITE)
                 whiteList.addAll(v.checkPossibleMoves());
             else
@@ -158,7 +156,7 @@ public class Engine {
     public boolean nextTurn(){
         
         if ((mainBoard.getNowPlaying() == WHITE && whitePlayerAI) || (mainBoard.getNowPlaying() == BLACK && blackPlayerAI))  {
-            aiRootNode = new RootNode(mainBoard);
+            RootNode aiRootNode = new RootNode(mainBoard);
             mainBoard = aiRootNode.minmaxRoot();
 
 
