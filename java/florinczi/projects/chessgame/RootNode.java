@@ -33,7 +33,6 @@ public class RootNode {
         for (MoveCandidate mc: rootMoveList){
 
             Board newboard = rootBoard.getEngine().prepareMove(rootBoard, mc);
-            newboard.changePlayers();
             float branchEval = minmax(newboard, DEPTH);
 
             if (rootBoard.getNowPlaying() == WHITE && branchEval > eval){
@@ -50,7 +49,7 @@ public class RootNode {
             
         }
         System.out.printf("Chosen this move with expected eval %.2f%n. Analysed %d nodes", eval,nodeCount);
-        winner.changePlayers();
+
         return winner;
 
     }
@@ -77,8 +76,7 @@ public class RootNode {
 
             for (Board b: boardList){
             
-                b.changePlayers();
-                
+
                 if (b.getNowPlaying() == WHITE){
                    float maxEv = Float.NEGATIVE_INFINITY; 
                    maxEv = Math.max(maxEv, minmax(b, depth-1));

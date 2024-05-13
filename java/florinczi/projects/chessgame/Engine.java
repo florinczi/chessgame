@@ -134,6 +134,7 @@ public class Engine {
         Board testBoard = new Board(board);
         piece.movePiece(moveCandidate, testBoard); //move it with MoveCandidate on testBoard   
         piece.setActiveBoard(testBoard);
+        testBoard.setNowPlaying(testBoard.getNowPlaying().getOpponent());
         return testBoard;
     }
 
@@ -159,9 +160,8 @@ public class Engine {
         if ((mainBoard.getNowPlaying() == WHITE && whitePlayerAI) || (mainBoard.getNowPlaying() == BLACK && blackPlayerAI))  {
             aiRootNode = new RootNode(mainBoard);
             mainBoard = aiRootNode.minmaxRoot();
-            mainBoard.changePlayers();
-            genBoardMoves(mainBoard);
-            
+
+
         }
         else{ //this is when it's human's turn
             if (checkChecker.hasTheGameEnded(mainBoard)){ 
@@ -169,9 +169,7 @@ public class Engine {
                 stalemate = checkChecker.isStalemate();
                 return false;
             }
-            if(movePieceHuman(getMenu().getPlayerMove()))
-                mainBoard.changePlayers();
-            genBoardMoves(mainBoard);
+            movePieceHuman(getMenu().getPlayerMove());
         }
         return true;
     }
@@ -192,17 +190,12 @@ public class Engine {
     public void promotePawn (char choice, Coordinates coord, Board newBoard){ 
         Piece piece;
         PlayerColor pc = newBoard.getPiece(coord).getPlayer();
-        switch (choice){
-            case 'q': piece = new Queen(pc, coord, newBoard);
-            break;
-            case 'r': piece = new Rook(pc, coord, newBoard);
-            break;
-            case 'b': piece = new Bishop(pc, coord, newBoard);
-            break;
-            case 'n': piece = new Knight(pc, coord, newBoard);
-            break;
-            default: piece = new Queen(pc, coord, newBoard);
-        }
+        piece = switch (choice) {
+            case 'r' -> new Rook(pc, coord, newBoard);
+            case 'b' -> new Bishop(pc, coord, newBoard);
+            case 'n' -> new Knight(pc, coord, newBoard);
+            default -> new Queen(pc, coord, newBoard);
+        };
         newBoard.putPiece(piece, coord);
        
     }
