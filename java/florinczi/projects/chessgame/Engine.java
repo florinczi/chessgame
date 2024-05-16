@@ -17,7 +17,7 @@ public class Engine {
     private Board mainBoard;
     private final Menu menu;
     CheckChecker checkChecker;
-    //private boolean whitePlayerAI = false;
+    private boolean whitePlayerAI = false;
     private boolean blackPlayerAI = false;
     boolean checkmate;
 
@@ -141,7 +141,7 @@ public class Engine {
     public void genBoardMoves(Board board){
         List <MoveCandidate> whiteList = new ArrayList<>();
         List <MoveCandidate> blackList = new ArrayList<>();
-        board.getBoardmap().forEach((_, v) -> {
+        board.getBoardmap().forEach((k, v) -> {
             if (v.getPlayer() == WHITE)
                 whiteList.addAll(v.checkPossibleMoves());
             else
@@ -185,15 +185,15 @@ public class Engine {
     }
 
 
-    public void promotePawn (char choice, Coordinates coord, Board newBoard){ 
-        Piece piece;
+    public void promotePawn (char choice, Coordinates coord, Board newBoard){
         PlayerColor pc = newBoard.getPiece(coord).getPlayer();
-        piece = switch (choice) {
-            case 'r' -> new Rook(pc, coord, newBoard);
-            case 'b' -> new Bishop(pc, coord, newBoard);
-            case 'n' -> new Knight(pc, coord, newBoard);
-            default -> new Queen(pc, coord, newBoard);
-        };
+        //Piece piece = switch (choice) {
+        //    case 'r' -> new Rook(pc, coord, newBoard);
+        //    case 'b' -> new Bishop(pc, coord, newBoard);
+        //    case 'n' -> new Knight(pc, coord, newBoard);
+        //    default -> new Queen(pc, coord, newBoard);
+        //};
+        Piece piece = new Queen(pc, coord, newBoard);
         newBoard.putPiece(piece, coord);
        
     }

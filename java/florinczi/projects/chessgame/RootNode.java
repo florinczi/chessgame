@@ -8,7 +8,7 @@ import florinczi.projects.chessgame.util.MoveCandidate;
 
 public class RootNode {
  
-    private static final int DEPTH = 4;
+    private static final int DEPTH = 3;
     
     Board rootBoard;
     Collection <MoveCandidate> rootMoveList;
@@ -25,16 +25,18 @@ public class RootNode {
     public Board minmaxRoot(){
         Board winner = null;
         float eval;
+        int rootBoardno = 0;
         if (rootBoard.getNowPlaying() == WHITE)
             eval = Float.NEGATIVE_INFINITY;
         else
             eval = Float.POSITIVE_INFINITY;
 
-        for (MoveCandidate mc: rootMoveList){
 
+        for (MoveCandidate mc: rootMoveList){
+            System.out.printf("Evaluating root board number %d with move %s%n", rootBoardno++, mc);
             Board newboard = rootBoard.getEngine().prepareMove(rootBoard, mc);
             float branchEval = minmax(newboard, DEPTH);
-
+            System.out.printf("Evaluated with %.2f%n", branchEval);
             if (rootBoard.getNowPlaying() == WHITE && branchEval > eval){
                 winner = newboard;
                 eval = branchEval;
@@ -61,16 +63,15 @@ public class RootNode {
             nodeCount++;
             ev = Evaluator.evaluate(board);
             //Menu.printBoard(board);
-            //System.out.printf("Node %d, evaluation %.2f%n. Board %s%n", nodeCount, ev, board);
+            System.out.printf("Node %d, evaluation %.2f%n. Board %s%n", nodeCount, ev, board);
             return ev;
         }
         else {
-            //System.out.printf("Depth %d now...%n", depth);
+
             nodeCount++;
-            Collection <MoveCandidate> moveList = board.getMoveList(board.getNowPlaying());
             Collection <Board> boardList = new ArrayList<>();
             
-            moveList.forEach(move -> boardList.add(board.getEngine().prepareMove(board, move)));
+            board.getMoveList().forEach(move -> boardList.add(board.getEngine().prepareMove(board, move)));
             
             float result = 0;
 
