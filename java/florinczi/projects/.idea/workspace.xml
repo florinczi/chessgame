@@ -4,37 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63151e6d-3512-4fbc-9b51-537e04a9b02a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chess3/chess" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chess3/chess" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/Coordinates.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/Coordinates.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/pieces/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/pieces/Bishop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/pieces/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/pieces/King.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/pieces/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/pieces/Knight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/pieces/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/pieces/Pawn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/pieces/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/pieces/Piece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/pieces/PieceAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/pieces/PieceAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/pieces/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/pieces/Queen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/pieces/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/src/main/java/florinczi/projects/chessgame/pieces/Rook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/App.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/Board.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/Coordinates$Vector.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/Coordinates.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/Coordinates.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/Menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/Menu.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/Parser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/pieces/Bishop.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/pieces/Bishop.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/pieces/King.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/pieces/King.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/pieces/Knight.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/pieces/Knight.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/pieces/Pawn.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/pieces/Pawn.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/pieces/Piece.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/pieces/Piece.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/pieces/PieceAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/pieces/PieceAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/pieces/Queen.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/pieces/Queen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/pieces/Rook.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/chessgame/target/classes/florinczi/projects/chessgame/pieces/Rook.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Projects/chessgame/gameofchess/gameofchess/src/main/java/florinczi/projects/gameofchess/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Projects/chessgame/gameofchess/gameofchess/src/main/java/florinczi/projects/gameofchess/App.java" afterDir="false" />
-    </list>
+    <list default="true" id="63151e6d-3512-4fbc-9b51-537e04a9b02a" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,9 +13,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "florinczi"
+  }
 }]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/florinczi/chessgame.git",
+    "accountId": "90183436-2255-4cbf-aeb2-afd3ba276473"
+  }
+}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2gZCrr2EuQLAVgJl6l2uF1WwCi1" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -55,7 +37,7 @@
   "keyToString": {
     "Application.App.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "chessgame",
+    "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
     "settings.editor.selected.configurable": "reference.settings.ide.settings.new.ui"
   }
