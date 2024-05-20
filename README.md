@@ -13,7 +13,7 @@ Roadmap:
 ✓ 10. Position evaluation  
 ✓ 11. Min-max AI implementation   
 
---- AI testing and tuning---  <-- now
+--- AI testing and tuning---  <-- now 
 
 Later, in non particular order:  
 
