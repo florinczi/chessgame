@@ -5,7 +5,7 @@ Roadmap:
 ✓ 2. Basic moves implementation   
 ✓ 3. Promotion implementation  
 ✓ 4. Check detection  
-✓ 5. Castling  
+✓ 5. Castling   
 ✓ 6. En passant  
 ✓ 7. Checkmate and stalemate detection  
 ✓ 8. Endgame conditions and game loop  
